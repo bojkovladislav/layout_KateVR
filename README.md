@@ -1,6 +1,6 @@
 # layout_KateVR
 
-List the technologies
+List of the technologies I'm gonna use in this project
 
 1. React
 2. Redux Context

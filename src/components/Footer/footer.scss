@@ -1,0 +1,20 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+
+  &__info-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+}

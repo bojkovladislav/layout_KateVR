@@ -1,0 +1,14 @@
+.contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  &__contact {
+    font-family: Inter;
+    color: #929292;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+}

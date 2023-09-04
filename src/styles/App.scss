@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+body {
+  position: relative;
+  font-family: "Inter", sans-serif;
+  height: 97vh; // not sure about this option
+  margin: 20px 20px 50px;
+  overflow-x: hidden;
+  background: linear-gradient(108deg, #191536 0%, #000 100%);
+}
+
+button {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}

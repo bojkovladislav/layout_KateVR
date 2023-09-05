@@ -7,7 +7,7 @@ import { Logo } from "../../assets/Logo";
 import { Navigation } from "../../assets/Navigation";
 import { Contacts } from "../../assets/Contacts";
 import { SocialMedias } from "../../assets/SocialMedias";
-import { SizeOfLogo } from "../../Enums/SizeOfLogo";
+import { SizeOfIcon } from "../../Enums/SizeOfIcon";
 import "./footer.scss";
 
 const navLinks = ["About", "Tech", "Benefits", "Contact"];
@@ -38,7 +38,7 @@ const socialMedias = [
 export const Footer: FC = () => {
   return (
     <footer className="footer">
-      <Logo size={SizeOfLogo.MEDIUM} />
+      <Logo size={SizeOfIcon.MEDIUM} />
 
       <div className="footer__info-container">
         <Navigation navLinks={navLinks} />

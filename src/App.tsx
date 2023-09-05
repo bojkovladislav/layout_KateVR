@@ -1,21 +1,33 @@
-import { Route, Routes } from 'react-router-dom';
-import { Wrapper } from './components/Wrapper';
-import './styles/App.scss';
+import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import { Wrapper } from "./components/Wrapper";
+import "./styles/App.scss";
+import { BurgerMenuSlider } from "./components/BurgerMenuSlider";
+import { HomePage } from "./pages/HomePage";
 
 function App() {
-  return (
-    <Wrapper>
-      <Routes>
-        <Route path="/" element={
-          <div>Hello there! We are at the home route</div>
-        }/>
+  const [isMenuOpened, setIsMenuOpened] = useState(false);
 
-        <Route path="/about" element={
-          <div>We are now at the about page!</div>
-        }/>
-      </Routes>
-    </Wrapper>
-  )
+  console.log(isMenuOpened);
+
+  return (
+    <>
+      <BurgerMenuSlider
+        isMenuOpened={isMenuOpened}
+        setIsMenuOpened={setIsMenuOpened}
+      />
+      <Wrapper setIsMenuOpened={setIsMenuOpened}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+
+          <Route
+            path="/about"
+            element={<div>We are now at the about page!</div>}
+          />
+        </Routes>
+      </Wrapper>
+    </>
+  );
 }
 
-export default App
+export default App;

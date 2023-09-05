@@ -14,7 +14,7 @@ export const SocialMedias: FC<Props> = ({ socialMedias }) => {
   return (
     <ul className="social-medias">
       {socialMedias.map(({ name, icon }) => (
-        <li>
+        <li key={name}>
           <a href={`https://${name}.com`} target="_blank">
             {icon}
           </a>

@@ -1,13 +1,18 @@
 import { FC } from "react";
 import { Header } from "../Header";
 import { Footer } from "../Footer";
+import "./wrapper.scss";
 
-export const Wrapper: FC = ({ children }) => {
+interface Props {
+  setIsMenuOpened: (value: boolean) => void;
+}
+
+export const Wrapper: FC<Props> = ({ setIsMenuOpened, children }) => {
   return (
-    <>
-      <Header />
+    <div className="wrapper">
+      <Header setIsMenuOpened={setIsMenuOpened} />
       {children}
       <Footer />
-    </>
+    </div>
   );
 };

@@ -1,10 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap");
+
+* {
+  margin: 0;
+}
 
 body {
   position: relative;
   font-family: "Inter", sans-serif;
-  height: 97vh; // not sure about this option
-  margin: 20px 20px 50px;
+  height: 97vh;
+  margin: 0;
   overflow-x: hidden;
   background: linear-gradient(108deg, #191536 0%, #000 100%);
 }

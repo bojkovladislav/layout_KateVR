@@ -3,16 +3,22 @@ import IconButton from "@mui/material/Button";
 import "./header.scss";
 import { BurgerMenuIcon } from "../../assets/BurgerMenuIcon";
 import { Logo } from "../../assets/Logo";
-import { SizeOfLogo } from "../../Enums/SizeOfLogo";
+import { SizeOfIcon } from "../../Enums/SizeOfIcon";
 
-export const Header: FC = () => {
+interface Props {
+  setIsMenuOpened: (value: boolean) => void;
+}
+
+export const Header: FC<Props> = ({ setIsMenuOpened }) => {
+  const handleOpenMenu = () => setIsMenuOpened(true);
+
   return (
     <div className="header">
       {/* LOGO */}
-      <Logo size={SizeOfLogo.SMALL} />
+      <Logo size={SizeOfIcon.SMALL} />
 
       {/* BURGER MENU */}
-      <IconButton aria-label="burger menu">
+      <IconButton aria-label="burger-menu" onClick={handleOpenMenu}>
         <BurgerMenuIcon />
       </IconButton>
     </div>

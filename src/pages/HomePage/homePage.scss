@@ -1,3 +1,5 @@
+@import "/src/base/variables.scss";
+
 .homePage {
   display: flex;
   flex-direction: column;
@@ -14,11 +16,11 @@
 
     &--first {
       font-weight: 900;
-      color: #fff;
+      color: $white;
     }
 
     &--second {
-      color: #05c2df;
+      color: $primary-button;
       font-weight: 400;
     }
   }
@@ -32,7 +34,7 @@
   }
 
   &__price {
-    color: #fff;
+    color: $white;
     font-size: 18px;
     font-style: normal;
     font-weight: 500;
@@ -41,7 +43,7 @@
   }
 
   &__containedButton {
-    background-color: #05c2df;
+    background-color: $primary-button;
     width: 100%;
   }
 }

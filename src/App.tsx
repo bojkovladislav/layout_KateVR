@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Wrapper } from "./components/Wrapper";
-import "./styles/App.scss";
 import { BurgerMenuSlider } from "./components/BurgerMenuSlider";
 import { HomePage } from "./pages/HomePage";
+import "./base/App.scss";
 
 function App() {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
-
-  console.log(isMenuOpened);
 
   return (
     <>

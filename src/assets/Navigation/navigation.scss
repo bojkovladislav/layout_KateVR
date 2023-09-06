@@ -1,3 +1,5 @@
+@import "/src/base/variables.scss";
+
 .navigation {
   &__list {
     display: flex;
@@ -6,7 +8,7 @@
   }
 
   &__navLink {
-    color: #fff;
+    color: $white;
     font-family: Inter;
     font-size: 13px;
     font-style: normal;

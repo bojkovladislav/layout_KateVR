@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import "./logo.scss";
-import { SizeOfLogo } from "../../Enums/SizeOfIcon";
+import { SizeOfIcon } from "../../Enums/SizeOfIcon";
 
 interface Props {
-  size: SizeOfLogo;
+  size: SizeOfIcon;
 }
 
 export const Logo: FC<Props> = ({ size }) => {

@@ -2,7 +2,7 @@ import { FC } from "react";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import RedditIcon from "@mui/icons-material/Reddit";
-import YoutubeIcon from "@mui/icons-material/Youtube";
+import YoutubeIcon from "@mui/icons-material/YouTube";
 import { Logo } from "../../assets/Logo";
 import { Navigation } from "../../assets/Navigation";
 import { Contacts } from "../../assets/Contacts";

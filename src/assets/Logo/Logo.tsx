@@ -11,7 +11,7 @@ export const Logo: FC<Props> = ({ size }) => {
   return (
     <Link to="/">
       <img
-        src="../../../public/icons/logo.svg"
+        src="public/icons/logo.svg"
         className={`logo logo__${size}`}
         alt="Logo"
       />

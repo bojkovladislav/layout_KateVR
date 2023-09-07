@@ -6,7 +6,7 @@ export const HomePage: FC = () => {
     <div className="homePage">
       <img
         className="homePage__previewImage"
-        src="public/images/preview-image.png"
+        src="images/preview-image.png"
         alt="Preview"
       />
 

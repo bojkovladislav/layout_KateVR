@@ -10,7 +10,11 @@ interface Props {
 export const Logo: FC<Props> = ({ size }) => {
   return (
     <Link to="/">
-      <img src="/icons/logo.svg" className={`logo logo__${size}`} alt="Logo" />
+      <img
+        src="../../../public/icons/logo.svg"
+        className={`logo logo__${size}`}
+        alt="Logo"
+      />
     </Link>
   );
 };

@@ -33,12 +33,16 @@
     margin-bottom: 8px;
   }
 
+  &__price-wrapper {
+    display: flex;
+    align-self: center;
+  }
+
   &__price {
     color: $white;
     font-size: 18px;
     font-style: normal;
     font-weight: 500;
-    align-self: center;
     margin-bottom: 15px;
   }
 

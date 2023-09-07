@@ -1,9 +1,10 @@
 import { FC } from "react";
 import IconButton from "@mui/material/Button";
-import "./header.scss";
 import { BurgerMenuIcon } from "../../assets/BurgerMenuIcon";
 import { Logo } from "../../assets/Logo";
 import { SizeOfIcon } from "../../Enums/SizeOfIcon";
+import { Appearance } from "../../assets/animations/Appearance";
+import "./header.scss";
 
 interface Props {
   setIsMenuOpened: (value: boolean) => void;
@@ -14,8 +15,9 @@ export const Header: FC<Props> = ({ setIsMenuOpened }) => {
 
   return (
     <div className="header">
-      {/* LOGO */}
-      <Logo size={SizeOfIcon.SMALL} />
+      <Appearance increase>
+        <Logo size={SizeOfIcon.SMALL} />
+      </Appearance>
 
       {/* BURGER MENU */}
       <IconButton aria-label="burger-menu" onClick={handleOpenMenu}>

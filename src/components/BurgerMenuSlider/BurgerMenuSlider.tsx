@@ -34,7 +34,7 @@ export const BurgerMenuSlider: FC<Props> = ({
       style={{ transform: `translateX(${isMenuOpened ? "0" : "100%"})` }}
     >
       <header className="burgerMenuSlider__header">
-        <IconButton onClick={handleCloseMenu}>
+        <IconButton onClick={handleCloseMenu} style={{ padding: 0 }}>
           <CloseIcon style={{ color: "#fff" }} fontSize={SizeOfIcon.MEDIUM} />
         </IconButton>
       </header>
@@ -44,6 +44,7 @@ export const BurgerMenuSlider: FC<Props> = ({
           <ListItem
             className="burgerMenuSlider__listItem"
             key={value}
+            onClick={handleCloseMenu}
             disableGutters
             disablePadding
           >

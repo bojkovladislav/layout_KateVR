@@ -1,8 +1,10 @@
 @import "/src/base/variables.scss";
+@import "/src/partials/placeholders.scss";
 
 .homePage {
   display: flex;
   flex-direction: column;
+  padding: 0 20px;
 
   &__previewImage {
     width: 100%;
@@ -10,26 +12,18 @@
   }
 
   &__title {
-    font-size: 26px;
-    font-style: normal;
+    @extend %headline1-mobile;
     margin-bottom: 17px;
 
-    &--first {
-      font-weight: 900;
-      color: $white;
-    }
-
-    &--second {
+    &--blue {
       color: $primary-button;
       font-weight: 400;
     }
   }
 
   &__description {
+    @extend %text-regular;
     color: $text-color;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
     margin-bottom: 8px;
   }
 

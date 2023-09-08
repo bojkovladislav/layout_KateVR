@@ -3,7 +3,6 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import { Link } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
-import IconButton from "@mui/material/Button";
 import "./burgerMenu.scss";
 import { SizeOfIcon } from "../../Enums/SizeOfIcon";
 
@@ -34,9 +33,9 @@ export const BurgerMenuSlider: FC<Props> = ({
       style={{ transform: `translateX(${isMenuOpened ? "0" : "100%"})` }}
     >
       <header className="burgerMenuSlider__header">
-        <IconButton onClick={handleCloseMenu} style={{ padding: 0 }}>
+        <button onClick={handleCloseMenu}>
           <CloseIcon style={{ color: "#fff" }} fontSize={SizeOfIcon.MEDIUM} />
-        </IconButton>
+        </button>
       </header>
 
       <List sx={{ width: "100%", bgcolor: "transparent" }}>

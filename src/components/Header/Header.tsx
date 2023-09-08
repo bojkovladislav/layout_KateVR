@@ -1,5 +1,4 @@
 import { FC } from "react";
-import IconButton from "@mui/material/Button";
 import { BurgerMenuIcon } from "../../assets/BurgerMenuIcon";
 import { Logo } from "../../assets/Logo";
 import { SizeOfIcon } from "../../Enums/SizeOfIcon";
@@ -19,10 +18,9 @@ export const Header: FC<Props> = ({ setIsMenuOpened }) => {
         <Logo size={SizeOfIcon.SMALL} />
       </Appearance>
 
-      {/* BURGER MENU */}
-      <IconButton aria-label="burger-menu" onClick={handleOpenMenu}>
+      <button aria-label="burger-menu" onClick={handleOpenMenu}>
         <BurgerMenuIcon />
-      </IconButton>
+      </button>
     </div>
   );
 };

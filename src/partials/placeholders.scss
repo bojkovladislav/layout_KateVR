@@ -1,0 +1,35 @@
+@import "/src/base/variables.scss";
+
+%headline1-mobile {
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+%headline2-mobile {
+  font-size: 21px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+%headline3 {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+%text-regular {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+%text-medium {
+  @extend %text-regular;
+  font-size: 14px;
+}
+
+%text-medium {
+  @extend %text-regular;
+  font-size: 12px;
+}

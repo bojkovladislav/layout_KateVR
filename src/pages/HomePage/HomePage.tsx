@@ -16,6 +16,8 @@ import { SlideFromBottom } from "../../assets/animations/SlideFromBottom";
 
 export const HomePage: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // animation related stuff
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const mainControls = useAnimation();
@@ -53,15 +55,11 @@ export const HomePage: FC = () => {
       />
 
       <SlideFromLeft delay={0.5}>
-        <h1 className="homePage__title homePage__title--first">
-          THE NEW START OF
-        </h1>
+        <h1 className="homePage__title">THE NEW START OF</h1>
       </SlideFromLeft>
 
       <SlideFromLeft delay={0.7}>
-        <h1 className="homePage__title homePage__title--second">
-          VR LOCOMOTION
-        </h1>
+        <h1 className="homePage__title homePage__title--blue">VR LOCOMOTION</h1>
       </SlideFromLeft>
 
       <Appearance delay={1.2}>

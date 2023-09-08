@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import {
   motion,
   useInView,
@@ -7,11 +7,15 @@ import {
   useTransform,
   animate,
 } from "framer-motion";
+import Button from "@mui/material/Button";
 import "./homePage.scss";
 import { SlideFromLeft } from "../../assets/animations/SlideFromLeft";
 import { Appearance } from "../../assets/animations/Appearance";
+import { Modal } from "../../assets/Modal";
+import { SlideFromBottom } from "../../assets/animations/SlideFromBottom";
 
 export const HomePage: FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const mainControls = useAnimation();
@@ -29,6 +33,9 @@ export const HomePage: FC = () => {
       mainControls.start("visible");
     }
   }, [isInView]);
+
+  const handleModalOpen = () => setIsModalOpen(true);
+  const handleModalClose = () => setIsModalOpen(false);
 
   return (
     <div className="homePage" ref={ref}>
@@ -74,10 +81,30 @@ export const HomePage: FC = () => {
       </div>
 
       <SlideFromLeft delay={2.3}>
-        <a href="https://www.youtube.com/watch?v=SvTbB19bvIw" target="_blank">
+        <button onClick={handleModalOpen} className="homePage__play-button">
           <img src="images/play-button.svg" alt="Play button" />
-        </a>
+        </button>
       </SlideFromLeft>
+
+      <Modal isModalOpen={isModalOpen} handleModalClose={handleModalClose}>
+        <iframe
+          src="https://www.youtube.com/embed/SvTbB19bvIw?showinfo=0"
+          width="400"
+          height="350"
+          allowFullScreen
+          frameBorder={0}
+          aria-haspopup={false}
+        />
+      </Modal>
+
+      <SlideFromBottom delay={2.5}>
+        <Button
+          variant="contained"
+          sx={{ background: "#05c2df", width: "100%" }}
+        >
+          Buy now
+        </Button>
+      </SlideFromBottom>
     </div>
   );
 };

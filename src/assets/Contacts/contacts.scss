@@ -1,11 +1,12 @@
+@import "/src/base/variables.scss";
+
 .contacts {
   display: flex;
   flex-direction: column;
   gap: 12px;
 
   &__contact {
-    font-family: Inter;
-    color: #929292;
+    color: $text-color;
     font-size: 13px;
     font-style: normal;
     font-weight: 400;

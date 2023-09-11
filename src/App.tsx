@@ -5,6 +5,7 @@ import { BurgerMenuSlider } from "./components/BurgerMenuSlider";
 import { HomePage } from "./pages/HomePage";
 import "./base/App.scss";
 import { MoreSection } from "./components/MoreSection";
+import { AboutSection } from "./components/AboutSection";
 
 function App() {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
@@ -31,6 +32,7 @@ function App() {
               <>
                 <HomePage />
                 <MoreSection />
+                <AboutSection />
               </>
             }
           />

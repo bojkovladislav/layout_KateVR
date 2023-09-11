@@ -1,0 +1,47 @@
+@import "/src/base/variables.scss";
+@import "/src/partials/placeholders.scss";
+
+.aboutSection {
+  background: $primary-background;
+  padding: 50px 20px;
+  height: 1000px;
+
+  &__title {
+    @extend %headline2-mobile;
+
+    &--blue {
+      color: $primary-button;
+      font-weight: 400;
+    }
+  }
+
+  &__paragraph {
+    @extend %text-regular;
+    color: $text-color;
+    margin-bottom: 15px;
+  }
+
+  &__carousel {
+    margin: 20px 0 40px;
+
+    &-image {
+      height: 190px;
+      width: 280px;
+    }
+  }
+
+  &__play-image {
+    width: 200px;
+    height: 100px;
+  }
+}
+
+.slick-dots li.slick-active button:before {
+  color: $text-color !important;
+}
+
+.slick-dots li button:before {
+  color: $dark-grey !important;
+  font-size: 7px !important;
+  top: 5px !important;
+}

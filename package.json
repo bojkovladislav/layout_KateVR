@@ -19,22 +19,27 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",
+    "react-slick": "^0.29.0",
     "react-virtualized-auto-sizer": "^1.0.20",
     "react-window": "^1.8.9",
-    "scss": "^0.2.4"
+    "scss": "^0.2.4",
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
+    "@types/react-slick": "^0.23.10",
     "@types/react-window": "^1.8.5",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.3",
-    "eslint": "^8.45.0",
+    "eslint": "^8.49.0",
+    "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "sass": "^1.66.1",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "vite-plugin-eslint": "^1.8.1"
   }
 }

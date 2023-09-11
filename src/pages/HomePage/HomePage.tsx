@@ -28,13 +28,13 @@ export const HomePage: FC = () => {
     const controls = animate(count, 1200, { duration: 2 });
 
     return controls.stop;
-  }, []);
+  });
 
   useEffect(() => {
     if (isInView) {
       mainControls.start("visible");
     }
-  }, [isInView]);
+  }, [isInView, mainControls]);
 
   const handleModalOpen = () => setIsModalOpen(true);
   const handleModalClose = () => setIsModalOpen(false);

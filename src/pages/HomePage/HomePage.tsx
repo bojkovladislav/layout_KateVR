@@ -9,10 +9,10 @@ import {
 } from "framer-motion";
 import Button from "@mui/material/Button";
 import "./homePage.scss";
-import { SlideFromLeft } from "../../assets/animations/SlideFromLeft";
 import { Appearance } from "../../assets/animations/Appearance";
 import { Modal } from "../../assets/Modal";
-import { SlideFromBottom } from "../../assets/animations/SlideFromBottom";
+import { Slide } from "../../assets/animations/Slide";
+import { SlideDirection } from "../../Enums/SlideDirection";
 
 export const HomePage: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -54,13 +54,13 @@ export const HomePage: FC = () => {
         alt="Preview"
       />
 
-      <SlideFromLeft delay={0.5}>
+      <Slide direction={SlideDirection.LEFT} delay={0.5}>
         <h1 className="homePage__title">THE NEW START OF</h1>
-      </SlideFromLeft>
+      </Slide>
 
-      <SlideFromLeft delay={0.7}>
+      <Slide direction={SlideDirection.LEFT} delay={0.7}>
         <h1 className="homePage__title homePage__title--blue">VR LOCOMOTION</h1>
-      </SlideFromLeft>
+      </Slide>
 
       <Appearance delay={1.2}>
         <p className="homePage__description">
@@ -78,11 +78,11 @@ export const HomePage: FC = () => {
         </Appearance>
       </div>
 
-      <SlideFromLeft delay={2.3}>
+      <Slide direction={SlideDirection.LEFT} delay={2.3}>
         <button onClick={handleModalOpen} className="homePage__play-button">
           <img src="images/play-button.svg" alt="Play button" />
         </button>
-      </SlideFromLeft>
+      </Slide>
 
       <Modal isModalOpen={isModalOpen} handleModalClose={handleModalClose}>
         <iframe
@@ -95,14 +95,14 @@ export const HomePage: FC = () => {
         />
       </Modal>
 
-      <SlideFromBottom delay={2.5}>
+      <Slide direction={SlideDirection.BOTTOM} delay={2.5}>
         <Button
           variant="contained"
           sx={{ background: "#05c2df", width: "100%" }}
         >
           Buy now
         </Button>
-      </SlideFromBottom>
+      </Slide>
     </div>
   );
 };

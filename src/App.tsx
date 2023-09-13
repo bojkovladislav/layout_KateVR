@@ -11,6 +11,10 @@ function App() {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0); // every time user reloads the page I should get him back to the top so they don't see cracked animation of button moving from the bottom to top.
+  });
+
+  useEffect(() => {
     if (isMenuOpened) {
       document.body.style.overflow = "hidden";
     } else {

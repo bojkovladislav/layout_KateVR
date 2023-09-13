@@ -5,16 +5,34 @@ interface Props {
   children: ReactNode;
   delay?: number;
   increase?: boolean;
+  onScroll?: boolean;
 }
 
-export const Appearance: FC<Props> = ({ children, delay, increase }) => {
+export const Appearance: FC<Props> = ({
+  children,
+  delay,
+  increase,
+  onScroll,
+}) => {
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: increase ? 0.2 : 1 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5, delay }}
-    >
-      {children}
-    </motion.div>
+    <>
+      {onScroll ? (
+        <motion.div
+          initial={{ opacity: 0, scale: increase ? 0.2 : 1 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay }}
+        >
+          {children}
+        </motion.div>
+      ) : (
+        <motion.div
+          initial={{ opacity: 0, scale: increase ? 0.2 : 1 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay }}
+        >
+          {children}
+        </motion.div>
+      )}
+    </>
   );
 };

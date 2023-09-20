@@ -2,7 +2,7 @@ import { FC } from "react";
 import "./moreSection.scss";
 import { Slide } from "../../assets/animations/Slide";
 import { SlideDirection } from "../../Enums/SlideDirection";
-import { Appearance } from "../../assets/animations/Appearance";
+import { Appearance2 } from "../../assets/animations/Appearance2";
 
 const benefits = [
   {
@@ -52,9 +52,9 @@ export const MoreSection: FC = () => {
               <h3 className="moreSection__benefit-name">{name}</h3>
             </Slide>
 
-            <Appearance increase onScroll>
+            <Appearance2 onScroll>
               <p className="moreSection__benefit-description">{description}</p>
-            </Appearance>
+            </Appearance2>
           </div>
         ))}
       </div>

@@ -6,6 +6,7 @@ import { HomePage } from "./pages/HomePage";
 import "./base/App.scss";
 import { MoreSection } from "./components/MoreSection";
 import { AboutSection } from "./components/AboutSection";
+import { TechSpecsSection } from "./components/TechSpecsSection/TechSpecsSection";
 
 function App() {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
@@ -37,6 +38,7 @@ function App() {
                 <HomePage />
                 <MoreSection />
                 <AboutSection />
+                <TechSpecsSection />
               </>
             }
           />

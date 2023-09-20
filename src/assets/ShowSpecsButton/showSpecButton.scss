@@ -1,0 +1,43 @@
+@import "/src/base/variables.scss";
+@import "/src/partials/placeholders.scss";
+
+.buttonContainer {
+  position: relative;
+  display: flex;
+  gap: 10px;
+
+  &--bottom {
+    flex-direction: column;
+  }
+
+  &--left {
+    flex-direction: row-reverse;
+    gap: 50px;
+  }
+
+  &__iconButton {
+    border-radius: 50%;
+  }
+
+  &__text {
+    @extend %text-regular;
+    position: absolute;
+    min-width: 140px;
+    cursor: default;
+    padding: 20px;
+    background-color: #191536;
+    color: $text-color;
+    border-radius: 4px;
+  }
+
+  &__button {
+    height: fit-content;
+    transition: transform 0.3s ease;
+    border-radius: 50%;
+    z-index: 1;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}

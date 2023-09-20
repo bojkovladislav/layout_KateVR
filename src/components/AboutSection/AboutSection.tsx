@@ -4,6 +4,7 @@ import { Modal } from "../../assets/Modal";
 import "./aboutSection.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Appearance } from "../../assets/animations/Appearance";
 
 export const AboutSection: FC = () => {
   const [isModalOpen, setIsMenuOpened] = useState(false);
@@ -31,11 +32,15 @@ export const AboutSection: FC = () => {
   };
 
   return (
-    <div className="aboutSection">
-      <span className="aboutSection__title">ABOUT </span>
-      <span className="aboutSection__title aboutSection__title--blue">
-        PRODUCT
-      </span>
+    <section className="aboutSection">
+      <Appearance onScroll delay={0.3}>
+        <span className="aboutSection__title">ABOUT </span>
+      </Appearance>
+      <Appearance onScroll delay={0.7}>
+        <span className="aboutSection__title aboutSection__title--blue">
+          PRODUCT
+        </span>
+      </Appearance>
 
       <div className="aboutSection__carousel">
         <Slider {...settings}>
@@ -74,6 +79,19 @@ export const AboutSection: FC = () => {
           aria-haspopup={false}
         />
       </Modal>
-    </div>
+
+      <h3 className="aboutSection__pre-title">Hello,</h3>
+      <div className="aboutSection__title-wrapper">
+        <h2 className="aboutSection__title">NICE TO MEET </h2>
+        <h2 className="aboutSection__title aboutSection__title--blue">YOU!</h2>
+      </div>
+
+      <p className="aboutSection__paragraph">
+        KAT VR is an independent company dedicated to the research, development,
+        and sales of VR Locomotion products and solutions. Founded in 2013, we
+        have quickly grown to become one of the world’s leading professional
+        suppliers of VR games’ & simulations’ equipment
+      </p>
+    </section>
   );
 };

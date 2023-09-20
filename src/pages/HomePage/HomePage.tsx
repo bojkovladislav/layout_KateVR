@@ -1,26 +1,18 @@
 import { FC, useEffect, useRef, useState } from "react";
-import {
-  motion,
-  useInView,
-  useAnimation,
-  useMotionValue,
-  useTransform,
-  animate,
-} from "framer-motion";
+import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import Button from "@mui/material/Button";
 import "./homePage.scss";
 import { Appearance } from "../../assets/animations/Appearance";
 import { Modal } from "../../assets/Modal";
 import { Slide } from "../../assets/animations/Slide";
 import { SlideDirection } from "../../Enums/SlideDirection";
+import { Appearance2 } from "../../assets/animations/Appearance2";
 
 export const HomePage: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // animation related stuff
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-  const mainControls = useAnimation();
   const count = useMotionValue(0);
   const rounded = useTransform(count, (latest) => Math.round(latest));
 
@@ -30,29 +22,18 @@ export const HomePage: FC = () => {
     return controls.stop;
   });
 
-  useEffect(() => {
-    if (isInView) {
-      mainControls.start("visible");
-    }
-  }, [isInView, mainControls]);
-
   const handleModalOpen = () => setIsModalOpen(true);
   const handleModalClose = () => setIsModalOpen(false);
 
   return (
     <div className="homePage" ref={ref}>
-      <motion.img
-        variants={{
-          hidden: { opacity: 0, y: 100 },
-          visible: { opacity: 1, y: 0 },
-        }}
-        initial="hidden"
-        animate={mainControls}
-        transition={{ duration: 0.5, delay: 0.25 }}
-        className="homePage__previewImage"
-        src="images/image-phone.png"
-        alt="Preview"
-      />
+      <Appearance2>
+        <img
+          src="images/image-phone.png"
+          alt="Preview"
+          className="homePage__previewImage"
+        />
+      </Appearance2>
 
       <Slide direction={SlideDirection.LEFT} delay={0.5}>
         <h1 className="homePage__title">THE NEW START OF</h1>

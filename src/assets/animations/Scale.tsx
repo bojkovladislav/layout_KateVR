@@ -18,7 +18,6 @@ export const Appearance: FC<Props> = ({
     <>
       {onScroll ? (
         <motion.div
-          style={{ display: "inline" }}
           initial={{ opacity: 0, scale: increase ? 0.2 : 1 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay }}

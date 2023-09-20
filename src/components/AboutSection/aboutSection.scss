@@ -4,7 +4,6 @@
 .aboutSection {
   background: $primary-background;
   padding: 50px 20px;
-  height: 1000px;
 
   &__title {
     @extend %headline2-mobile;
@@ -13,6 +12,12 @@
       color: $primary-button;
       font-weight: 400;
     }
+  }
+
+  &__pre-title {
+    @extend %text-medium;
+    color: $primary-button;
+    margin-bottom: 11px;
   }
 
   &__paragraph {
@@ -30,9 +35,19 @@
     }
   }
 
+  &__play-button {
+    margin-bottom: 80px;
+  }
+
   &__play-image {
     width: 200px;
     height: 100px;
+  }
+
+  &__title-wrapper {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 22px;
   }
 }
 

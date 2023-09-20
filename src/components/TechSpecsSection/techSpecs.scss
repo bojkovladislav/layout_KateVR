@@ -1,0 +1,48 @@
+@import "/src/base/variables.scss";
+@import "/src/partials/placeholders.scss";
+
+.techSpecs {
+  display: flex;
+  flex-direction: column;
+  padding: 50px 20px;
+  gap: 30px;
+  background-color: $black-background;
+  height: 1000px;
+
+  &__container {
+    position: relative;
+    align-self: center;
+  }
+
+  &__title-wrapper {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__title {
+    @extend %headline2-mobile;
+
+    &--blue {
+      color: $primary-button;
+    }
+  }
+
+  &__add {
+    position: absolute;
+
+    &--1 {
+      top: -20px;
+      left: 43px;
+    }
+
+    &--2 {
+      top: 70px;
+      left: 125px;
+    }
+
+    &--3 {
+      bottom: 0;
+      left: -30px;
+    }
+  }
+}

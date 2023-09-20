@@ -27,8 +27,9 @@ const SlideByY: FC<SlideByYProps> = ({ children, direction, delay }) => {
       initial={{
         y: `${direction === SlideDirection.TOP ? "-1000px" : "1000px"}`,
         position: "absolute",
+        opacity: 0,
       }}
-      animate={{ y: 0, position: "initial" }}
+      animate={{ y: 0, position: "initial", opacity: 1 }}
       transition={{ duration: 0.7, delay }}
     >
       {children}

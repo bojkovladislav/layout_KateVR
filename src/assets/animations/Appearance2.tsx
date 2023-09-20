@@ -4,31 +4,32 @@ import { motion } from "framer-motion";
 interface Props {
   children: ReactNode;
   delay?: number;
-  increase?: boolean;
   onScroll?: boolean;
+  initial?: unknown;
+  controls?: unknown;
 }
 
-export const Appearance: FC<Props> = ({
+export const Appearance2: FC<Props> = ({
   children,
   delay,
-  increase,
   onScroll,
+  initial,
+  controls,
 }) => {
   return (
     <>
       {onScroll ? (
         <motion.div
-          style={{ display: "inline" }}
-          initial={{ opacity: 0, scale: increase ? 0.2 : 1 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay }}
         >
           {children}
         </motion.div>
       ) : (
         <motion.div
-          initial={{ opacity: 0, scale: increase ? 0.2 : 1 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={initial ? initial : { opacity: 0, y: 20 }}
+          animate={controls ? controls : { opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay }}
         >
           {children}

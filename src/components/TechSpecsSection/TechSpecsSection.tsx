@@ -32,7 +32,7 @@ export const TechSpecsSection: FC = () => {
       </div>
 
       <div className="techSpecs__container">
-        <img src="/images/tech-specs.png" alt="Tech specs" />
+        <img src="images/tech-specs.png" alt="Tech specs" />
         {showSpecsTexts.map(({ text, direction }, i) => (
           <div className={`techSpecs__add techSpecs__add--${i + 1}`} key={text}>
             <ShowSpecsButton

@@ -22,9 +22,9 @@
   &__text {
     @extend %text-regular;
     position: absolute;
-    min-width: 140px;
+    min-width: 130px;
     cursor: default;
-    padding: 20px;
+    padding: 15px;
     background-color: #191536;
     color: $text-color;
     border-radius: 4px;

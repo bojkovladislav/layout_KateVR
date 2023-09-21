@@ -27,7 +27,7 @@ export const ShowSpecsButton: FC<Props> = ({ text, direction, buttonRef }) => {
     controls.start({
       opacity: 1,
       y: 0,
-      x: direction === DirectionOfText.LEFT ? "-140px" : 0,
+      x: direction === DirectionOfText.LEFT ? "-120px" : 0,
     });
   };
 
@@ -58,7 +58,7 @@ export const ShowSpecsButton: FC<Props> = ({ text, direction, buttonRef }) => {
   const getCoords = () => {
     switch (direction) {
       case DirectionOfText.LEFT:
-        return { x: -160, y: 0 };
+        return { x: -140, y: 0 };
       case DirectionOfText.RIGHT:
         return { x: 20, y: 0 };
       case DirectionOfText.BOTTOM:

@@ -5,12 +5,20 @@ import cn from "classnames";
 
 const inputs = ["Name", "Email", "Phone"];
 
+type Errors = {
+  [key: string]: string;
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+};
+
 export const GetInTouch: FC = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
-  const [errors, setErrors] = useState({
+  const [errors, setErrors] = useState<Errors>({
     name: "",
     email: "",
     phone: "",
@@ -92,7 +100,7 @@ export const GetInTouch: FC = () => {
             const currentInputError = errors[placeholder.toLowerCase()];
 
             return (
-              <div className="getInTouch__input-container">
+              <div className="getInTouch__input-container" key={placeholder}>
                 <input
                   className={cn("getInTouch__input", {
                     "getInTouch__input--red-border": currentInputError.length,

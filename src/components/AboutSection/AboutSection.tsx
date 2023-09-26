@@ -5,6 +5,9 @@ import "./aboutSection.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Appearance } from "../../assets/animations/Appearance";
+import { Appearance2 } from "../../assets/animations/Appearance2";
+import { SlideDirection } from "../../Enums/SlideDirection";
+import { Slide } from "../../assets/animations/Slide";
 
 export const AboutSection: FC = () => {
   const [isModalOpen, setIsMenuOpened] = useState(false);
@@ -55,11 +58,13 @@ export const AboutSection: FC = () => {
         </Slider>
       </div>
 
-      <p className="aboutSection__paragraph">
-        KAT loco is a foot-based VR locomotion system that gives complete
-        physical control over lower-body actions, allowing you to freely walk,
-        run, and carry out just any other movement in virtual reality.
-      </p>
+      <Appearance2 onScroll>
+        <p className="aboutSection__paragraph">
+          KAT loco is a foot-based VR locomotion system that gives complete
+          physical control over lower-body actions, allowing you to freely walk,
+          run, and carry out just any other movement in virtual reality.
+        </p>
+      </Appearance2>
 
       <button onClick={handleModalOpen} className="aboutSection__play-button">
         <img
@@ -80,18 +85,24 @@ export const AboutSection: FC = () => {
         />
       </Modal>
 
-      <h3 className="aboutSection__pre-title">Hello,</h3>
+      <Appearance onScroll>
+        <h3 className="aboutSection__pre-title">Hello,</h3>
+      </Appearance>
       <div className="aboutSection__title-wrapper">
-        <h2 className="aboutSection__title">NICE TO MEET </h2>
+        <Slide direction={SlideDirection.LEFT} onScroll>
+          <h2 className="aboutSection__title">NICE TO MEET </h2>
+        </Slide>
         <h2 className="aboutSection__title aboutSection__title--blue">YOU!</h2>
       </div>
 
-      <p className="aboutSection__paragraph">
-        KAT VR is an independent company dedicated to the research, development,
-        and sales of VR Locomotion products and solutions. Founded in 2013, we
-        have quickly grown to become one of the world’s leading professional
-        suppliers of VR games’ & simulations’ equipment
-      </p>
+      <Appearance2 onScroll>
+        <p className="aboutSection__paragraph">
+          KAT VR is an independent company dedicated to the research,
+          development, and sales of VR Locomotion products and solutions.
+          Founded in 2013, we have quickly grown to become one of the world’s
+          leading professional suppliers of VR games’ & simulations’ equipment
+        </p>
+      </Appearance2>
     </section>
   );
 };

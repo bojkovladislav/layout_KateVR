@@ -1,10 +1,9 @@
 import { FC } from "react";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import { Link } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import "./burgerMenu.scss";
-import { SizeOfIcon } from "../../Enums/SizeOfIcon";
+import { ListInMenu } from "../../assets/ListInMenu";
+import { useLocation } from "react-router-dom";
+import { SelectLanguage } from "../SelectLanguage";
 
 const listOfItems = [
   "About",
@@ -26,36 +25,26 @@ export const BurgerMenuSlider: FC<Props> = ({
   setIsMenuOpened,
 }) => {
   const handleCloseMenu = () => setIsMenuOpened(false);
+  const location = useLocation();
 
   return (
     <div
       className="burgerMenuSlider"
       style={{ transform: `translateX(${isMenuOpened ? "0" : "100%"})` }}
     >
-      <header className="burgerMenuSlider__header">
-        <button onClick={handleCloseMenu}>
-          <CloseIcon style={{ color: "#fff" }} fontSize={SizeOfIcon.MEDIUM} />
-        </button>
-      </header>
+      {location.pathname === "/language" ? (
+        <SelectLanguage />
+      ) : (
+        <>
+          <header className="burgerMenuSlider__header">
+            <button onClick={handleCloseMenu}>
+              <CloseIcon style={{ color: "#fff" }} />
+            </button>
+          </header>
 
-      <List sx={{ width: "100%", bgcolor: "transparent" }}>
-        {listOfItems.map((value) => (
-          <ListItem
-            className="burgerMenuSlider__listItem"
-            key={value}
-            onClick={handleCloseMenu}
-            disableGutters
-            disablePadding
-          >
-            <Link
-              to={`/${value.toLowerCase()}`}
-              className="burgerMenuSlider__link"
-            >
-              {value}
-            </Link>
-          </ListItem>
-        ))}
-      </List>
+          <ListInMenu listOfItems={listOfItems} />
+        </>
+      )}
     </div>
   );
 };

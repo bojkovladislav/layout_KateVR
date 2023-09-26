@@ -1,7 +1,10 @@
-import { FC, useState } from "react";
+import { FC, useState, FormEvent } from "react";
 import "./getInTouch.scss";
 import Button from "@mui/material/Button";
 import cn from "classnames";
+import { SlideDirection } from "../../Enums/SlideDirection";
+import { Slide } from "../../assets/animations/Slide";
+import { Appearance } from "../../assets/animations/Appearance";
 
 const inputs = ["Name", "Email", "Phone"];
 
@@ -50,50 +53,71 @@ export const GetInTouch: FC = () => {
     }
   };
 
+  const onFormSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
+    // Initialize an object to track errors
+    const newErrors: Errors = {
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+    };
+
+    if (!name.trim()) {
+      newErrors.name = "Name field is required";
+    }
+
+    if (!email.trim()) {
+      newErrors.email = "Email field is required";
+    } else if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email)) {
+      newErrors.email = "Email is invalid! Pattern: example@test.com";
+    }
+
+    if (!phone.trim()) {
+      newErrors.phone = "Phone field is required";
+    }
+
+    if (!message.trim()) {
+      newErrors.message = "Message field is required";
+    } else if (message.trim().length < 15) {
+      newErrors.message = "Your message should be at least 15 characters";
+    }
+
+    setErrors(newErrors);
+
+    if (
+      newErrors.email ||
+      newErrors.message ||
+      newErrors.name ||
+      newErrors.phone
+    ) {
+      return;
+    }
+
+    setName("");
+    setEmail("");
+    setPhone("");
+    setMessage("");
+    setErrors({ name: "", email: "", phone: "", message: "" });
+  };
+
   return (
     <section className="getInTouch">
       <p className="getInTouch__second-title">Have any questions?</p>
       <div className="getInTouch__title-wrapper">
-        <h2 className="getInTouch__title">GET IN</h2>
-        <h2 className="getInTouch__title getInTouch__title--blue">TOUCH</h2>
+        <Slide direction={SlideDirection.LEFT} onScroll>
+          <h2 className="getInTouch__title">GET IN</h2>
+        </Slide>
+        <Appearance onScroll delay={0.4}>
+          <h2 className="getInTouch__title getInTouch__title--blue">TOUCH</h2>
+        </Appearance>
       </div>
 
       <form
         action="POST"
         className="getInTouch__form"
-        onSubmit={(e) => {
-          e.preventDefault();
-
-          if (
-            !name.length ||
-            !email.length ||
-            !phone.length ||
-            !message.length
-          ) {
-            setErrors((errors) => ({
-              ...errors,
-              name: !name.length ? "Name field is required" : "",
-              email: !email.length ? "Email field is required" : "",
-              phone: !phone.length ? "Phone field is required" : "",
-              message: !message.length ? "Message field is required" : "",
-            }));
-            return;
-          }
-
-          if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email)) {
-            setErrors((errors) => ({
-              ...errors,
-              email: "Email is invalid! Pattern: example@test.com",
-            }));
-            return;
-          }
-
-          setName("");
-          setEmail("");
-          setPhone("");
-          setMessage("");
-          setErrors({ name: "", email: "", phone: "", message: "" });
-        }}
+        onSubmit={(e) => onFormSubmit(e)}
       >
         <div className="getInTouch__inputs-container">
           {inputs.map((placeholder) => {
@@ -102,9 +126,17 @@ export const GetInTouch: FC = () => {
             return (
               <div className="getInTouch__input-container" key={placeholder}>
                 <input
-                  className={cn("getInTouch__input", {
-                    "getInTouch__input--red-border": currentInputError.length,
-                  })}
+                  className={cn(
+                    "getInTouch__input",
+                    {
+                      "getInTouch__input--red-border": currentInputError.length,
+                    },
+                    {
+                      "getInTouch__input--blue-border":
+                        !currentInputError.length &&
+                        getCorrectValue(placeholder)?.length,
+                    }
+                  )}
                   value={getCorrectValue(placeholder)}
                   onChange={(e) => {
                     setErrors((errors) => ({
@@ -130,7 +162,10 @@ export const GetInTouch: FC = () => {
 
         <div className="getInTouch__input-container">
           <textarea
-            className="getInTouch__input getInTouch__message"
+            className={cn("getInTouch__input", "getInTouch__message", {
+              "getInTouch__input--blue-border":
+                !errors.message.length && message.length,
+            })}
             name="message"
             placeholder="Message"
             value={message}

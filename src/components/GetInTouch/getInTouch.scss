@@ -7,7 +7,7 @@
 
   &__title-wrapper {
     display: flex;
-    gap: 10px;
+    gap: 5px;
     margin-bottom: 32px;
   }
 
@@ -46,19 +46,25 @@
   }
 
   &__input {
+    position: relative;
+    display: block;
     background-color: transparent;
     outline: none;
     border: none;
-    border-bottom: 1px solid $dark-grey;
     padding-bottom: 19px;
+    border-bottom: 1px solid $dark-grey;
     transition: border 0.3s;
 
     &:focus {
-      border-color: $primary-button;
+      border-bottom: 1px solid $primary-button;
     }
 
     &--red-border {
       border-color: red;
+    }
+
+    &--blue-border {
+      border-color: rgb(98, 98, 243);
     }
   }
 

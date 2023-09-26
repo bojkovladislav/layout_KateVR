@@ -46,11 +46,6 @@ function App() {
               </>
             }
           />
-
-          <Route
-            path="/about"
-            element={<div>We are now at the about page!</div>}
-          />
         </Routes>
       </Wrapper>
     </>

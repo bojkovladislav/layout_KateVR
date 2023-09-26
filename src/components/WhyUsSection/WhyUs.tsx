@@ -1,5 +1,8 @@
 import { FC } from "react";
 import "./whyUs.scss";
+import { SlideDirection } from "../../Enums/SlideDirection";
+import { Slide } from "../../assets/animations/Slide";
+import { Appearance2 } from "../../assets/animations/Appearance2";
 
 const data = [
   {
@@ -20,13 +23,21 @@ export const WhyUs: FC = () => {
   return (
     <section className="whyUs">
       <div className="whyUs__title-wrapper">
-        <h2 className="whyUs__title">Why</h2>
-        <h2 className="whyUs__title whyUs__title--blue">Kat loco?</h2>
+        <Slide direction={SlideDirection.LEFT} onScroll>
+          <h2 className="whyUs__title">Why</h2>
+        </Slide>
+        <Slide direction={SlideDirection.RIGHT} onScroll>
+          <h2 className="whyUs__title whyUs__title--blue">Kat loco?</h2>
+        </Slide>
       </div>
       {data.map(({ title, text }) => (
         <div className="whyUs__text-container" key={title}>
-          <h3 className="whyUs__secondary-title">{title}</h3>
-          <p className="whyUs__paragraph">{text}</p>
+          <Slide direction={SlideDirection.LEFT} onScroll>
+            <h3 className="whyUs__secondary-title">{title}</h3>
+          </Slide>
+          <Appearance2 onScroll>
+            <p className="whyUs__paragraph">{text}</p>
+          </Appearance2>
         </div>
       ))}
     </section>

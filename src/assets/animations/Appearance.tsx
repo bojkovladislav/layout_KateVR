@@ -6,6 +6,7 @@ interface Props {
   delay?: number;
   increase?: boolean;
   onScroll?: boolean;
+  once?: boolean;
 }
 
 export const Appearance: FC<Props> = ({
@@ -13,6 +14,7 @@ export const Appearance: FC<Props> = ({
   delay,
   increase,
   onScroll,
+  once,
 }) => {
   return (
     <>
@@ -21,6 +23,7 @@ export const Appearance: FC<Props> = ({
           style={{ display: "inline" }}
           initial={{ opacity: 0, scale: increase ? 0.2 : 1 }}
           whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once }}
           transition={{ duration: 0.5, delay }}
         >
           {children}

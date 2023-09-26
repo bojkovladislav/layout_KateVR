@@ -2,6 +2,11 @@ import { FC, useRef } from "react";
 import { ShowSpecsButton } from "../../assets/ShowSpecsButton";
 import "./techSpecs.scss";
 import { DirectionOfText } from "../../Enums/DirectionOfText";
+import { SlideDirection } from "../../Enums/SlideDirection";
+import { Slide } from "../../assets/animations/Slide";
+import { Appearance2 } from "../../assets/animations/Appearance2";
+import { Appearance } from "../../assets/animations/Appearance";
+import { Scale } from "../../assets/animations/Scale";
 
 const showSpecsTexts = [
   {
@@ -24,22 +29,40 @@ const showSpecsTexts = [
 export const TechSpecsSection: FC = () => {
   const buttonRef = useRef<HTMLDivElement | null>(null);
 
+  const countDelay = (i: number) => {
+    if (i === 0) {
+      return 0.5;
+    } else if (i === 1) {
+      return 1;
+    } else if (i === 2) {
+      return 1.5;
+    }
+  };
+
   return (
     <section className="techSpecs" ref={buttonRef}>
       <div className="techSpecs__title-wrapper">
-        <h2 className="techSpecs__title">TECH </h2>
-        <h2 className="techSpecs__title techSpecs__title--blue">SPECS </h2>
+        <Slide direction={SlideDirection.LEFT} onScroll>
+          <h2 className="techSpecs__title">TECH </h2>
+        </Slide>
+        <Appearance2 onScroll>
+          <h2 className="techSpecs__title techSpecs__title--blue">SPECS </h2>
+        </Appearance2>
       </div>
 
       <div className="techSpecs__container">
-        <img src="images/tech-specs.png" alt="Tech specs" />
+        <Scale once onScroll increase>
+          <img src="images/tech-specs.png" alt="Tech specs" />
+        </Scale>
         {showSpecsTexts.map(({ text, direction }, i) => (
           <div className={`techSpecs__add techSpecs__add--${i + 1}`} key={text}>
-            <ShowSpecsButton
-              direction={direction}
-              text={text}
-              buttonRef={buttonRef}
-            />
+            <Appearance onScroll delay={countDelay(i)} once>
+              <ShowSpecsButton
+                direction={direction}
+                text={text}
+                buttonRef={buttonRef}
+              />
+            </Appearance>
           </div>
         ))}
       </div>

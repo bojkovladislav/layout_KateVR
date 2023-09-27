@@ -1,9 +1,10 @@
 import { FC } from "react";
-import CloseIcon from "@mui/icons-material/Close";
 import "./burgerMenu.scss";
 import { ListInMenu } from "../../assets/ListInMenu";
-import { useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { SelectLanguage } from "../SelectLanguage";
+import { MenuWrapper } from "../../assets/MenuWrapper";
+import { FAQ } from "../FAQ";
 
 const listOfItems = [
   "About",
@@ -25,26 +26,30 @@ export const BurgerMenuSlider: FC<Props> = ({
   setIsMenuOpened,
 }) => {
   const handleCloseMenu = () => setIsMenuOpened(false);
-  const location = useLocation();
-
   return (
     <div
       className="burgerMenuSlider"
       style={{ transform: `translateX(${isMenuOpened ? "0" : "100%"})` }}
     >
-      {location.pathname === "/language" ? (
-        <SelectLanguage />
-      ) : (
-        <>
-          <header className="burgerMenuSlider__header">
-            <button onClick={handleCloseMenu}>
-              <CloseIcon style={{ color: "#fff" }} />
-            </button>
-          </header>
-
-          <ListInMenu listOfItems={listOfItems} />
-        </>
-      )}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <MenuWrapper handleCloseMenu={handleCloseMenu}>
+              <ListInMenu listOfItems={listOfItems} />
+            </MenuWrapper>
+          }
+        />
+        <Route path="/language" element={<SelectLanguage />} />
+        <Route
+          path="/faq"
+          element={
+            <MenuWrapper handleCloseMenu={handleCloseMenu}>
+              <FAQ />
+            </MenuWrapper>
+          }
+        />
+      </Routes>
     </div>
   );
 };

@@ -1,0 +1,36 @@
+@import "../../base/variables.scss";
+@import "../../partials/placeholders.scss";
+
+.qa {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 20px 12px;
+  border: 1px solid $primary-button;
+  border-radius: 4px;
+
+  &--gap {
+    gap: 18px;
+  }
+
+  &__question {
+    @extend %text-medium;
+    color: $primary-button;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__answer {
+    @extend %text-regular;
+    color: $text-color;
+  }
+
+  &__date {
+    @extend %text-small;
+    color: #545454;
+  }
+}

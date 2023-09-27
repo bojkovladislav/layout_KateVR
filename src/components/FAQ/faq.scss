@@ -1,0 +1,24 @@
+@import "/src/base/variables.scss";
+@import "/src/partials/placeholders.scss";
+
+.faq {
+  padding: 20px;
+  overflow-y: auto;
+  max-height: 650px;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+  }
+
+  &__title {
+    @extend %headline2-mobile;
+
+    &--blue {
+      color: $primary-button;
+      font-weight: 400;
+      margin-bottom: 30px;
+    }
+  }
+}

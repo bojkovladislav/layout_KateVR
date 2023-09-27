@@ -1,0 +1,9 @@
+@import "/src/base/variables.scss";
+
+.menuWrapper {
+  &__header {
+    display: flex;
+    justify-content: end;
+    padding: 0 20px;
+  }
+}

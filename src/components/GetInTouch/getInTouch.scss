@@ -45,29 +45,6 @@
     width: 100%;
   }
 
-  &__input {
-    position: relative;
-    display: block;
-    background-color: transparent;
-    outline: none;
-    border: none;
-    padding-bottom: 19px;
-    border-bottom: 1px solid $dark-grey;
-    transition: border 0.3s;
-
-    &:focus {
-      border-bottom: 1px solid $primary-button;
-    }
-
-    &--red-border {
-      border-color: red;
-    }
-
-    &--blue-border {
-      border-color: rgb(98, 98, 243);
-    }
-  }
-
   &__error {
     @extend %text-small;
     color: red;
@@ -82,4 +59,35 @@
     color: $text-color;
     margin: 0 auto;
   }
+}
+
+.MuiInputBase-root {
+  border-bottom: 1px solid $dark-grey;
+  padding-bottom: 19px;
+  transition: border 0.3s;
+}
+
+.MuiInputBase-root:focus {
+  border-color: $primary-button;
+}
+
+.MuiTextField-root input {
+  @extend %text-medium;
+  color: $white;
+}
+
+.MuiTypography-root {
+  color: $white;
+}
+
+.MuiList-root {
+  background: $primary-background;
+}
+
+.css-r40f8v-MuiTypography-root {
+  color: white !important;
+}
+
+.css-1x51dt5-MuiInputBase-input-MuiInput-input {
+  animation: none !important;
 }

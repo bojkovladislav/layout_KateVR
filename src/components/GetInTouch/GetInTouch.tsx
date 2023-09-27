@@ -1,7 +1,8 @@
 import { FC, useState, FormEvent } from "react";
-import "./getInTouch.scss";
+import { MuiTelInput } from "mui-tel-input";
+import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
-import cn from "classnames";
+import "./getInTouch.scss";
 import { SlideDirection } from "../../Enums/SlideDirection";
 import { Slide } from "../../assets/animations/Slide";
 import { Appearance } from "../../assets/animations/Appearance";
@@ -39,6 +40,8 @@ export const GetInTouch: FC = () => {
       case "Phone":
         setPhone(value);
         break;
+      case "Message":
+        setMessage(value);
     }
   };
 
@@ -50,6 +53,8 @@ export const GetInTouch: FC = () => {
         return email;
       case "Phone":
         return phone;
+      case "Message":
+        return message;
     }
   };
 
@@ -76,6 +81,10 @@ export const GetInTouch: FC = () => {
 
     if (!phone.trim()) {
       newErrors.phone = "Phone field is required";
+    } else if (phone.trim().length < 7) {
+      newErrors.phone = "Phone length should not be less than 7 symbols";
+    } else if (phone.trim().length > 15) {
+      newErrors.phone = "Phone length should not be more than 15 symbols";
     }
 
     if (!message.trim()) {
@@ -102,6 +111,17 @@ export const GetInTouch: FC = () => {
     setErrors({ name: "", email: "", phone: "", message: "" });
   };
 
+  const handleChange = (placeholder: string, newValue: string) => {
+    setCorrectValue(placeholder, newValue);
+    setErrors((errors) => ({
+      ...errors,
+      name: placeholder === "Name" ? "" : errors.name,
+      email: placeholder === "Email" ? "" : errors.email,
+      phone: placeholder === "Phone" ? "" : errors.phone,
+      message: placeholder === "Message" ? "" : errors.message,
+    }));
+  };
+
   return (
     <section className="getInTouch">
       <p className="getInTouch__second-title">Have any questions?</p>
@@ -125,32 +145,30 @@ export const GetInTouch: FC = () => {
 
             return (
               <div className="getInTouch__input-container" key={placeholder}>
-                <input
-                  className={cn(
-                    "getInTouch__input",
-                    {
-                      "getInTouch__input--red-border": currentInputError.length,
-                    },
-                    {
-                      "getInTouch__input--blue-border":
-                        !currentInputError.length &&
-                        getCorrectValue(placeholder)?.length,
+                {placeholder === "Phone" ? (
+                  <MuiTelInput
+                    defaultCountry="UA"
+                    value={phone}
+                    onChange={(newValue) => handleChange(placeholder, newValue)}
+                    error={!!errors.phone.length}
+                    fullWidth
+                    placeholder="Phone number"
+                    variant="standard"
+                    size="medium"
+                    color="primary"
+                  />
+                ) : (
+                  <TextField
+                    key={placeholder}
+                    value={getCorrectValue(placeholder)}
+                    variant="standard"
+                    placeholder={placeholder}
+                    error={!!currentInputError.length}
+                    onChange={(newValue) =>
+                      handleChange(placeholder, newValue.target.value)
                     }
-                  )}
-                  value={getCorrectValue(placeholder)}
-                  onChange={(e) => {
-                    setErrors((errors) => ({
-                      ...errors,
-                      name: placeholder === "Name" ? "" : errors.name,
-                      email: placeholder === "Email" ? "" : errors.email,
-                      phone: placeholder === "Phone" ? "" : errors.phone,
-                    }));
-                    setCorrectValue(placeholder, e.target.value);
-                  }}
-                  key={placeholder}
-                  type={placeholder === "Phone" ? "number" : ""}
-                  placeholder={placeholder}
-                />
+                  />
+                )}
 
                 {!!currentInputError.length && (
                   <p className="getInTouch__error">{currentInputError}</p>
@@ -161,18 +179,14 @@ export const GetInTouch: FC = () => {
         </div>
 
         <div className="getInTouch__input-container">
-          <textarea
-            className={cn("getInTouch__input", "getInTouch__message", {
-              "getInTouch__input--blue-border":
-                !errors.message.length && message.length,
-            })}
-            name="message"
+          <TextField
             placeholder="Message"
+            variant="standard"
             value={message}
-            onChange={(e) => {
-              setErrors((errors) => ({ ...errors, message: "" }));
-              setMessage(e.target.value);
-            }}
+            error={!!errors.message.length}
+            onChange={(newValue) =>
+              handleChange("Message", newValue.target.value)
+            }
           />
 
           {!!errors.message.length && (

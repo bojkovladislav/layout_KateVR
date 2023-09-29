@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import { SelectLanguage } from "../SelectLanguage";
 import { MenuWrapper } from "../../assets/MenuWrapper";
 import { FAQ } from "../FAQ";
+import { Help } from "../Help";
 
 const listOfItems = [
   "About",
@@ -46,6 +47,14 @@ export const BurgerMenuSlider: FC<Props> = ({
           element={
             <MenuWrapper handleCloseMenu={handleCloseMenu}>
               <FAQ />
+            </MenuWrapper>
+          }
+        />
+        <Route
+          path="/help"
+          element={
+            <MenuWrapper handleCloseMenu={handleCloseMenu}>
+              <Help />
             </MenuWrapper>
           }
         />

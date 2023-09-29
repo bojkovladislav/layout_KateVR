@@ -1,0 +1,43 @@
+@import "../../base/variables.scss";
+@import "../../partials/placeholders.scss";
+
+.help {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 0 20px;
+
+  &__title-wrapper {
+    display: flex;
+    gap: 5px;
+  }
+
+  &__title {
+    @extend %headline2-mobile;
+
+    &-blue {
+      color: $primary-button;
+    }
+  }
+
+  &__paragraph {
+    @extend %text-regular;
+    color: $text-color;
+  }
+
+  &__link {
+    color: $primary-button;
+  }
+
+  &__link-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}

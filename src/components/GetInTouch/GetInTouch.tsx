@@ -61,6 +61,9 @@ export const GetInTouch: FC = () => {
   const onFormSubmit = (e: FormEvent) => {
     e.preventDefault();
 
+    console.log(phone.length);
+    console.log(phone);
+
     // Initialize an object to track errors
     const newErrors: Errors = {
       name: "",
@@ -81,9 +84,9 @@ export const GetInTouch: FC = () => {
 
     if (!phone.trim()) {
       newErrors.phone = "Phone field is required";
-    } else if (phone.trim().length < 7) {
+    } else if (phone.trim().replace(/ /g, "").length < 7) {
       newErrors.phone = "Phone length should not be less than 7 symbols";
-    } else if (phone.trim().length > 15) {
+    } else if (phone.trim().replace(/ /g, "").length > 15) {
       newErrors.phone = "Phone length should not be more than 15 symbols";
     }
 

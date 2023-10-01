@@ -37,7 +37,10 @@ export const BurgerMenuSlider: FC<Props> = ({
           path="/"
           element={
             <MenuWrapper handleCloseMenu={handleCloseMenu}>
-              <ListInMenu listOfItems={listOfItems} />
+              <ListInMenu
+                listOfItems={listOfItems}
+                handleCloseMenu={handleCloseMenu}
+              />
             </MenuWrapper>
           }
         />

@@ -35,7 +35,7 @@ export const AboutSection: FC = () => {
   };
 
   return (
-    <section className="aboutSection">
+    <section className="aboutSection" id="about">
       <Appearance onScroll delay={0.3}>
         <span className="aboutSection__title">ABOUT </span>
       </Appearance>

@@ -40,7 +40,7 @@ export const TechSpecsSection: FC = () => {
   };
 
   return (
-    <section className="techSpecs" ref={buttonRef}>
+    <section className="techSpecs" ref={buttonRef} id="tech">
       <div className="techSpecs__title-wrapper">
         <Slide direction={SlideDirection.LEFT} onScroll>
           <h2 className="techSpecs__title">TECH </h2>

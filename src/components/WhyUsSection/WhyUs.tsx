@@ -21,7 +21,7 @@ const data = [
 
 export const WhyUs: FC = () => {
   return (
-    <section className="whyUs">
+    <section className="whyUs" id="benefits">
       <div className="whyUs__title-wrapper">
         <Slide direction={SlideDirection.LEFT} onScroll>
           <h2 className="whyUs__title">Why</h2>

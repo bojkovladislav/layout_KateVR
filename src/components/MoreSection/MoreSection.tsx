@@ -29,7 +29,7 @@ const benefits = [
 
 export const MoreSection: FC = () => {
   return (
-    <section className="moreSection">
+    <section className="moreSection" id="more">
       <div className="moreSection__title-wrapper">
         <Slide direction={SlideDirection.LEFT} onScroll>
           <h2 className="moreSection__title">MORE THAN </h2>

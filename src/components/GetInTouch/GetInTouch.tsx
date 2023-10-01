@@ -126,7 +126,7 @@ export const GetInTouch: FC = () => {
   };
 
   return (
-    <section className="getInTouch">
+    <section className="getInTouch" id="contact">
       <p className="getInTouch__second-title">Have any questions?</p>
       <div className="getInTouch__title-wrapper">
         <Slide direction={SlideDirection.LEFT} onScroll>

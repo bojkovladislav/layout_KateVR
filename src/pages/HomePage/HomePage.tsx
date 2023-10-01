@@ -7,6 +7,7 @@ import { Modal } from "../../assets/Modal";
 import { Slide } from "../../assets/animations/Slide";
 import { SlideDirection } from "../../Enums/SlideDirection";
 import { Appearance2 } from "../../assets/animations/Appearance2";
+import { TypingAnimation } from "../../assets/animations/TypingAnimation";
 
 export const HomePage: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,13 +36,19 @@ export const HomePage: FC = () => {
         />
       </Appearance2>
 
-      <Slide direction={SlideDirection.LEFT} delay={0.5}>
-        <h1 className="homePage__title">THE NEW START OF</h1>
-      </Slide>
+      <TypingAnimation
+        desiredText="THE NEW START OF"
+        delay={100}
+        initialDelay={0}
+        className="homePage__title"
+      />
 
-      <Slide direction={SlideDirection.LEFT} delay={0.7}>
-        <h1 className="homePage__title homePage__title--blue">VR LOCOMOTION</h1>
-      </Slide>
+      <TypingAnimation
+        desiredText="VR LOCOMOTION"
+        delay={100}
+        initialDelay={2000}
+        className="homePage__title homePage__title--blue"
+      />
 
       <Appearance delay={1.2}>
         <p className="homePage__description">

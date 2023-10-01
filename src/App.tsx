@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { Wrapper } from "./components/Wrapper";
 import { BurgerMenuSlider } from "./components/BurgerMenuSlider";
 import { HomePage } from "./pages/HomePage";
@@ -12,10 +12,7 @@ import { GetInTouch } from "./components/GetInTouch";
 
 function App() {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
-
-  useEffect(() => {
-    window.scrollTo(0, 0); // every time user reloads the page I should get him back to the top so they don't see cracked animation of button moving from the bottom to top.
-  });
+  const location = useLocation();
 
   useEffect(() => {
     if (isMenuOpened) {
@@ -24,6 +21,19 @@ function App() {
       document.body.style.overflow = "visible";
     }
   }, [isMenuOpened]);
+
+  useEffect(() => {
+    if (location.hash === "") {
+      window.scrollTo(0, 0);
+    } else {
+      setTimeout(() => {
+        const id = location.hash.replace("#", "");
+        const element = document.getElementById(id);
+
+        if (element) element.scrollIntoView({ behavior: "smooth" });
+      }, 0);
+    }
+  }, [location]);
 
   return (
     <>

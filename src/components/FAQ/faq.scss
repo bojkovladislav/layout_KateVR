@@ -2,9 +2,9 @@
 @import "/src/partials/placeholders.scss";
 
 .faq {
-  padding: 20px;
   overflow-y: auto;
   max-height: 650px;
+  padding: 20px;
 
   &__list {
     display: flex;

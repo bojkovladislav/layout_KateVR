@@ -1,0 +1,50 @@
+@import "../../base/variables.scss";
+@import "../../partials/placeholders.scss";
+
+.checkout {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 20px 0;
+    margin-bottom: 20px;
+  }
+
+  &__wrapper {
+    display: flex;
+    gap: 75px;
+    margin: 20px 0 0 20px;
+
+    &--inner {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+
+  &__text {
+    @extend %text-regular;
+    color: $text-color;
+  }
+
+  &__value {
+    @extend %headline1-mobile;
+    color: $primary-button;
+  }
+}
+
+.css-heg063-MuiTabs-flexContainer {
+  justify-content: space-between;
+}
+
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
+  color: #545454 !important;
+  text-transform: none !important;
+}
+
+.css-1aquho2-MuiTabs-indicator {
+  background-color: $primary-button !important;
+}
+
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+  color: $primary-button !important;
+}

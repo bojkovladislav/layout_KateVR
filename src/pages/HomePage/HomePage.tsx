@@ -8,6 +8,7 @@ import { Slide } from "../../assets/animations/Slide";
 import { SlideDirection } from "../../Enums/SlideDirection";
 import { Appearance2 } from "../../assets/animations/Appearance2";
 import { TypingAnimation } from "../../assets/animations/TypingAnimation";
+import { Link } from "react-router-dom";
 
 export const HomePage: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -86,9 +87,23 @@ export const HomePage: FC = () => {
       <Slide direction={SlideDirection.BOTTOM} delay={2.5}>
         <Button
           variant="contained"
-          sx={{ background: "#05c2df", width: "100%" }}
+          sx={{
+            background: "#05c2df",
+            width: "100%",
+            padding: 0,
+          }}
         >
-          Buy now
+          <Link
+            to="/checkout"
+            style={{
+              width: "100%",
+              height: "100%",
+              display: "inline-block",
+              padding: "5px",
+            }}
+          >
+            Buy now
+          </Link>
         </Button>
       </Slide>
     </div>

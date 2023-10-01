@@ -1,13 +1,12 @@
 import { FC, useState, FormEvent } from "react";
-import { MuiTelInput } from "mui-tel-input";
-import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import "./getInTouch.scss";
 import { SlideDirection } from "../../Enums/SlideDirection";
 import { Slide } from "../../assets/animations/Slide";
 import { Appearance } from "../../assets/animations/Appearance";
+import { Input } from "../../assets/Input";
 
-const inputs = ["Name", "Email", "Phone"];
+const inputs = ["Name", "Email", "Phone", "Message"];
 
 type Errors = {
   [key: string]: string;
@@ -60,9 +59,6 @@ export const GetInTouch: FC = () => {
 
   const onFormSubmit = (e: FormEvent) => {
     e.preventDefault();
-
-    console.log(phone.length);
-    console.log(phone);
 
     // Initialize an object to track errors
     const newErrors: Errors = {
@@ -149,52 +145,30 @@ export const GetInTouch: FC = () => {
             return (
               <div className="getInTouch__input-container" key={placeholder}>
                 {placeholder === "Phone" ? (
-                  <MuiTelInput
-                    defaultCountry="UA"
+                  <Input
                     value={phone}
-                    onChange={(newValue) => handleChange(placeholder, newValue)}
-                    error={!!errors.phone.length}
-                    fullWidth
                     placeholder="Phone number"
-                    variant="standard"
-                    size="medium"
-                    color="primary"
+                    isError={!!errors.phone.length}
+                    handleChangePhone={(newValue: string) =>
+                      handleChange(placeholder, newValue)
+                    }
+                    errorMessage={errors.phone}
+                    inputForPhone
                   />
                 ) : (
-                  <TextField
-                    key={placeholder}
-                    value={getCorrectValue(placeholder)}
-                    variant="standard"
+                  <Input
+                    value={getCorrectValue(placeholder) || ""}
                     placeholder={placeholder}
-                    error={!!currentInputError.length}
-                    onChange={(newValue) =>
-                      handleChange(placeholder, newValue.target.value)
-                    }
+                    isError={!!currentInputError.length}
+                    handleChange={(
+                      newValue: React.ChangeEvent<HTMLInputElement>
+                    ) => handleChange(placeholder, newValue.target.value)}
+                    errorMessage={currentInputError}
                   />
-                )}
-
-                {!!currentInputError.length && (
-                  <p className="getInTouch__error">{currentInputError}</p>
                 )}
               </div>
             );
           })}
-        </div>
-
-        <div className="getInTouch__input-container">
-          <TextField
-            placeholder="Message"
-            variant="standard"
-            value={message}
-            error={!!errors.message.length}
-            onChange={(newValue) =>
-              handleChange("Message", newValue.target.value)
-            }
-          />
-
-          {!!errors.message.length && (
-            <p className="getInTouch__error">{errors.message}</p>
-          )}
         </div>
 
         <Button

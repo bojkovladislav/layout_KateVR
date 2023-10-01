@@ -5,5 +5,9 @@
     display: flex;
     justify-content: end;
     padding: 0 20px;
+
+    &--special {
+      padding: 20px 20px 0;
+    }
   }
 }

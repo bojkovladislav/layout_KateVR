@@ -1,0 +1,30 @@
+@import "../../base/variables.scss";
+
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+  background: #191536 !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  position: relative !important;
+  align-items: center !important;
+  gap: 5px;
+  font-size: 20px !important;
+  padding: 0;
+}
+
+.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper {
+  background-color: transparent !important;
+  width: 8% !important;
+}
+
+.MuiList-root {
+  background: #191536 !important;
+}
+
+.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
+  color: white !important;
+  transition: color 0.3s;
+}
+
+.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root:hover {
+  color: $primary-button !important;
+}

@@ -6,9 +6,10 @@ import { HomePage } from "./pages/HomePage";
 import "./base/App.scss";
 import { MoreSection } from "./components/MoreSection";
 import { AboutSection } from "./components/AboutSection";
-import { TechSpecsSection } from "./components/TechSpecsSection/TechSpecsSection";
+import { TechSpecsSection } from "./components/TechSpecsSection";
 import { WhyUs } from "./components/WhyUsSection";
 import { GetInTouch } from "./components/GetInTouch";
+import { Checkout } from "./components/Checkout";
 
 function App() {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
@@ -41,23 +42,24 @@ function App() {
         isMenuOpened={isMenuOpened}
         setIsMenuOpened={setIsMenuOpened}
       />
-      <Wrapper setIsMenuOpened={setIsMenuOpened}>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Wrapper setIsMenuOpened={setIsMenuOpened}>
                 <HomePage />
                 <MoreSection />
                 <AboutSection />
                 <TechSpecsSection />
                 <WhyUs />
                 <GetInTouch />
-              </>
-            }
-          />
-        </Routes>
-      </Wrapper>
+              </Wrapper>
+            </>
+          }
+        />
+        <Route path="/checkout" element={<Checkout />} />
+      </Routes>
     </>
   );
 }

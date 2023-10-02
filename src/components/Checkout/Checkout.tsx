@@ -4,6 +4,7 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import CloseIcon from "@mui/icons-material/Close";
+import { ThemeProvider, createTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import { SizeOfIcon } from "../../Enums/SizeOfIcon";
 import { Logo } from "../../assets/Logo";
@@ -45,6 +46,31 @@ function a11yProps(index: number) {
 export const Checkout: FC = () => {
   const [value, setValue] = useState(0);
 
+  const theme = createTheme({
+    components: {
+      MuiTabs: {
+        styleOverrides: {
+          indicator: {
+            "&.MuiTabs-indicator": {
+              backgroundColor: "#05c2df",
+            },
+          },
+        },
+      },
+      MuiTab: {
+        styleOverrides: {
+          root: {
+            "&.Mui-selected": {
+              color: "#05c2df",
+            },
+            color: "#545454",
+            textTransform: "none",
+          },
+        },
+      },
+    },
+  });
+
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     event.preventDefault();
     setValue(newValue);
@@ -60,12 +86,23 @@ export const Checkout: FC = () => {
       </div>
 
       <Box sx={{ width: "100%" }}>
-        <Box sx={{ borderBottom: 1, borderColor: "#2F2F2F" }}>
-          <Tabs value={value} onChange={handleChange}>
-            <Tab label="Place order" {...a11yProps(0)} />
-            <Tab label="Pay" {...a11yProps(1)} />
-            <Tab label="Complete" {...a11yProps(2)} />
-          </Tabs>
+        <Box
+          sx={{
+            borderBottom: 1,
+            borderColor: "#2F2F2F",
+          }}
+        >
+          <ThemeProvider theme={theme}>
+            <Tabs value={value} onChange={handleChange} variant="fullWidth">
+              <Tab
+                label="Place order"
+                {...a11yProps(0)}
+                sx={{ "Mui-selected": { color: "red" } }}
+              />
+              <Tab label="Pay" {...a11yProps(1)} />
+              <Tab label="Complete" {...a11yProps(2)} />
+            </Tabs>
+          </ThemeProvider>
         </Box>
 
         {value !== 2 && (

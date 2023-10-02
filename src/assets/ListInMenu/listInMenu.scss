@@ -1,7 +1,9 @@
 @import "../../base/variables.scss";
 
-ul.MuiList-root.MuiList-padding.css-h4y409-MuiList-root {
+ul.MuiList-root.MuiList-padding.css-h4y409-MuiList-root,
+.css-h4y409-MuiList-root {
   background: transparent !important;
+  background-color: transparent !important;
 }
 
 .listItem {

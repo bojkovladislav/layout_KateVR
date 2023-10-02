@@ -1,18 +1,13 @@
 @import "../../base/variables.scss";
 
-ul.MuiList-root.MuiList-padding.css-h4y409-MuiList-root,
-.css-h4y409-MuiList-root {
-  background: transparent !important;
-  background-color: transparent !important;
-}
+.listInMenu {
+  &__listItem {
+    transition: background-color 0.3s ease;
 
-.listItem {
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #110e25;
+    &:hover {
+      background-color: #110e25;
+    }
   }
-
   &__link {
     display: block;
     padding: 11px 0 11px 21px;

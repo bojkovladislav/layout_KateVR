@@ -1,14 +1,14 @@
 import { FC, useState } from "react";
-import "./checkout.scss";
-import { Logo } from "../../assets/Logo";
-import { SizeOfIcon } from "../../Enums/SizeOfIcon";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
+import { SizeOfIcon } from "../../Enums/SizeOfIcon";
+import { Logo } from "../../assets/Logo";
 import { DropDownMenu } from "../../assets/DropDownMenu";
+import "./checkout.scss";
 
 interface TabPanelProps {
   children?: React.ReactNode;

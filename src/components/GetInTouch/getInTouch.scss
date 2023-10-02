@@ -64,30 +64,9 @@
 .MuiInputBase-root {
   border-bottom: 1px solid $dark-grey;
   padding-bottom: 19px;
-  transition: border 0.3s;
-}
-
-.MuiInputBase-root:focus {
-  border-color: $primary-button;
 }
 
 .MuiTextField-root input {
   @extend %text-medium;
   color: $white;
-}
-
-.MuiTypography-root {
-  color: $white;
-}
-
-.MuiList-root {
-  background: $primary-background;
-}
-
-.css-r40f8v-MuiTypography-root {
-  color: white !important;
-}
-
-.css-1x51dt5-MuiInputBase-input-MuiInput-input {
-  animation: none !important;
 }

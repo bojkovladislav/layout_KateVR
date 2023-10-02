@@ -1,6 +1,4 @@
 import { FC } from "react";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 import { Link } from "react-router-dom";
 import "./listInMenu.scss";
 
@@ -17,14 +15,9 @@ export const ListInMenu: FC<Props> = ({
 }) => {
   return (
     <nav>
-      <List>
+      <ul className="listInMenu">
         {listOfItems.map((value) => (
-          <ListItem
-            className="listItem"
-            key={value}
-            disableGutters
-            disablePadding
-          >
+          <li className="listInMenu__listItem" key={value}>
             {value !== "Language" &&
             value !== "FAQ" &&
             value !== "Help" &&
@@ -32,7 +25,7 @@ export const ListInMenu: FC<Props> = ({
               <Link
                 to={`#${value.toLowerCase()}`}
                 onClick={handleCloseMenu}
-                className="listItem__link"
+                className="listInMenu__link"
               >
                 {value}
               </Link>
@@ -43,14 +36,14 @@ export const ListInMenu: FC<Props> = ({
                     ? `/?language=${value.toLowerCase()}`
                     : `/${value.toLowerCase()}`
                 }
-                className="listItem__link"
+                className="listInMenu__link"
               >
                 {value}
               </Link>
             )}
-          </ListItem>
+          </li>
         ))}
-      </List>
+      </ul>
     </nav>
   );
 };

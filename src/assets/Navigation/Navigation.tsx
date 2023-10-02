@@ -12,7 +12,7 @@ export const Navigation: FC<Props> = ({ navLinks }) => {
       <ul className="navigation__list">
         {navLinks.map((navLink) => (
           <NavLink
-            to={`/${navLink}`}
+            to={`/#${navLink.toLowerCase()}`}
             key={navLink}
             className="navigation__navLink"
           >

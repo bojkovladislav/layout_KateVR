@@ -10,6 +10,7 @@ import { SizeOfIcon } from "../../Enums/SizeOfIcon";
 import { Logo } from "../../assets/Logo";
 import { DropDownMenu } from "../../assets/DropDownMenu";
 import "./checkout.scss";
+import { PlaceOrder } from "./PlaceOrder";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -63,7 +64,10 @@ export const Checkout: FC = () => {
             "&.Mui-selected": {
               color: "#05c2df",
             },
-            color: "#545454",
+            "&.Mui-disabled": {
+              color: "#545454",
+            },
+            color: "white",
             textTransform: "none",
           },
         },
@@ -94,39 +98,34 @@ export const Checkout: FC = () => {
         >
           <ThemeProvider theme={theme}>
             <Tabs value={value} onChange={handleChange} variant="fullWidth">
-              <Tab
-                label="Place order"
-                {...a11yProps(0)}
-                sx={{ "Mui-selected": { color: "red" } }}
-              />
+              <Tab label="Place order" {...a11yProps(0)} />
               <Tab label="Pay" {...a11yProps(1)} />
               <Tab label="Complete" {...a11yProps(2)} />
             </Tabs>
           </ThemeProvider>
         </Box>
 
-        {value !== 2 && (
-          <div className="checkout__wrapper">
-            <div className="checkout__wrapper--inner">
-              <p className="checkout__text">Quantity</p>
-              <DropDownMenu />
+        <div className="checkout__container">
+          {value !== 2 && (
+            <div className="checkout__wrapper">
+              <div className="checkout__wrapper--inner">
+                <p className="checkout__text">Quantity</p>
+                <DropDownMenu width={90} />
+              </div>
+              <div className="checkout__wrapper--inner">
+                <p className="checkout__text">Price</p>
+                <h2 className="checkout__value">1200$</h2>
+              </div>
             </div>
-            <div className="checkout__wrapper--inner">
-              <p className="checkout__text">Price</p>
-              <h2 className="checkout__value">1200$</h2>
-            </div>
-          </div>
-        )}
-
-        <CustomTabPanel value={value} index={0}>
-          Item One
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
-          Item Two
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={2}>
-          Item Three
-        </CustomTabPanel>
+          )}
+          {value === 0 && <PlaceOrder />}
+          <CustomTabPanel value={value} index={1}>
+            Item Two
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={2}>
+            Item Three
+          </CustomTabPanel>
+        </div>
       </Box>
     </div>
   );

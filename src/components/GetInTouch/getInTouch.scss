@@ -26,30 +26,6 @@
     }
   }
 
-  &__form {
-    display: flex;
-    gap: 24px;
-    flex-direction: column;
-  }
-
-  &__inputs-container {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  &__input-container {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    width: 100%;
-  }
-
-  &__error {
-    @extend %text-small;
-    color: red;
-  }
-
   &__message {
     resize: none;
   }
@@ -57,16 +33,7 @@
   &__paragraph {
     @extend %text-small;
     color: $text-color;
-    margin: 0 auto;
+    margin-top: 15px;
+    text-align: center;
   }
-}
-
-.MuiInputBase-root {
-  border-bottom: 1px solid $dark-grey;
-  padding-bottom: 19px;
-}
-
-.MuiTextField-root input {
-  @extend %text-medium;
-  color: $white;
 }

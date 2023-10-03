@@ -1,13 +1,12 @@
-import { FC, ChangeEvent } from "react";
+import { FC } from "react";
 import { MuiTelInput } from "mui-tel-input";
-import { TextField } from "@mui/material";
+import { TextField, createTheme, ThemeProvider } from "@mui/material";
+import "./input.scss";
 
 interface Props {
   value: string;
   placeholder: string;
-  isError: boolean;
-  handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-  handleChangePhone?: (newValue: string) => void;
+  handleChange: (placeholder: string, newValue: string) => void;
   errorMessage: string;
   inputForPhone?: boolean;
 }
@@ -15,37 +14,60 @@ interface Props {
 export const Input: FC<Props> = ({
   value,
   placeholder,
-  isError,
   handleChange,
   errorMessage,
-  handleChangePhone,
   inputForPhone,
 }) => {
+  const handleInputChange = (newValue: string) => {
+    handleChange(placeholder, newValue);
+  };
+
+  const theme = createTheme({
+    components: {
+      MuiInputBase: {
+        styleOverrides: {
+          root: {
+            paddingBottom: "19px",
+            "& input": {
+              color: "#fff",
+            },
+            "&.MuiInput-root::before": {
+              borderBottom: "1px solid #2f2f2f",
+            },
+            "&.MuiInput-root:hover:not(error)::before": {
+              borderBottom: "1px solid #2f2f2f",
+            },
+            "&.MuiInput-root.Mui-error:hover:not(disabled)::before": {
+              borderBottom: "1px solid #d32f2f",
+            },
+          },
+        },
+      },
+    },
+  });
+
   return (
-    <>
+    <ThemeProvider theme={theme}>
       {inputForPhone ? (
         <MuiTelInput
           defaultCountry="UA"
           value={value}
-          onChange={handleChangePhone}
-          error={isError}
-          fullWidth
+          onChange={handleInputChange}
+          error={!!errorMessage}
           placeholder="Phone number"
           variant="standard"
-          size="medium"
-          color="primary"
         />
       ) : (
         <TextField
           value={value}
           variant="standard"
           placeholder={placeholder}
-          error={isError}
-          onChange={handleChange}
+          error={!!errorMessage}
+          onChange={(e) => handleInputChange(e.target.value)}
         />
       )}
 
-      {isError && <p className="getInTouch__error">{errorMessage}</p>}
-    </>
+      {!!errorMessage && <p className="input__error">{errorMessage}</p>}
+    </ThemeProvider>
   );
 };

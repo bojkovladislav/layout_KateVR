@@ -1,0 +1,12 @@
+.form {
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
+
+  &__input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+  }
+}

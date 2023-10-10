@@ -1,0 +1,12 @@
+.pay {
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  &__inputs-container {
+    display: flex;
+    gap: 60px;
+  }
+}

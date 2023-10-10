@@ -1,14 +1,21 @@
 import { FC } from "react";
 import { MuiTelInput } from "mui-tel-input";
-import { TextField, createTheme, ThemeProvider } from "@mui/material";
-import "./input.scss";
-
+import { TextField, ThemeProvider } from "@mui/material";
+import { DropDownMenu } from "../DropDownMenu";
+import { inputTheme } from "../../helpers/Forms/InputTheme";
+import { InputWrapper } from "../InputWrapper";
+import { InputError } from "../InputError";
 interface Props {
   value: string;
   placeholder: string;
   handleChange: (placeholder: string, newValue: string) => void;
   errorMessage: string;
   inputForPhone?: boolean;
+  dropDownMenu?: {
+    [key: string]: string[] | Array<{ [key: string]: string | string[] }>;
+  };
+  setCity?: (currentCountry: string) => void;
+  maxLength?: number;
 }
 
 export const Input: FC<Props> = ({
@@ -17,38 +24,17 @@ export const Input: FC<Props> = ({
   handleChange,
   errorMessage,
   inputForPhone,
+  dropDownMenu,
+  setCity,
+  maxLength,
 }) => {
   const handleInputChange = (newValue: string) => {
     handleChange(placeholder, newValue);
   };
 
-  const theme = createTheme({
-    components: {
-      MuiInputBase: {
-        styleOverrides: {
-          root: {
-            paddingBottom: "19px",
-            "& input": {
-              color: "#fff",
-            },
-            "&.MuiInput-root::before": {
-              borderBottom: "1px solid #2f2f2f",
-            },
-            "&.MuiInput-root:hover:not(error)::before": {
-              borderBottom: "1px solid #2f2f2f",
-            },
-            "&.MuiInput-root.Mui-error:hover:not(disabled)::before": {
-              borderBottom: "1px solid #d32f2f",
-            },
-          },
-        },
-      },
-    },
-  });
-
   return (
-    <ThemeProvider theme={theme}>
-      {inputForPhone ? (
+    <ThemeProvider theme={inputTheme}>
+      {inputForPhone && (
         <MuiTelInput
           defaultCountry="UA"
           value={value}
@@ -56,18 +42,40 @@ export const Input: FC<Props> = ({
           error={!!errorMessage}
           placeholder="Phone number"
           variant="standard"
+          inputProps={{ maxLength }}
         />
-      ) : (
+      )}
+
+      {!inputForPhone && !dropDownMenu && (
         <TextField
           value={value}
           variant="standard"
           placeholder={placeholder}
           error={!!errorMessage}
+          inputProps={{ maxLength }}
           onChange={(e) => handleInputChange(e.target.value)}
         />
       )}
 
-      {!!errorMessage && <p className="input__error">{errorMessage}</p>}
+      {dropDownMenu && (
+        <>
+          {Object.entries(dropDownMenu).map((entry) => {
+            const [key, value] = entry;
+
+            return (
+              <InputWrapper label={key} key={key}>
+                <DropDownMenu
+                  width={"100%"}
+                  content={value}
+                  setCity={key === "Country" ? setCity : undefined}
+                />
+              </InputWrapper>
+            );
+          })}
+        </>
+      )}
+
+      {!!errorMessage && <InputError errorMessage={errorMessage} />}
     </ThemeProvider>
   );
 };

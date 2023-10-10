@@ -2,6 +2,8 @@
 @import "../../partials/placeholders.scss";
 
 .checkout {
+  background: $primary-background;
+
   &__header {
     display: flex;
     justify-content: space-between;

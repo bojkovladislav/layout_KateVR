@@ -1,7 +1,11 @@
-export function validate(value: string, placeholder: string) {
+export function validate(
+  value: string,
+  placeholder: string,
+  isNotRequired?: boolean
+) {
   const ERRORS: { [key: string]: string } = {};
 
-  if (!value.trim()) {
+  if (!value.trim() && !isNotRequired) {
     ERRORS[placeholder.toLowerCase()] = `${placeholder} field is required`;
   }
 

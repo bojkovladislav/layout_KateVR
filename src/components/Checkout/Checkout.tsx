@@ -1,7 +1,6 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import CloseIcon from "@mui/icons-material/Close";
 import { ThemeProvider, createTheme } from "@mui/material";
@@ -11,32 +10,8 @@ import { Logo } from "../../assets/Logo";
 import { DropDownMenu } from "../../assets/DropDownMenu";
 import "./checkout.scss";
 import { PlaceOrder } from "./PlaceOrder";
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-
-function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
+import { Pay } from "./Pay";
+import { Complete } from "./Complete/Complete";
 
 function a11yProps(index: number) {
   return {
@@ -46,6 +21,12 @@ function a11yProps(index: number) {
 
 export const Checkout: FC = () => {
   const [value, setValue] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+  const [price, setPrice] = useState(quantity * 1200);
+
+  useEffect(() => {
+    setPrice(quantity * 1200);
+  }, [quantity]);
 
   const theme = createTheme({
     components: {
@@ -110,21 +91,22 @@ export const Checkout: FC = () => {
             <div className="checkout__wrapper">
               <div className="checkout__wrapper--inner">
                 <p className="checkout__text">Quantity</p>
-                <DropDownMenu width={90} />
+                <DropDownMenu
+                  width={"90px"}
+                  content={["1", "2", "3", "4", "5"]}
+                  customValue={quantity}
+                  setCustomValue={setQuantity}
+                />
               </div>
               <div className="checkout__wrapper--inner">
                 <p className="checkout__text">Price</p>
-                <h2 className="checkout__value">1200$</h2>
+                <h2 className="checkout__value">{`${price}$`}</h2>
               </div>
             </div>
           )}
           {value === 0 && <PlaceOrder />}
-          <CustomTabPanel value={value} index={1}>
-            Item Two
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={2}>
-            Item Three
-          </CustomTabPanel>
+          {value === 1 && <Pay />}
+          {value === 2 && <Complete />}
         </div>
       </Box>
     </div>

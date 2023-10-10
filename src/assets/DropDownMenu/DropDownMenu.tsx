@@ -5,12 +5,22 @@ import MenuItem from "@mui/material/MenuItem";
 import { ThemeProvider, createTheme } from "@mui/material";
 
 interface Props {
-  width: number;
+  width: string;
+  content: string[] | Array<{ [key: string]: string | string[] }>;
+  customValue?: number;
+  setCustomValue?: (value: number) => void;
+  setCity?: (currentCountry: string) => void;
 }
 
-export const DropDownMenu: FC<Props> = ({ width }) => {
+export const DropDownMenu: FC<Props> = ({
+  width,
+  content,
+  setCity,
+  customValue,
+  setCustomValue,
+}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState(content[0] || null);
   const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -21,6 +31,16 @@ export const DropDownMenu: FC<Props> = ({ width }) => {
     setAnchorEl(null);
   };
 
+  const handleMenuItemClick = (value: string) => {
+    handleClose();
+
+    if (setCustomValue && customValue) {
+      setCustomValue(+value);
+    } else {
+      setValue(value);
+    }
+  };
+
   const theme = createTheme({
     components: {
       MuiButtonBase: {
@@ -28,12 +48,13 @@ export const DropDownMenu: FC<Props> = ({ width }) => {
           root: {
             "&.MuiButton-root": {
               background: "#191536",
-              width: `${width}px`,
+              width,
+              minHeight: "50px",
               color: "#fff",
               fontSize: "20px",
               display: "flex",
-              justifyContent: "end",
-              gap: `${width / 3.5}px`,
+              paddingLeft: "20px",
+              justifyContent: !value ? "flex-end" : "space-between",
             },
           },
         },
@@ -43,7 +64,7 @@ export const DropDownMenu: FC<Props> = ({ width }) => {
           paper: {
             "&.MuiMenu-paper": {
               backgroundColor: "transparent",
-              minWidth: "90px",
+              minWidth: width,
               marginTop: "5px",
             },
           },
@@ -77,10 +98,11 @@ export const DropDownMenu: FC<Props> = ({ width }) => {
           id="basic-button"
           aria-controls={open ? "basic-menu" : undefined}
           aria-haspopup="true"
+          disabled={!content[0]}
           aria-expanded={open ? "true" : undefined}
           onClick={handleClick}
         >
-          {value}
+          {customValue ? customValue : value}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="9"
@@ -106,17 +128,24 @@ export const DropDownMenu: FC<Props> = ({ width }) => {
             "aria-labelledby": "basic-button",
           }}
         >
-          {[1, 2, 3].map((v) => (
-            <MenuItem
-              onClick={() => {
-                handleClose();
-                setValue(v);
-              }}
-              key={v}
-            >
-              {v}
-            </MenuItem>
-          ))}
+          {setCity
+            ? content.map((v, index) => (
+                <MenuItem
+                  key={index}
+                  onClick={() => {
+                    handleClose();
+                    setValue(v.country);
+                    setCity(v.country);
+                  }}
+                >
+                  {v.country}
+                </MenuItem>
+              ))
+            : content.map((v, index) => (
+                <MenuItem key={index} onClick={() => handleMenuItemClick(v)}>
+                  {v as string}
+                </MenuItem>
+              ))}
         </Menu>
       </ThemeProvider>
     </div>

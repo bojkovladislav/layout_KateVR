@@ -1,0 +1,8 @@
+@import "../../partials/placeholders.scss";
+@import "../../base/variables.scss";
+
+.inputError {
+  @extend %text-small;
+  color: red;
+  margin-top: 5px;
+}

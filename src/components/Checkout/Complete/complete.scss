@@ -1,0 +1,35 @@
+@import "../../../base/variables.scss";
+@import "../../../partials/placeholders.scss";
+
+.complete {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 70vh;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__title-wrapper {
+    display: flex;
+    gap: 5px;
+  }
+
+  &__title {
+    @extend %headline1-mobile;
+    text-transform: uppercase;
+
+    &--blue {
+      font-weight: 400;
+      color: $primary-button;
+    }
+  }
+
+  &__paragraph {
+    margin: 16px 0 30px;
+    text-align: center;
+  }
+}

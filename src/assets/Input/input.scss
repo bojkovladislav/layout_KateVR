@@ -1,8 +1,0 @@
-@import "../../partials/placeholders.scss";
-
-.input {
-  &__error {
-    @extend %text-small;
-    color: red;
-  }
-}

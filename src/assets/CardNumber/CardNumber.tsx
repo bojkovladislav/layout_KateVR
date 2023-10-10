@@ -88,12 +88,12 @@ export const CardNumber: FC<Props> = ({
           </div>
           <div className="cardNumber__cards">
             <img
-              src="/images/visa.svg"
+              src="./images/visa.svg"
               alt="Visa"
               style={{ opacity: inputs["1"].indexOf("4") === 0 ? 1 : 0.3 }}
             />
             <img
-              src="/images/mastercard.svg"
+              src="./images/mastercard.svg"
               alt="Mastercard"
               style={{
                 opacity:

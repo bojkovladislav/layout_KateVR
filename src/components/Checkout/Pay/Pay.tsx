@@ -4,7 +4,7 @@ import { CardNumber } from "../../../assets/CardNumber";
 import { SimpleObject } from "../../../Types/SimpleObject";
 import { TextField, ThemeProvider } from "@mui/material";
 import Button from "@mui/material/Button";
-import { inputTheme } from "../../../helpers/Forms/InputTheme";
+import { inputTheme } from "../../../helpers/Forms/inputTheme";
 import { ExpirationDate } from "../../../assets/ExpirationDate";
 import { CVV } from "../../../assets/CVV";
 import { InputError } from "../../../assets/InputError";

@@ -2,7 +2,7 @@ import { FC } from "react";
 import { MuiTelInput } from "mui-tel-input";
 import { TextField, ThemeProvider } from "@mui/material";
 import { DropDownMenu } from "../DropDownMenu";
-import { inputTheme } from "../../helpers/Forms/InputTheme";
+import { inputTheme } from "../../helpers/Forms/inputTheme";
 import { InputWrapper } from "../InputWrapper";
 import { InputError } from "../InputError";
 interface Props {

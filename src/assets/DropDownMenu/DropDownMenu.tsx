@@ -1,8 +1,12 @@
-import { FC, useState } from "react";
+import { FC, ReactNode, useState } from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { ThemeProvider, createTheme } from "@mui/material";
+
+interface CountryObject {
+  country: string;
+}
 
 interface Props {
   width: string;
@@ -20,7 +24,9 @@ export const DropDownMenu: FC<Props> = ({
   setCustomValue,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [value, setValue] = useState(content[0] || null);
+  const [value, setValue] = useState<string | null>(
+    typeof content[0] === "string" ? content[0] : null
+  );
   const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -91,6 +97,10 @@ export const DropDownMenu: FC<Props> = ({
     },
   });
 
+  function isCountryObject<T>(obj: T | null): obj is T & CountryObject {
+    return obj !== null && typeof obj === "object" && "country" in obj;
+  }
+
   return (
     <div>
       <ThemeProvider theme={theme}>
@@ -102,7 +112,7 @@ export const DropDownMenu: FC<Props> = ({
           aria-expanded={open ? "true" : undefined}
           onClick={handleClick}
         >
-          {customValue ? customValue : value}
+          {customValue ? customValue : (value as ReactNode)}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="9"
@@ -134,15 +144,20 @@ export const DropDownMenu: FC<Props> = ({
                   key={index}
                   onClick={() => {
                     handleClose();
-                    setValue(v.country);
-                    setCity(v.country);
+                    if (isCountryObject(v)) {
+                      setValue(v.country);
+                      setCity(v.country);
+                    }
                   }}
                 >
-                  {v.country}
+                  {isCountryObject(v) ? v.country : ""}
                 </MenuItem>
               ))
             : content.map((v, index) => (
-                <MenuItem key={index} onClick={() => handleMenuItemClick(v)}>
+                <MenuItem
+                  key={index}
+                  onClick={() => handleMenuItemClick(v as string)}
+                >
                   {v as string}
                 </MenuItem>
               ))}

@@ -54,7 +54,7 @@ export const CardNumber: FC<Props> = ({
   };
 
   const handleKeyDown = (
-    e: React.KeyboardEvent<HTMLInputElement>,
+    e: React.KeyboardEvent<HTMLDivElement>,
     index: string
   ) => {
     if (e.key === "Backspace" && inputs[index].length === 0) {

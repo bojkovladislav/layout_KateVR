@@ -11,6 +11,11 @@
     margin-bottom: 20px;
   }
 
+  &__price-container {
+    display: flex;
+    align-items: center;
+  }
+
   &__container {
     display: flex;
     flex-direction: column;
@@ -38,5 +43,9 @@
   &__value {
     @extend %headline1-mobile;
     color: $primary-button;
+
+    &--first {
+      min-width: 80px;
+    }
   }
 }

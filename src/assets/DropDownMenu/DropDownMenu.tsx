@@ -1,8 +1,9 @@
-import { FC, ReactNode, useState } from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { ThemeProvider, createTheme } from "@mui/material";
+import { SimpleObject } from "../../Types/SimpleObject";
 
 interface CountryObject {
   country: string;
@@ -14,6 +15,9 @@ interface Props {
   customValue?: number;
   setCustomValue?: (value: number) => void;
   setCity?: (currentCountry: string) => void;
+  setInputs?: (inputs: SimpleObject) => void;
+  nameOfValue?: string;
+  inputs?: SimpleObject;
 }
 
 export const DropDownMenu: FC<Props> = ({
@@ -22,12 +26,35 @@ export const DropDownMenu: FC<Props> = ({
   setCity,
   customValue,
   setCustomValue,
+  setInputs,
+  nameOfValue,
+  inputs,
 }) => {
+  const inputsFromStorage = localStorage.getItem("place-order");
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [value, setValue] = useState<string | null>(
-    typeof content[0] === "string" ? content[0] : null
+  const [value, setValue] = useState<string>(
+    (typeof content[0] === "string" && content[0]) || "-"
   );
   const open = Boolean(anchorEl);
+
+  useEffect(() => {
+    if (value === "-" && inputsFromStorage) {
+      if (nameOfValue === "City") {
+        setValue(JSON.parse(inputsFromStorage).city);
+      } else {
+        setValue(JSON.parse(inputsFromStorage).country);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (setCity && inputs && inputsFromStorage) {
+      if (JSON.parse(inputsFromStorage).city.length) {
+        setCity(inputs.country);
+      }
+    }
+  }, [anchorEl]);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -47,6 +74,18 @@ export const DropDownMenu: FC<Props> = ({
     }
   };
 
+  const handleUpdateLocalStorage = (name: string, value: string) => {
+    if (inputsFromStorage && !customValue) {
+      localStorage.setItem(
+        "place-order",
+        JSON.stringify({
+          ...JSON.parse(inputsFromStorage),
+          [name]: value,
+        })
+      );
+    }
+  };
+
   const theme = createTheme({
     components: {
       MuiButtonBase: {
@@ -60,7 +99,7 @@ export const DropDownMenu: FC<Props> = ({
               fontSize: "20px",
               display: "flex",
               paddingLeft: "20px",
-              justifyContent: !value ? "flex-end" : "space-between",
+              justifyContent: "space-between",
             },
           },
         },
@@ -108,11 +147,11 @@ export const DropDownMenu: FC<Props> = ({
           id="basic-button"
           aria-controls={open ? "basic-menu" : undefined}
           aria-haspopup="true"
-          disabled={!content[0]}
+          disabled={nameOfValue === "City" && inputs && !inputs.country}
           aria-expanded={open ? "true" : undefined}
           onClick={handleClick}
         >
-          {customValue ? customValue : (value as ReactNode)}
+          {customValue && !nameOfValue ? customValue : (value as ReactNode)}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="9"
@@ -138,7 +177,7 @@ export const DropDownMenu: FC<Props> = ({
             "aria-labelledby": "basic-button",
           }}
         >
-          {setCity
+          {typeof content[0] !== "string" && setCity
             ? content.map((v, index) => (
                 <MenuItem
                   key={index}
@@ -147,6 +186,10 @@ export const DropDownMenu: FC<Props> = ({
                     if (isCountryObject(v)) {
                       setValue(v.country);
                       setCity(v.country);
+                      handleUpdateLocalStorage("country", v.country);
+                      if (setInputs) {
+                        setInputs({ ...inputs, country: v.country });
+                      }
                     }
                   }}
                 >
@@ -156,7 +199,13 @@ export const DropDownMenu: FC<Props> = ({
             : content.map((v, index) => (
                 <MenuItem
                   key={index}
-                  onClick={() => handleMenuItemClick(v as string)}
+                  onClick={() => {
+                    handleMenuItemClick(v as string);
+                    handleUpdateLocalStorage("city", v as string);
+                    if (setInputs) {
+                      setInputs({ ...inputs, city: v as string });
+                    }
+                  }}
                 >
                   {v as string}
                 </MenuItem>

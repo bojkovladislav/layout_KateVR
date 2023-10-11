@@ -7,7 +7,7 @@ export const Complete: FC = () => {
   return (
     <div className="complete">
       <div className="complete__container">
-        <h1 className="complete__title">Than you for</h1>
+        <h1 className="complete__title">Thank you for</h1>
         <div className="complete__title-wrapper">
           <h1 className="complete__title complete__title--blue">Your</h1>
           <h1 className="complete__title">Order!</h1>
@@ -20,6 +20,10 @@ export const Complete: FC = () => {
 
         <Button
           variant="contained"
+          onClick={() => {
+            localStorage.removeItem("place-order");
+            localStorage.removeItem("pay");
+          }}
           sx={{
             background: "#05c2df",
             width: "100%",

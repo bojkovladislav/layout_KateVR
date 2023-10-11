@@ -23,12 +23,26 @@ export const CardNumber: FC<Props> = ({
   cardErrors,
   setCardErrors,
 }) => {
-  const [inputs, setInputs] = useState<Inputs>({
-    "1": "",
-    "2": "",
-    "3": "",
-    "4": "",
-  });
+  const storage = localStorage.getItem("pay");
+
+  const [inputs, setInputs] = useState<Inputs>(
+    !storage
+      ? {
+          "1": "",
+          "2": "",
+          "3": "",
+          "4": "",
+        }
+      : {
+          "1": JSON.parse(storage).cardNumber.slice(0, 4),
+          "2": JSON.parse(storage).cardNumber.slice(4, 8),
+          "3": JSON.parse(storage).cardNumber.slice(8, 12),
+          "4": JSON.parse(storage).cardNumber.slice(
+            12,
+            JSON.parse(storage).cardNumber.length
+          ),
+        }
+  );
 
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 

@@ -12,6 +12,7 @@ import "./checkout.scss";
 import { PlaceOrder } from "./PlaceOrder";
 import { Pay } from "./Pay";
 import { Complete } from "./Complete/Complete";
+import { Counting } from "../../assets/animations/Counting";
 
 function a11yProps(index: number) {
   return {
@@ -23,6 +24,8 @@ export const Checkout: FC = () => {
   const [value, setValue] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [price, setPrice] = useState(quantity * 1200);
+  const [placeOrderSubmitted, setPlaceOrderSubmitted] = useState(false);
+  const [paySubmitted, setPaySubmitted] = useState(false);
 
   useEffect(() => {
     setPrice(quantity * 1200);
@@ -61,11 +64,28 @@ export const Checkout: FC = () => {
     setValue(newValue);
   };
 
+  useEffect(() => {
+    if (placeOrderSubmitted) {
+      setValue(1);
+    }
+
+    if (paySubmitted) {
+      setValue(2);
+      setPlaceOrderSubmitted(false);
+    }
+  }, [placeOrderSubmitted, paySubmitted]);
+
   return (
     <div className="checkout">
       <div className="checkout__header">
         <Logo size={SizeOfIcon.MEDIUM} />
-        <Link to={"/"}>
+        <Link
+          to={"/"}
+          onClick={() => {
+            localStorage.removeItem("pay");
+            localStorage.removeItem("place-order");
+          }}
+        >
           <CloseIcon style={{ color: "#fff" }} />
         </Link>
       </div>
@@ -79,9 +99,21 @@ export const Checkout: FC = () => {
         >
           <ThemeProvider theme={theme}>
             <Tabs value={value} onChange={handleChange} variant="fullWidth">
-              <Tab label="Place order" {...a11yProps(0)} />
-              <Tab label="Pay" {...a11yProps(1)} />
-              <Tab label="Complete" {...a11yProps(2)} />
+              <Tab
+                label="Place order"
+                {...a11yProps(0)}
+                disabled={value === 2}
+              />
+              <Tab
+                label="Pay"
+                {...a11yProps(1)}
+                disabled={!placeOrderSubmitted}
+              />
+              <Tab
+                label="Complete"
+                {...a11yProps(2)}
+                disabled={!paySubmitted}
+              />
             </Tabs>
           </ThemeProvider>
         </Box>
@@ -100,12 +132,24 @@ export const Checkout: FC = () => {
               </div>
               <div className="checkout__wrapper--inner">
                 <p className="checkout__text">Price</p>
-                <h2 className="checkout__value">{`${price}$`}</h2>
+                <div className="checkout__price-container">
+                  {
+                    <Counting
+                      endValue={price}
+                      initialValue={price}
+                      duration={0.5}
+                      className="checkout__value checkout__value--first"
+                    />
+                  }
+                  <h2 className="checkout__value">$</h2>
+                </div>
               </div>
             </div>
           )}
-          {value === 0 && <PlaceOrder />}
-          {value === 1 && <Pay />}
+          {value === 0 && (
+            <PlaceOrder setPlaceOrderSubmitted={setPlaceOrderSubmitted} />
+          )}
+          {value === 1 && <Pay setPaySubmitted={setPaySubmitted} />}
           {value === 2 && <Complete />}
         </div>
       </Box>

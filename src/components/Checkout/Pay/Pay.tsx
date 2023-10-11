@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import "./pay.scss";
 import { CardNumber } from "../../../assets/CardNumber";
 import { SimpleObject } from "../../../Types/SimpleObject";
@@ -14,7 +14,11 @@ const masterCardPattern =
 const visaCardPattern = /^4[0-9]{12}(?:[0-9]{3})?$/;
 const expirationDatePattern = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/;
 
-export const Pay: FC = () => {
+interface Props {
+  setPaySubmitted: (paySubmitted: boolean) => void;
+}
+
+export const Pay: FC<Props> = ({ setPaySubmitted }) => {
   const [cardInfo, setCardInfo] = useState<SimpleObject>({
     cardNumber: "",
     cardHolderName: "",
@@ -73,7 +77,24 @@ export const Pay: FC = () => {
     if (Object.values(newErrors).some((error) => !!error)) {
       return;
     }
+
+    localStorage.setItem("pay", JSON.stringify(cardInfo));
+    setPaySubmitted(true);
   };
+
+  useEffect(() => {
+    const storage = localStorage.getItem("pay");
+
+    if (Object.values(cardErrors).every((error) => !error) && storage) {
+      setCardInfo({ ...JSON.parse(storage) });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (Object.values(cardInfo).some((item) => item.length)) {
+      localStorage.setItem("pay", JSON.stringify(cardInfo));
+    }
+  }, [cardInfo]);
 
   return (
     <div className="pay">

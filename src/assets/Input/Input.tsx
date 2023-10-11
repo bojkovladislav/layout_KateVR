@@ -5,6 +5,7 @@ import { DropDownMenu } from "../DropDownMenu";
 import { inputTheme } from "../../helpers/Forms/inputTheme";
 import { InputWrapper } from "../InputWrapper";
 import { InputError } from "../InputError";
+import { SimpleObject } from "../../Types/SimpleObject";
 interface Props {
   value: string;
   placeholder: string;
@@ -16,6 +17,8 @@ interface Props {
   };
   setCity?: (currentCountry: string) => void;
   maxLength?: number;
+  setInputs?: (inputs: SimpleObject) => void;
+  inputs?: SimpleObject;
 }
 
 export const Input: FC<Props> = ({
@@ -26,6 +29,8 @@ export const Input: FC<Props> = ({
   inputForPhone,
   dropDownMenu,
   setCity,
+  inputs,
+  setInputs,
   maxLength,
 }) => {
   const handleInputChange = (newValue: string) => {
@@ -65,9 +70,12 @@ export const Input: FC<Props> = ({
             return (
               <InputWrapper label={key} key={key}>
                 <DropDownMenu
-                  width={"100%"}
+                  width={"90%"}
                   content={value}
-                  setCity={key === "Country" ? setCity : undefined}
+                  setInputs={setInputs}
+                  inputs={inputs}
+                  setCity={setCity}
+                  nameOfValue={key}
                 />
               </InputWrapper>
             );

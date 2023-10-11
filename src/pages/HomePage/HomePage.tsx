@@ -1,5 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+import { FC, useRef, useState } from "react";
 import Button from "@mui/material/Button";
 import "./homePage.scss";
 import { Appearance } from "../../assets/animations/Appearance";
@@ -9,20 +8,11 @@ import { SlideDirection } from "../../Enums/SlideDirection";
 import { Appearance2 } from "../../assets/animations/Appearance2";
 import { TypingAnimation } from "../../assets/animations/TypingAnimation";
 import { Link } from "react-router-dom";
+import { Counting } from "../../assets/animations/Counting";
 
 export const HomePage: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // animation related stuff
   const ref = useRef(null);
-  const count = useMotionValue(0);
-  const rounded = useTransform(count, (latest) => Math.round(latest));
-
-  useEffect(() => {
-    const controls = animate(count, 1200, { duration: 2 });
-
-    return controls.stop;
-  });
 
   const handleModalOpen = () => setIsModalOpen(true);
   const handleModalClose = () => setIsModalOpen(false);
@@ -60,7 +50,7 @@ export const HomePage: FC = () => {
 
       <div className="homePage__price-wrapper">
         <Appearance>
-          <motion.h2 className="homePage__price">{rounded}</motion.h2>
+          <h2 className="homePage__price">{<Counting endValue={1200} />}</h2>
         </Appearance>
         <Appearance delay={2.1}>
           <span className="homePage__price">$</span>

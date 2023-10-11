@@ -1,4 +1,4 @@
-import { FC, FormEvent, useState, useMemo } from "react";
+import { FC, FormEvent, useState, useMemo, useEffect } from "react";
 import { SimpleObject } from "../../Types/SimpleObject";
 import { validate } from "../../helpers/Forms/validate";
 import { Input } from "../Input";
@@ -12,6 +12,8 @@ interface Props {
   clear?: boolean;
   dropDownMenus?: DropDownMenu;
   setCity?: (currentCountry: string) => void;
+  saveDataInStorage?: boolean;
+  setPlaceOrderSubmitted?: (placeOrderSubmitted: boolean) => void;
 }
 
 export const Form: FC<Props> = ({
@@ -19,6 +21,8 @@ export const Form: FC<Props> = ({
   submitButtonText,
   clear,
   dropDownMenus,
+  saveDataInStorage,
+  setPlaceOrderSubmitted,
   setCity,
 }) => {
   const initialValues: SimpleObject = inputNames.reduce((acc, inputName) => {
@@ -29,6 +33,35 @@ export const Form: FC<Props> = ({
 
   const [inputs, setInputs] = useState<SimpleObject>(initialValues);
   const [errors, setErrors] = useState<SimpleObject>(initialValues);
+
+  useEffect(() => {
+    if (saveDataInStorage) {
+      const inputsFromStorage = localStorage.getItem("place-order");
+
+      if (
+        Object.values(errors).every((error) => !error.length) &&
+        inputsFromStorage
+      ) {
+        setInputs({ ...JSON.parse(inputsFromStorage) });
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (inputs.country) {
+      setErrors({
+        ...errors,
+        country: "",
+      });
+    }
+
+    if (inputs.city) {
+      setErrors({
+        ...errors,
+        city: "",
+      });
+    }
+  }, [inputs.country, inputs.city]);
 
   const labelsForDropDownMenus = useMemo(() => {
     return dropDownMenus && [...Object.keys(dropDownMenus)];
@@ -57,6 +90,14 @@ export const Form: FC<Props> = ({
 
     if (Object.values(newErrors).some((error) => !!error)) {
       return;
+    }
+
+    if (saveDataInStorage) {
+      localStorage.setItem("place-order", JSON.stringify(inputs));
+
+      if (setPlaceOrderSubmitted) {
+        setPlaceOrderSubmitted(true);
+      }
     }
 
     if (clear) {
@@ -89,6 +130,8 @@ export const Form: FC<Props> = ({
               value={currentInput}
               placeholder={inputName}
               handleChange={handleChange}
+              setInputs={setInputs}
+              inputs={inputs}
               errorMessage={currentInputError}
               dropDownMenu={
                 labelsForDropDownMenus?.includes(inputName) && dropDownMenus

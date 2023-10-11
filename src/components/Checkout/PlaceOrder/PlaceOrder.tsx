@@ -19,7 +19,11 @@ export type DropDownMenu = {
   City: string[];
 };
 
-export const PlaceOrder: FC = () => {
+interface Props {
+  setPlaceOrderSubmitted: (placeOrderSubmitted: boolean) => void;
+}
+
+export const PlaceOrder: FC<Props> = ({ setPlaceOrderSubmitted }) => {
   const [dropDownMenus, setDropDownMenus] = useState<DropDownMenu>({
     Country: [],
     City: [],
@@ -58,6 +62,8 @@ export const PlaceOrder: FC = () => {
         submitButtonText="Purchase"
         dropDownMenus={dropDownMenus}
         setCity={dropDownMenus ? setCity : undefined}
+        saveDataInStorage
+        setPlaceOrderSubmitted={setPlaceOrderSubmitted}
       />
     </div>
   );

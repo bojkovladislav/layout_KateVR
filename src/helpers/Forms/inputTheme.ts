@@ -2,6 +2,24 @@ import { createTheme } from "@mui/material";
 
 export const inputTheme = createTheme({
   components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          "&.MuiTypography-root": {
+            color: "#fff",
+          },
+        },
+      },
+    },
+    MuiList: {
+      styleOverrides: {
+        root: {
+          "&.MuiMenu-list": {
+            backgroundColor: "#191536",
+          },
+        },
+      },
+    },
     MuiInputBase: {
       styleOverrides: {
         root: {

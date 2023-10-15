@@ -18,6 +18,7 @@ interface Props {
   setInputs?: (inputs: SimpleObject) => void;
   nameOfValue?: string;
   inputs?: SimpleObject;
+  withoutBackground?: boolean;
 }
 
 export const DropDownMenu: FC<Props> = ({
@@ -29,6 +30,7 @@ export const DropDownMenu: FC<Props> = ({
   setInputs,
   nameOfValue,
   inputs,
+  withoutBackground,
 }) => {
   const inputsFromStorage = localStorage.getItem("place-order");
 
@@ -92,14 +94,18 @@ export const DropDownMenu: FC<Props> = ({
         styleOverrides: {
           root: {
             "&.MuiButton-root": {
-              background: "#191536",
+              background: !withoutBackground ? "#191536" : "none",
               width,
-              minHeight: "50px",
-              color: "#fff",
+              minHeight: !withoutBackground ? "50px" : "none",
+              color: !withoutBackground ? "#fff" : "#05c2df",
+              textTransform: withoutBackground && "none",
               fontSize: "20px",
-              display: "flex",
+              gap: withoutBackground && "5px",
+              display: !withoutBackground && "flex",
               paddingLeft: "20px",
-              justifyContent: "space-between",
+              justifyContent: !withoutBackground ? "space-between" : "start",
+              padding: withoutBackground && "0",
+              alignItems: withoutBackground ? "end" : "center",
             },
           },
         },
@@ -154,12 +160,12 @@ export const DropDownMenu: FC<Props> = ({
           {customValue && !nameOfValue ? customValue : (value as ReactNode)}
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="9"
+            width="11"
             style={{
               transform: `rotateX(${open ? "180deg" : "0deg"})`,
               transition: "transform 0.3s ease",
             }}
-            height="5"
+            height="7"
             viewBox="0 0 9 5"
             fill="none"
           >

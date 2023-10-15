@@ -5,29 +5,38 @@ import DialogContent from "@mui/material/DialogContent";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  "& .MuiDialogContent-root": {
-    padding: theme.spacing(1.5),
-  },
-  "& .MuiPaper-root": {
-    backgroundColor: "black",
-  },
-}));
-
 interface Props {
   isModalOpen: boolean;
   handleModalClose: () => void;
   children: ReactNode;
+  background?: string;
+  styles?: { [key: string]: string | number };
 }
 
 export const Modal: FC<Props> = ({
   isModalOpen,
   handleModalClose,
   children,
+  styles,
 }) => {
+  const BootstrapDialog = styled(Dialog)(() => ({
+    "& .MuiDialogContent-root": {
+      padding: 0,
+      margin: 0,
+    },
+    "& .MuiPaper-root": {
+      backgroundColor: "black",
+      overflow: "hidden",
+      maxWidth: 1000,
+      maxHeight: 510,
+      ...styles,
+    },
+  }));
+
   return (
-    <BootstrapDialog onClose={handleModalClose} open={isModalOpen}>
+    <BootstrapDialog onClose={handleModalClose} open={isModalOpen} fullWidth>
       <IconButton
+        size="large"
         aria-label="close"
         onClick={handleModalClose}
         sx={{

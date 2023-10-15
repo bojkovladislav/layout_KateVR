@@ -2,6 +2,9 @@ import { FC } from "react";
 import "./faq.scss";
 import { QA } from "../../assets/QA";
 import { FakeLoad } from "../../assets/FakeLoaderContainer";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
+import cn from "classnames";
 
 const faq = [
   {
@@ -30,11 +33,32 @@ const faq = [
   },
 ];
 
-export const FAQ: FC = () => {
+interface Props {
+  scroll?: boolean;
+}
+
+export const FAQ: FC<Props> = ({ scroll }) => {
+  const theme = useTheme();
+  const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
+
   return (
-    <div className="faq">
-      <h2 className="faq__title">FREQUENTLY ASKED</h2>
-      <h2 className="faq__title faq__title--blue">QUESTIONS</h2>
+    <div className={cn("faq", { faq__scroll: scroll })}>
+      <div
+        className={cn("faq__title-wrapper", {
+          "faq__title-wrapper--onPc": isLargeScreen,
+        })}
+      >
+        <h2 className={cn("faq__title", { "faq__title--onPc": isLargeScreen })}>
+          FREQUENTLY ASKED
+        </h2>
+        <h2
+          className={cn("faq__title", "faq__title--blue", {
+            "faq__title--onPc": isLargeScreen,
+          })}
+        >
+          QUESTIONS
+        </h2>
+      </div>
 
       <FakeLoad>
         <ul className="faq__list">

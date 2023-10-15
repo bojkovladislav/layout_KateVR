@@ -2,9 +2,22 @@
 @import "/src/partials/placeholders.scss";
 
 .faq {
-  overflow-y: auto;
-  max-height: 650px;
   padding: 20px;
+
+  &__scroll {
+    overflow-y: auto;
+    max-height: 650px;
+  }
+
+  &__title-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    &--onPc {
+      flex-direction: row;
+      gap: 10px;
+    }
+  }
 
   &__list {
     display: flex;
@@ -14,6 +27,12 @@
 
   &__title {
     @extend %headline2-mobile;
+
+    &--onPc {
+      font-size: 46px;
+      font-style: normal;
+      font-weight: 900;
+    }
 
     &--blue {
       color: $primary-button;

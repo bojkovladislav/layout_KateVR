@@ -49,7 +49,7 @@ export const BurgerMenuSlider: FC<Props> = ({
           path="/faq"
           element={
             <MenuWrapper handleCloseMenu={handleCloseMenu}>
-              <FAQ />
+              <FAQ scroll />
             </MenuWrapper>
           }
         />

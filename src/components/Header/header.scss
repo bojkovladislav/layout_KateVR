@@ -1,15 +1,49 @@
+@import "../../base/variables.scss";
+@import "../../partials/placeholders.scss";
+
 .header {
   display: flex;
   justify-content: space-between;
   padding: 0 20px;
+
+  &--onPc {
+    padding: 0 110px;
+  }
+
+  &__logo-container {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+  }
 
   &__logo {
     width: 58px;
     height: 12px;
   }
 
+  &__nav-item {
+    @extend %text-regular;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: $primary-button;
+    }
+  }
+
   &__burger-menu {
     width: 20px;
     height: 9px;
+  }
+
+  &__navigation {
+    display: flex;
+    gap: 36px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__list {
+    display: flex;
+    gap: 36px;
   }
 }

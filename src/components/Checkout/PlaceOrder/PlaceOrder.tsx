@@ -75,7 +75,7 @@ export const PlaceOrder: FC<Props> = ({ setPlaceOrderSubmitted }) => {
     <div className="placeOrder">
       {placeOrderStorage &&
       Object.values(JSON.parse(placeOrderStorage)).some(
-        (value) => value.length
+        (value) => typeof value === "string" && value.length
       ) ? (
         <FakeLoad delay={500}>{renderForm()}</FakeLoad>
       ) : (

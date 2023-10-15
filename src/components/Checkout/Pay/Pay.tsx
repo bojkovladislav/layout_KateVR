@@ -108,7 +108,7 @@ export const Pay: FC<Props> = ({ setPaySubmitted, previousTab }) => {
               value={cardInfo.cardHolderName}
               variant="standard"
               placeholder="Card Holder Name"
-              onChange={(e) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setCardInfo({ ...cardInfo, cardHolderName: e.target.value });
                 setCardErrors({ ...cardErrors, cardHolderName: "" });
               }}
@@ -165,7 +165,9 @@ export const Pay: FC<Props> = ({ setPaySubmitted, previousTab }) => {
   return (
     <div className="pay">
       {payStorage &&
-      Object.values(JSON.parse(payStorage)).some((value) => value.length) &&
+      Object.values(JSON.parse(payStorage)).some(
+        (value) => typeof value === "string" && value.length
+      ) &&
       previousTab === "Place order" ? (
         <FakeLoad delay={500}>{renderForm()}</FakeLoad>
       ) : (

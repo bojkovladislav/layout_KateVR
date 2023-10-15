@@ -1,4 +1,4 @@
-import { FC, useRef } from "react";
+import { FC, useState } from "react";
 import { ShowSpecsButton } from "../../assets/ShowSpecsButton";
 import "./techSpecs.scss";
 import { DirectionOfText } from "../../Enums/DirectionOfText";
@@ -27,7 +27,7 @@ const showSpecsTexts = [
 ];
 
 export const TechSpecsSection: FC = () => {
-  const buttonRef = useRef<HTMLDivElement | null>(null);
+  const [openButtonIndex, setOpenButtonIndex] = useState<number | null>(null);
 
   const countDelay = (i: number) => {
     if (i === 0) {
@@ -39,8 +39,12 @@ export const TechSpecsSection: FC = () => {
     }
   };
 
+  const handleModalClick = () => {
+    setOpenButtonIndex(null);
+  };
+
   return (
-    <section className="techSpecs" ref={buttonRef} id="tech">
+    <section className="techSpecs" id="tech">
       <div className="techSpecs__title-wrapper">
         <Slide direction={SlideDirection.LEFT} onScroll>
           <h2 className="techSpecs__title">TECH </h2>
@@ -60,12 +64,19 @@ export const TechSpecsSection: FC = () => {
               <ShowSpecsButton
                 direction={direction}
                 text={text}
-                buttonRef={buttonRef}
+                isClueOpened={openButtonIndex === i}
+                setIsClueOpened={(isOpen) => {
+                  setOpenButtonIndex(isOpen ? i : null);
+                }}
               />
             </Appearance>
           </div>
         ))}
       </div>
+
+      {openButtonIndex !== null && (
+        <div className="modal-overlay" onClick={handleModalClick}></div>
+      )}
     </section>
   );
 };

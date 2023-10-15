@@ -2,6 +2,7 @@ import { FC, useState, useEffect } from "react";
 import { Form } from "../../../assets/Form";
 import axios from "axios";
 import "./placeOrder.scss";
+import { FakeLoad } from "../../../assets/FakeLoaderContainer";
 
 const inputNames = [
   "First Name",
@@ -55,8 +56,10 @@ export const PlaceOrder: FC<Props> = ({ setPlaceOrderSubmitted }) => {
     fetchCountries();
   }, []);
 
-  return (
-    <div className="placeOrder">
+  const placeOrderStorage = localStorage.getItem("place-order");
+
+  function renderForm() {
+    return (
       <Form
         inputNames={inputNames}
         submitButtonText="Purchase"
@@ -65,6 +68,19 @@ export const PlaceOrder: FC<Props> = ({ setPlaceOrderSubmitted }) => {
         saveDataInStorage
         setPlaceOrderSubmitted={setPlaceOrderSubmitted}
       />
+    );
+  }
+
+  return (
+    <div className="placeOrder">
+      {placeOrderStorage &&
+      Object.values(JSON.parse(placeOrderStorage)).some(
+        (value) => value.length
+      ) ? (
+        <FakeLoad delay={500}>{renderForm()}</FakeLoad>
+      ) : (
+        renderForm()
+      )}
     </div>
   );
 };

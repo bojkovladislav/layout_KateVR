@@ -1,6 +1,7 @@
 import { FC } from "react";
 import "./faq.scss";
 import { QA } from "../../assets/QA";
+import { FakeLoad } from "../../assets/FakeLoaderContainer";
 
 const faq = [
   {
@@ -35,13 +36,15 @@ export const FAQ: FC = () => {
       <h2 className="faq__title">FREQUENTLY ASKED</h2>
       <h2 className="faq__title faq__title--blue">QUESTIONS</h2>
 
-      <ul className="faq__list">
-        {faq.map(({ question, answer, date }) => (
-          <li key={question}>
-            <QA question={question} answer={answer} date={date} />
-          </li>
-        ))}
-      </ul>
+      <FakeLoad>
+        <ul className="faq__list">
+          {faq.map(({ question, answer, date }) => (
+            <li key={question}>
+              <QA question={question} answer={answer} date={date} />
+            </li>
+          ))}
+        </ul>
+      </FakeLoad>
     </div>
   );
 };

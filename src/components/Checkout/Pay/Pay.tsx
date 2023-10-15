@@ -8,6 +8,7 @@ import { inputTheme } from "../../../helpers/Forms/inputTheme";
 import { ExpirationDate } from "../../../assets/ExpirationDate";
 import { CVV } from "../../../assets/CVV";
 import { InputError } from "../../../assets/InputError";
+import { FakeLoad } from "../../../assets/FakeLoaderContainer";
 
 const masterCardPattern =
   /^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/;
@@ -16,9 +17,10 @@ const expirationDatePattern = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/;
 
 interface Props {
   setPaySubmitted: (paySubmitted: boolean) => void;
+  previousTab: string;
 }
 
-export const Pay: FC<Props> = ({ setPaySubmitted }) => {
+export const Pay: FC<Props> = ({ setPaySubmitted, previousTab }) => {
   const [cardInfo, setCardInfo] = useState<SimpleObject>({
     cardNumber: "",
     cardHolderName: "",
@@ -54,6 +56,15 @@ export const Pay: FC<Props> = ({ setPaySubmitted }) => {
         "Expiration date is not valid. Pattern: MM/YY";
     }
 
+    if (name === "cardHolderName" && !isNaN(parseInt(value))) {
+      currentErrors.cardHolderName =
+        "This field should not include any numbers";
+    }
+
+    if (name === "cvv" && value.length !== 3) {
+      currentErrors.cvv = "Cvv should consist of 3 numbers";
+    }
+
     return currentErrors;
   };
 
@@ -82,22 +93,8 @@ export const Pay: FC<Props> = ({ setPaySubmitted }) => {
     setPaySubmitted(true);
   };
 
-  useEffect(() => {
-    const storage = localStorage.getItem("pay");
-
-    if (Object.values(cardErrors).every((error) => !error) && storage) {
-      setCardInfo({ ...JSON.parse(storage) });
-    }
-  }, []);
-
-  useEffect(() => {
-    if (Object.values(cardInfo).some((item) => item.length)) {
-      localStorage.setItem("pay", JSON.stringify(cardInfo));
-    }
-  }, [cardInfo]);
-
-  return (
-    <div className="pay">
+  function renderForm() {
+    return (
       <form className="pay__form" onSubmit={handleFormSubmit}>
         <CardNumber
           cardInfo={cardInfo}
@@ -146,6 +143,34 @@ export const Pay: FC<Props> = ({ setPaySubmitted }) => {
           Purchase
         </Button>
       </form>
+    );
+  }
+
+  useEffect(() => {
+    const storage = localStorage.getItem("pay");
+
+    if (Object.values(cardErrors).every((error) => !error) && storage) {
+      setCardInfo({ ...JSON.parse(storage) });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (Object.values(cardInfo).some((item) => item.length)) {
+      localStorage.setItem("pay", JSON.stringify(cardInfo));
+    }
+  }, [cardInfo]);
+
+  const payStorage = localStorage.getItem("pay");
+
+  return (
+    <div className="pay">
+      {payStorage &&
+      Object.values(JSON.parse(payStorage)).some((value) => value.length) &&
+      previousTab === "Place order" ? (
+        <FakeLoad delay={500}>{renderForm()}</FakeLoad>
+      ) : (
+        renderForm()
+      )}
     </div>
   );
 };

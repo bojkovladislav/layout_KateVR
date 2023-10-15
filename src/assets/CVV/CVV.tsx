@@ -35,6 +35,7 @@ export const CVV: FC<Props> = ({
           inputProps={{ maxLength: 3 }}
           style={{ maxWidth: "45px" }}
           placeholder="000"
+          type="password"
           error={!!cardErrors.cvv}
         />
       </ThemeProvider>

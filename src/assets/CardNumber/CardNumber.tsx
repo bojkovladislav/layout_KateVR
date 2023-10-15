@@ -47,13 +47,11 @@ export const CardNumber: FC<Props> = ({
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   useEffect(() => {
-    if (Object.values(inputs).every((input) => input.length === 4)) {
-      const cardNumber = Object.values(inputs).reduce(
-        (acc, currentValue) => acc + currentValue
-      );
+    const cardNumber = Object.values(inputs).reduce(
+      (acc, currentValue) => acc + currentValue
+    );
 
-      setCardInfo({ ...cardInfo, cardNumber });
-    }
+    setCardInfo({ ...cardInfo, cardNumber });
   }, [inputs]);
 
   const handleChange = (value: string, index: string) => {
@@ -89,7 +87,7 @@ export const CardNumber: FC<Props> = ({
               <ThemeProvider theme={themeForCardInput} key={key}>
                 <TextField
                   variant="standard"
-                  type="text"
+                  type="tel"
                   inputProps={{ maxLength: 4 }}
                   placeholder="0000"
                   value={inputs[key]}

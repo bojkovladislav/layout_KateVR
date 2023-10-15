@@ -27,21 +27,26 @@ export const HomePage: FC = () => {
         />
       </Appearance2>
 
-      <TypingAnimation
-        desiredText="THE NEW START OF"
-        delay={100}
-        initialDelay={0}
-        className="homePage__title"
-      />
+      <div className="homePage__title-container">
+        <div>
+          <TypingAnimation
+            desiredText="THE NEW START OF"
+            delay={100}
+            initialDelay={0}
+            className="homePage__title"
+          />
+        </div>
+        <div>
+          <TypingAnimation
+            desiredText="VR LOCOMOTION"
+            delay={100}
+            initialDelay={2000}
+            className="homePage__title homePage__title--blue"
+          />
+        </div>
+      </div>
 
-      <TypingAnimation
-        desiredText="VR LOCOMOTION"
-        delay={100}
-        initialDelay={2000}
-        className="homePage__title homePage__title--blue"
-      />
-
-      <Appearance delay={1.2}>
+      <Appearance delay={1.2} once>
         <p className="homePage__description">
           Discover the most comprehensive VR Locomotion system, and unlock
           infinite motion in any games on any platforms!
@@ -49,7 +54,7 @@ export const HomePage: FC = () => {
       </Appearance>
 
       <div className="homePage__price-wrapper">
-        <Appearance>
+        <Appearance delay={0.5}>
           <h2 className="homePage__price">{<Counting endValue={1200} />}</h2>
         </Appearance>
         <Appearance delay={2.1}>

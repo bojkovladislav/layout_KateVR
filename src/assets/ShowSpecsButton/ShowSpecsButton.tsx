@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -11,16 +11,25 @@ import { DirectionOfText } from "../../Enums/DirectionOfText";
 interface Props {
   text: string;
   direction: DirectionOfText;
-  buttonRef?: React.RefObject<HTMLDivElement>;
+  isClueOpened: boolean;
+  setIsClueOpened: (isClueOpened: boolean) => void;
 }
+
+// when I click on the button +:
+// 1) modal should be open
+// 2) I should be able to click on the others +
 
 //! MUST READ
 // this was made for mobile version
 // so all clickable events should be replaced with hovering
 // in desktop version
 
-export const ShowSpecsButton: FC<Props> = ({ text, direction, buttonRef }) => {
-  const [isButtonClicked, setIsButtonClicked] = useState(false);
+export const ShowSpecsButton: FC<Props> = ({
+  text,
+  direction,
+  setIsClueOpened,
+  isClueOpened,
+}) => {
   const controls = useAnimation();
 
   const startAnimation = () => {
@@ -38,23 +47,6 @@ export const ShowSpecsButton: FC<Props> = ({ text, direction, buttonRef }) => {
     });
   };
 
-  useEffect(() => {
-    if (!buttonRef || !buttonRef.current) return;
-    const techSpecsSection = buttonRef?.current;
-
-    const handleDocumentClick = () => {
-      endAnimation();
-      setIsButtonClicked(false);
-    };
-
-    techSpecsSection.addEventListener("click", handleDocumentClick);
-
-    return () => {
-      techSpecsSection &&
-        techSpecsSection.removeEventListener("click", handleDocumentClick);
-    };
-  }, [buttonRef]);
-
   const getCoords = () => {
     switch (direction) {
       case DirectionOfText.LEFT:
@@ -67,14 +59,20 @@ export const ShowSpecsButton: FC<Props> = ({ text, direction, buttonRef }) => {
   };
 
   const handleMouseClick = () => {
-    setIsButtonClicked(!isButtonClicked);
+    setIsClueOpened(!isClueOpened);
 
-    if (!isButtonClicked) {
+    if (!isClueOpened) {
       startAnimation();
     } else {
       endAnimation();
     }
   };
+
+  useEffect(() => {
+    if (!isClueOpened) {
+      endAnimation();
+    }
+  }, [isClueOpened]);
 
   return (
     <div
@@ -91,7 +89,7 @@ export const ShowSpecsButton: FC<Props> = ({ text, direction, buttonRef }) => {
           color="primary"
           sx={{ backgroundColor: "#05C2DF" }}
         >
-          {isButtonClicked ? <RemoveIcon /> : <AddIcon />}
+          {isClueOpened ? <RemoveIcon /> : <AddIcon />}
         </Fab>
       </div>
 

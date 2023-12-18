@@ -1,21 +1,21 @@
-import { FC, useState, useEffect } from "react";
-import { Form } from "../../../assets/Form";
-import axios from "axios";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
-import cn from "classnames";
-import "./placeOrder.scss";
-import { FakeLoad } from "../../../assets/FakeLoaderContainer";
+import { FC, useState, useEffect } from 'react';
+import { Form } from '../../../assets/Form';
+import axios from 'axios';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+import cn from 'classnames';
+import './placeOrder.scss';
+import { FakeLoad } from '../../../assets/FakeLoaderContainer';
 
 const inputNames = [
-  "First Name",
-  "Last Name",
-  "Email",
-  "Phone Number",
-  "Country",
-  "City",
-  "Shipping Address",
-  "Shipping Address2",
+  'First Name',
+  'Last Name',
+  'Email',
+  'Phone Number',
+  'Country',
+  'City',
+  'Shipping Address',
+  'Shipping Address2',
 ];
 
 export type DropDownMenu = {
@@ -34,7 +34,7 @@ export const PlaceOrder: FC<Props> = ({ setPlaceOrderSubmitted, setValue }) => {
     City: [],
   });
   const theme = useTheme();
-  const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
+  const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
 
   const setCity = (currentCountry: string) => {
     const country = dropDownMenus.Country.find(
@@ -49,7 +49,7 @@ export const PlaceOrder: FC<Props> = ({ setPlaceOrderSubmitted, setValue }) => {
   const fetchCountries = async () => {
     try {
       const country = await axios.get(
-        "https://countriesnow.space/api/v0.1/countries"
+        'https://countriesnow.space/api/v0.1/countries'
       );
 
       setDropDownMenus({ ...dropDownMenus, Country: country.data.data });
@@ -60,9 +60,10 @@ export const PlaceOrder: FC<Props> = ({ setPlaceOrderSubmitted, setValue }) => {
 
   useEffect(() => {
     fetchCountries();
+    //eslint-disable-next-line  react-hooks/exhaustive-deps
   }, []);
 
-  const placeOrderStorage = localStorage.getItem("place-order");
+  const placeOrderStorage = localStorage.getItem('place-order');
 
   function renderForm() {
     return (
@@ -80,10 +81,10 @@ export const PlaceOrder: FC<Props> = ({ setPlaceOrderSubmitted, setValue }) => {
   }
 
   return (
-    <div className={cn("placeOrder", { "placeOrder--onPc": isLargeScreen })}>
+    <div className={cn('placeOrder', { 'placeOrder--onPc': isLargeScreen })}>
       {placeOrderStorage &&
       Object.values(JSON.parse(placeOrderStorage)).some(
-        (value) => typeof value === "string" && value.length
+        (value) => typeof value === 'string' && value.length
       ) ? (
         <FakeLoad
           delay={500}

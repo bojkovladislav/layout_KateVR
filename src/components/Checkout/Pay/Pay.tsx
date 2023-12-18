@@ -1,17 +1,17 @@
-import { FC, useState, useEffect } from "react";
-import cn from "classnames";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
-import "./pay.scss";
-import { CardNumber } from "../../../assets/CardNumber";
-import { SimpleObject } from "../../../Types/SimpleObject";
-import { TextField, ThemeProvider } from "@mui/material";
-import Button from "@mui/material/Button";
-import { inputTheme } from "../../../helpers/Forms/inputTheme";
-import { ExpirationDate } from "../../../assets/ExpirationDate";
-import { CVV } from "../../../assets/CVV";
-import { InputError } from "../../../assets/InputError";
-import { FakeLoad } from "../../../assets/FakeLoaderContainer";
+import { FC, useState, useEffect } from 'react';
+import cn from 'classnames';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+import './pay.scss';
+import { CardNumber } from '../../../assets/CardNumber';
+import { SimpleObject } from '../../../Types/SimpleObject';
+import { TextField, ThemeProvider } from '@mui/material';
+import Button from '@mui/material/Button';
+import { inputTheme } from '../../../helpers/Forms/inputTheme';
+import { ExpirationDate } from '../../../assets/ExpirationDate';
+import { CVV } from '../../../assets/CVV';
+import { InputError } from '../../../assets/InputError';
+import { FakeLoad } from '../../../assets/FakeLoaderContainer';
 
 const masterCardPattern =
   /^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/;
@@ -24,50 +24,50 @@ interface Props {
 
 export const Pay: FC<Props> = ({ setPaySubmitted }) => {
   const [cardInfo, setCardInfo] = useState<SimpleObject>({
-    cardNumber: "",
-    cardHolderName: "",
-    expirationDate: "",
-    cvv: "",
+    cardNumber: '',
+    cardHolderName: '',
+    expirationDate: '',
+    cvv: '',
   });
 
   const [cardErrors, setCardErrors] = useState<SimpleObject>({
-    cardNumber: "",
-    cardHolderName: "",
-    expirationDate: "",
-    cvv: "",
+    cardNumber: '',
+    cardHolderName: '',
+    expirationDate: '',
+    cvv: '',
   });
 
   const theme = useTheme();
-  const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
+  const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
 
   const validateCardInfo = (value: string, name: string) => {
     const currentErrors: SimpleObject = {};
-    const updatedName = name.length > 3 ? "Card Holder Name" : "CVV";
+    const updatedName = name.length > 3 ? 'Card Holder Name' : 'CVV';
 
     if (!value.length) {
       currentErrors[name] = `${updatedName} field is required!`;
     }
 
     if (
-      name === "cardNumber" &&
+      name === 'cardNumber' &&
       !masterCardPattern.test(value) &&
       !visaCardPattern.test(value)
     ) {
-      currentErrors.cardNumber = "Card number is invalid";
+      currentErrors.cardNumber = 'Card number is invalid';
     }
 
-    if (name === "expirationDate" && !expirationDatePattern.test(value)) {
+    if (name === 'expirationDate' && !expirationDatePattern.test(value)) {
       currentErrors.expirationDate =
-        "Expiration date is not valid. Pattern: MM/YY";
+        'Expiration date is not valid. Pattern: MM/YY';
     }
 
-    if (name === "cardHolderName" && !isNaN(parseInt(value))) {
+    if (name === 'cardHolderName' && !isNaN(parseInt(value))) {
       currentErrors.cardHolderName =
-        "This field should not include any numbers";
+        'This field should not include any numbers';
     }
 
-    if (name === "cvv" && value.length !== 3) {
-      currentErrors.cvv = "Cvv should consist of 3 numbers";
+    if (name === 'cvv' && value.length !== 3) {
+      currentErrors.cvv = 'Cvv should consist of 3 numbers';
     }
 
     return currentErrors;
@@ -94,14 +94,14 @@ export const Pay: FC<Props> = ({ setPaySubmitted }) => {
       return;
     }
 
-    localStorage.setItem("pay", JSON.stringify(cardInfo));
+    localStorage.setItem('pay', JSON.stringify(cardInfo));
     setPaySubmitted(true);
   };
 
   function renderForm() {
     return (
       <form
-        className={cn("pay__form", { "pay__form--onPc": isLargeScreen })}
+        className={cn('pay__form', { 'pay__form--onPc': isLargeScreen })}
         onSubmit={handleFormSubmit}
       >
         <div className="pay__wrapper">
@@ -119,7 +119,7 @@ export const Pay: FC<Props> = ({ setPaySubmitted }) => {
                 placeholder="Card Holder Name"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   setCardInfo({ ...cardInfo, cardHolderName: e.target.value });
-                  setCardErrors({ ...cardErrors, cardHolderName: "" });
+                  setCardErrors({ ...cardErrors, cardHolderName: '' });
                 }}
                 error={!!cardErrors.cardHolderName}
               />
@@ -148,9 +148,9 @@ export const Pay: FC<Props> = ({ setPaySubmitted }) => {
           type="submit"
           variant="contained"
           sx={{
-            background: "#05c2df",
-            width: isLargeScreen ? "200px" : "100%",
-            height: isLargeScreen ? "50px" : "",
+            background: '#05c2df',
+            width: isLargeScreen ? '200px' : '100%',
+            height: isLargeScreen ? '50px' : '',
           }}
         >
           Purchase
@@ -160,21 +160,22 @@ export const Pay: FC<Props> = ({ setPaySubmitted }) => {
   }
 
   useEffect(() => {
-    const storage = localStorage.getItem("pay");
+    const storage = localStorage.getItem('pay');
 
     if (Object.values(cardErrors).every((error) => !error) && storage) {
       setCardInfo({ ...JSON.parse(storage) });
     }
+    //eslint-disable-next-line  react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (Object.values(cardInfo).some((item) => item.length)) {
-      localStorage.setItem("pay", JSON.stringify(cardInfo));
+      localStorage.setItem('pay', JSON.stringify(cardInfo));
     }
   }, [cardInfo]);
 
   return (
-    <div className={cn("pay", { "pay--onPc": isLargeScreen })}>
+    <div className={cn('pay', { 'pay--onPc': isLargeScreen })}>
       <FakeLoad delay={500} centerByY centerByX={isLargeScreen}>
         {renderForm()}
       </FakeLoad>

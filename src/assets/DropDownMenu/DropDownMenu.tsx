@@ -22,6 +22,7 @@ interface Props {
   width: string;
   content: string[] | Array<{ [key: string]: string | string[] }>;
   customValue?: number | string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setCustomValue?: Dispatch<SetStateAction<any>>;
   setCity?: (currentCountry: string) => void;
   setInputs?: (inputs: SimpleObject) => void;
@@ -60,6 +61,7 @@ export const DropDownMenu: FC<Props> = ({
         setValue(JSON.parse(inputsFromStorage).country);
       }
     }
+    //eslint-disable-next-line  react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -68,6 +70,7 @@ export const DropDownMenu: FC<Props> = ({
         setCity(inputs.country);
       }
     }
+    //eslint-disable-next-line  react-hooks/exhaustive-deps
   }, [anchorEl]);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {

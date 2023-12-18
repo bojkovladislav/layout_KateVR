@@ -1,10 +1,10 @@
-import { FC, useEffect, useState } from "react";
-import { InputWrapper } from "../InputWrapper";
-import { ThemeProvider, TextField } from "@mui/material";
-import "./expirationDate.scss";
-import { themeForCardInput } from "../../helpers/Forms/themeForCardInput";
-import { SimpleObject } from "../../Types/SimpleObject";
-import { InputError } from "../InputError";
+import { FC, useEffect, useState } from 'react';
+import { InputWrapper } from '../InputWrapper';
+import { ThemeProvider, TextField } from '@mui/material';
+import './expirationDate.scss';
+import { themeForCardInput } from '../../helpers/Forms/themeForCardInput';
+import { SimpleObject } from '../../Types/SimpleObject';
+import { InputError } from '../InputError';
 
 interface Props {
   cardInfo: SimpleObject;
@@ -27,24 +27,25 @@ export const ExpirationDate: FC<Props> = ({
     if (expirationDate.length === 2 && !isUserClearing) {
       setCardInfo({
         ...cardInfo,
-        expirationDate: expirationDate + "/",
+        expirationDate: expirationDate + '/',
       });
     }
+    //eslint-disable-next-line  react-hooks/exhaustive-deps
   }, [cardInfo.expirationDate]);
 
   const handleChange = (value: string) => {
-    const newValue = value.replace("/", "");
+    const newValue = value.replace('/', '');
 
     if (isNaN(+newValue)) {
       return;
     }
 
     setCardInfo({ ...cardInfo, expirationDate: value });
-    setCardErrors({ ...cardErrors, expirationDate: "" });
+    setCardErrors({ ...cardErrors, expirationDate: '' });
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    setIsUserClearing(e.key === "Backspace");
+    setIsUserClearing(e.key === 'Backspace');
   };
 
   return (

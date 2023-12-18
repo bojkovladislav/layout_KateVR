@@ -1,7 +1,7 @@
-import { FC, ReactNode, useEffect, useState } from "react";
-import CircularProgress from "@mui/material/CircularProgress";
-import "./fakeLoad.scss";
-import classNames from "classnames";
+import { FC, ReactNode, useEffect, useState } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
+import './fakeLoad.scss';
+import classNames from 'classnames';
 
 interface Props {
   children: ReactNode;
@@ -35,15 +35,16 @@ export const FakeLoad: FC<Props> = ({
         setIsLoading(false);
       }
     })();
+    //eslint-disable-next-line  react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div
       className={classNames(
-        "fakeLoad",
+        'fakeLoad',
         { fakeLoad__loading: isLoading },
         { fakeLoad__center: centerByY },
-        { "fakeLoad__center--ByX": centerByX }
+        { 'fakeLoad__center--ByX': centerByX }
       )}
     >
       {isLoading ? (

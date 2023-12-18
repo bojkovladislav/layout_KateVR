@@ -1,5 +1,5 @@
-import { FC, useEffect } from "react";
-import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+import { FC, useEffect } from 'react';
+import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 
 interface Props {
   initialValue?: number;
@@ -23,6 +23,7 @@ export const Counting: FC<Props> = ({
     const controls = animate(value, endValue, { duration: duration || 2 });
 
     return controls.stop;
+    //eslint-disable-next-line  react-hooks/exhaustive-deps
   }, dependencies && dependencies);
 
   return <motion.div className={className}>{rounded}</motion.div>;

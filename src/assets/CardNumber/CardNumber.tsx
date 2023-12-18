@@ -1,13 +1,13 @@
-import { FC, useState, useEffect, useRef } from "react";
-import cn from "classnames";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
-import "./cardNumber.scss";
-import { TextField, ThemeProvider } from "@mui/material";
-import { SimpleObject } from "../../Types/SimpleObject";
-import { InputWrapper } from "../InputWrapper";
-import { themeForCardInput } from "../../helpers/Forms/themeForCardInput";
-import { InputError } from "../InputError";
+import { FC, useState, useEffect, useRef } from 'react';
+import cn from 'classnames';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+import './cardNumber.scss';
+import { TextField, ThemeProvider } from '@mui/material';
+import { SimpleObject } from '../../Types/SimpleObject';
+import { InputWrapper } from '../InputWrapper';
+import { themeForCardInput } from '../../helpers/Forms/themeForCardInput';
+import { InputError } from '../InputError';
 
 type Inputs = {
   [key: string]: string;
@@ -27,22 +27,22 @@ export const CardNumber: FC<Props> = ({
   setCardErrors,
 }) => {
   const theme = useTheme();
-  const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
-  const storage = localStorage.getItem("pay");
+  const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
+  const storage = localStorage.getItem('pay');
 
   const [inputs, setInputs] = useState<Inputs>(
     !storage
       ? {
-          "1": "",
-          "2": "",
-          "3": "",
-          "4": "",
+          '1': '',
+          '2': '',
+          '3': '',
+          '4': '',
         }
       : {
-          "1": JSON.parse(storage).cardNumber.slice(0, 4),
-          "2": JSON.parse(storage).cardNumber.slice(4, 8),
-          "3": JSON.parse(storage).cardNumber.slice(8, 12),
-          "4": JSON.parse(storage).cardNumber.slice(
+          '1': JSON.parse(storage).cardNumber.slice(0, 4),
+          '2': JSON.parse(storage).cardNumber.slice(4, 8),
+          '3': JSON.parse(storage).cardNumber.slice(8, 12),
+          '4': JSON.parse(storage).cardNumber.slice(
             12,
             JSON.parse(storage).cardNumber.length
           ),
@@ -57,13 +57,14 @@ export const CardNumber: FC<Props> = ({
     );
 
     setCardInfo({ ...cardInfo, cardNumber });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputs]);
 
   const handleChange = (value: string, index: string) => {
     if (isNaN(+value)) return;
 
     setInputs({ ...inputs, [index]: value });
-    setCardErrors({ ...cardErrors, cardNumber: "" });
+    setCardErrors({ ...cardErrors, cardNumber: '' });
 
     if (value.length === 4 && inputRefs.current[+index] && +index < 4) {
       inputRefs.current[+index + 1]?.focus();
@@ -74,7 +75,7 @@ export const CardNumber: FC<Props> = ({
     e: React.KeyboardEvent<HTMLDivElement>,
     index: string
   ) => {
-    if (e.key === "Backspace" && inputs[index].length === 0) {
+    if (e.key === 'Backspace' && inputs[index].length === 0) {
       e.preventDefault();
 
       if (+index > 1) {
@@ -87,8 +88,8 @@ export const CardNumber: FC<Props> = ({
     <div className="cardNumber">
       <InputWrapper label="Card Number" highlighted>
         <div
-          className={cn("cardNumber__container", {
-            "cardNumber__container--onPc": isLargeScreen,
+          className={cn('cardNumber__container', {
+            'cardNumber__container--onPc': isLargeScreen,
           })}
         >
           <div className="cardNumber__input-wrapper">
@@ -111,15 +112,15 @@ export const CardNumber: FC<Props> = ({
             <img
               src="./images/visa.svg"
               alt="Visa"
-              style={{ opacity: inputs["1"].indexOf("4") === 0 ? 1 : 0.3 }}
+              style={{ opacity: inputs['1'].indexOf('4') === 0 ? 1 : 0.3 }}
             />
             <img
               src="./images/mastercard.svg"
               alt="Mastercard"
               style={{
                 opacity:
-                  inputs["1"].indexOf("2") === 0 ||
-                  inputs["1"].indexOf("5") === 0
+                  inputs['1'].indexOf('2') === 0 ||
+                  inputs['1'].indexOf('5') === 0
                     ? 1
                     : 0.3,
               }}

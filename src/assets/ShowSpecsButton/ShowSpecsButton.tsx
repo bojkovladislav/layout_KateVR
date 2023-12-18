@@ -1,12 +1,12 @@
-import { FC, useEffect } from "react";
-import Fab from "@mui/material/Fab";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import cn from "classnames";
-import { useAnimation } from "framer-motion";
-import "./showSpecButton.scss";
-import { Appearance2 } from "../animations/Appearance2";
-import { DirectionOfText } from "../../Enums/DirectionOfText";
+import { FC, useEffect } from 'react';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import cn from 'classnames';
+import { useAnimation } from 'framer-motion';
+import './showSpecButton.scss';
+import { Appearance2 } from '../animations/Appearance2';
+import { DirectionOfText } from '../../Enums/DirectionOfText';
 
 interface Props {
   text: string;
@@ -14,15 +14,6 @@ interface Props {
   isClueOpened: boolean;
   setIsClueOpened: (isClueOpened: boolean) => void;
 }
-
-// when I click on the button +:
-// 1) modal should be open
-// 2) I should be able to click on the others +
-
-//! MUST READ
-// this was made for mobile version
-// so all clickable events should be replaced with hovering
-// in desktop version
 
 export const ShowSpecsButton: FC<Props> = ({
   text,
@@ -36,7 +27,7 @@ export const ShowSpecsButton: FC<Props> = ({
     controls.start({
       opacity: 1,
       y: 0,
-      x: direction === DirectionOfText.LEFT ? "-120px" : 0,
+      x: direction === DirectionOfText.LEFT ? '-120px' : 0,
     });
   };
 
@@ -72,13 +63,14 @@ export const ShowSpecsButton: FC<Props> = ({
     if (!isClueOpened) {
       endAnimation();
     }
+    //eslint-disable-next-line  react-hooks/exhaustive-deps
   }, [isClueOpened]);
 
   return (
     <div
-      className={cn("buttonContainer", {
-        "buttonContainer--bottom": direction === DirectionOfText.BOTTOM,
-        "buttonContainer--left": direction === DirectionOfText.LEFT,
+      className={cn('buttonContainer', {
+        'buttonContainer--bottom': direction === DirectionOfText.BOTTOM,
+        'buttonContainer--left': direction === DirectionOfText.LEFT,
       })}
     >
       <div className="buttonContainer__button">
@@ -87,7 +79,7 @@ export const ShowSpecsButton: FC<Props> = ({
           aria-label="add"
           size="small"
           color="primary"
-          sx={{ backgroundColor: "#05C2DF" }}
+          sx={{ backgroundColor: '#05C2DF' }}
         >
           {isClueOpened ? <RemoveIcon /> : <AddIcon />}
         </Fab>

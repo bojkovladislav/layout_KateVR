@@ -1,13 +1,13 @@
-import { FC, FormEvent, useState, useMemo, useEffect } from "react";
-import cn from "classnames";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
-import { SimpleObject } from "../../Types/SimpleObject";
-import { validate } from "../../helpers/Forms/validate";
-import { Input } from "../Input";
-import Button from "@mui/material/Button";
-import "./form.scss";
-import { DropDownMenu } from "../../components/Checkout/PlaceOrder";
+import { FC, FormEvent, useState, useMemo, useEffect } from 'react';
+import cn from 'classnames';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+import { SimpleObject } from '../../Types/SimpleObject';
+import { validate } from '../../helpers/Forms/validate';
+import { Input } from '../Input';
+import Button from '@mui/material/Button';
+import './form.scss';
+import { DropDownMenu } from '../../components/Checkout/PlaceOrder';
 
 interface Props {
   inputNames: string[];
@@ -35,7 +35,7 @@ export const Form: FC<Props> = ({
   setValue,
 }) => {
   const initialValues: SimpleObject = inputNames.reduce((acc, inputName) => {
-    acc[inputName.toLowerCase()] = "";
+    acc[inputName.toLowerCase()] = '';
 
     return acc;
   }, {} as SimpleObject);
@@ -44,11 +44,11 @@ export const Form: FC<Props> = ({
   const [inputs, setInputs] = useState<SimpleObject>(initialValues);
   const [errors, setErrors] = useState<SimpleObject>(initialValues);
   const theme = useTheme();
-  const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
+  const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
 
   useEffect(() => {
     if (saveDataInStorage) {
-      const inputsFromStorage = localStorage.getItem("place-order");
+      const inputsFromStorage = localStorage.getItem('place-order');
 
       if (
         Object.values(errors).every((error) => !error.length) &&
@@ -57,22 +57,24 @@ export const Form: FC<Props> = ({
         setInputs({ ...JSON.parse(inputsFromStorage) });
       }
     }
+    //eslint-disable-next-line  react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (inputs.country) {
       setErrors({
         ...errors,
-        country: "",
+        country: '',
       });
     }
 
     if (inputs.city) {
       setErrors({
         ...errors,
-        city: "",
+        city: '',
       });
     }
+    //eslint-disable-next-line  react-hooks/exhaustive-deps
   }, [inputs.country, inputs.city]);
 
   const labelsForDropDownMenus = useMemo(() => {
@@ -89,7 +91,7 @@ export const Form: FC<Props> = ({
       const errors = validate(
         inputValue,
         inputName,
-        inputName === "Shipping Address2"
+        inputName === 'Shipping Address2'
       );
 
       newErrors = {
@@ -105,7 +107,7 @@ export const Form: FC<Props> = ({
     }
 
     if (saveDataInStorage) {
-      localStorage.setItem("place-order", JSON.stringify(inputs));
+      localStorage.setItem('place-order', JSON.stringify(inputs));
 
       if (setPlaceOrderSubmitted) {
         setPlaceOrderSubmitted(true);
@@ -125,7 +127,7 @@ export const Form: FC<Props> = ({
     }));
     setErrors((errors) => ({
       ...errors,
-      [inputName.toLowerCase()]: "",
+      [inputName.toLowerCase()]: '',
     }));
   };
 
@@ -136,14 +138,14 @@ export const Form: FC<Props> = ({
 
       return (
         <div
-          className={cn("form__input-container", {
-            "form__input-container--selection":
+          className={cn('form__input-container', {
+            'form__input-container--selection':
               labelsForDropDownMenus?.includes(inputName) && dropDownMenus,
           })}
           key={inputName}
         >
           <Input
-            inputForPhone={inputName.includes("Phone")}
+            inputForPhone={inputName.includes('Phone')}
             value={currentInput}
             placeholder={inputName}
             handleChange={handleChange}
@@ -153,7 +155,7 @@ export const Form: FC<Props> = ({
             dropDownMenu={
               labelsForDropDownMenus?.includes(inputName) && dropDownMenus
                 ? {
-                    [inputName]: dropDownMenus[inputName as "Country" | "City"],
+                    [inputName]: dropDownMenus[inputName as 'Country' | 'City'],
                   }
                 : undefined
             }
@@ -191,22 +193,22 @@ export const Form: FC<Props> = ({
       )}
 
       <div
-        className={cn("form__bottom-container", {
-          "form__bottom-container--onPc": isLargeScreen,
+        className={cn('form__bottom-container', {
+          'form__bottom-container--onPc': isLargeScreen,
         })}
       >
         <Button
           type="submit"
           variant="contained"
           sx={{
-            background: "#05c2df",
-            width: !onPc && !wrap ? "100%" : "200px",
-            height: onPc || wrap ? "50px" : "40px",
+            background: '#05c2df',
+            width: !onPc && !wrap ? '100%' : '200px',
+            height: onPc || wrap ? '50px' : '40px',
           }}
           onClick={() => {
-            const inputsFromStorage = localStorage.getItem("place-order");
+            const inputsFromStorage = localStorage.getItem('place-order');
 
-            console.log("it is working");
+            console.log('it is working');
             if (inputsFromStorage && setValue) {
               setValue(1);
             }
@@ -221,7 +223,7 @@ export const Form: FC<Props> = ({
               window.scrollTo({
                 top: 0,
                 left: 0,
-                behavior: "smooth",
+                behavior: 'smooth',
               });
             }}
             onMouseEnter={() => {

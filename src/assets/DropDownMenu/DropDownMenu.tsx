@@ -1,11 +1,18 @@
-import { FC, ReactNode, useEffect, useState } from "react";
-import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import { ThemeProvider, createTheme } from "@mui/material";
-import i18n from "i18next";
-import { SimpleObject } from "../../Types/SimpleObject";
-import { useSearchParams } from "react-router-dom";
+import {
+  Dispatch,
+  FC,
+  ReactNode,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { ThemeProvider, createTheme } from '@mui/material';
+import i18n from 'i18next';
+import { SimpleObject } from '../../Types/SimpleObject';
+import { useSearchParams } from 'react-router-dom';
 
 interface CountryObject {
   country: string;
@@ -15,7 +22,7 @@ interface Props {
   width: string;
   content: string[] | Array<{ [key: string]: string | string[] }>;
   customValue?: number | string;
-  setCustomValue?: (value: number | string) => void;
+  setCustomValue?: Dispatch<SetStateAction<any>>;
   setCity?: (currentCountry: string) => void;
   setInputs?: (inputs: SimpleObject) => void;
   nameOfValue?: string;
@@ -36,18 +43,18 @@ export const DropDownMenu: FC<Props> = ({
   withoutBackground,
   changeLanguage,
 }) => {
-  const inputsFromStorage = localStorage.getItem("place-order");
+  const inputsFromStorage = localStorage.getItem('place-order');
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [value, setValue] = useState<string>(
-    (typeof content[0] === "string" && content[0]) || "-"
+    (typeof content[0] === 'string' && content[0]) || '-'
   );
   const searchParams = useSearchParams();
   const open = Boolean(anchorEl);
 
   useEffect(() => {
-    if (value === "-" && inputsFromStorage) {
-      if (nameOfValue === "City") {
+    if (value === '-' && inputsFromStorage) {
+      if (nameOfValue === 'City') {
         setValue(JSON.parse(inputsFromStorage).city);
       } else {
         setValue(JSON.parse(inputsFromStorage).country);
@@ -80,10 +87,10 @@ export const DropDownMenu: FC<Props> = ({
     }
 
     if (setCustomValue && customValue) {
-      if (typeof customValue === "string") {
+      if (typeof customValue === 'string') {
         setCustomValue(value);
       } else {
-        setCustomValue(+value);
+        setCustomValue(Number(value));
       }
     } else {
       setValue(value);
@@ -93,7 +100,7 @@ export const DropDownMenu: FC<Props> = ({
   const handleUpdateLocalStorage = (name: string, value: string) => {
     if (inputsFromStorage && !customValue) {
       localStorage.setItem(
-        "place-order",
+        'place-order',
         JSON.stringify({
           ...JSON.parse(inputsFromStorage),
           [name]: value,
@@ -107,19 +114,19 @@ export const DropDownMenu: FC<Props> = ({
       MuiButtonBase: {
         styleOverrides: {
           root: {
-            "&.MuiButton-root": {
-              background: !withoutBackground ? "#191536" : "none",
+            '&.MuiButton-root': {
+              background: !withoutBackground ? '#191536' : 'none',
               width,
-              minHeight: !withoutBackground ? "50px" : "none",
-              color: !withoutBackground ? "#fff" : "#05c2df",
-              textTransform: withoutBackground && "none",
-              fontSize: "20px",
-              gap: withoutBackground && "5px",
-              display: !withoutBackground && "flex",
-              paddingLeft: "20px",
-              justifyContent: !withoutBackground ? "space-between" : "start",
-              padding: withoutBackground && "0",
-              alignItems: withoutBackground ? "end" : "center",
+              minHeight: !withoutBackground ? '50px' : 'none',
+              color: !withoutBackground ? '#fff' : '#05c2df',
+              textTransform: withoutBackground && 'none',
+              fontSize: '20px',
+              gap: withoutBackground && '5px',
+              display: !withoutBackground && 'flex',
+              paddingLeft: '20px',
+              justifyContent: !withoutBackground ? 'space-between' : 'start',
+              padding: withoutBackground && '0',
+              alignItems: withoutBackground ? 'end' : 'center',
             },
           },
         },
@@ -127,10 +134,10 @@ export const DropDownMenu: FC<Props> = ({
       MuiMenu: {
         styleOverrides: {
           paper: {
-            "&.MuiMenu-paper": {
-              backgroundColor: "transparent",
+            '&.MuiMenu-paper': {
+              backgroundColor: 'transparent',
               minWidth: width,
-              marginTop: "5px",
+              marginTop: '5px',
             },
           },
         },
@@ -138,8 +145,8 @@ export const DropDownMenu: FC<Props> = ({
       MuiMenuItem: {
         styleOverrides: {
           root: {
-            ":hover": {
-              backgroundColor: "#191554",
+            ':hover': {
+              backgroundColor: '#191554',
             },
           },
         },
@@ -147,8 +154,8 @@ export const DropDownMenu: FC<Props> = ({
       MuiList: {
         styleOverrides: {
           root: {
-            "&.MuiMenu-list": {
-              background: "#191536",
+            '&.MuiMenu-list': {
+              background: '#191536',
             },
           },
         },
@@ -157,7 +164,7 @@ export const DropDownMenu: FC<Props> = ({
   });
 
   function isCountryObject<T>(obj: T | null): obj is T & CountryObject {
-    return obj !== null && typeof obj === "object" && "country" in obj;
+    return obj !== null && typeof obj === 'object' && 'country' in obj;
   }
 
   return (
@@ -165,10 +172,10 @@ export const DropDownMenu: FC<Props> = ({
       <ThemeProvider theme={theme}>
         <Button
           id="basic-button"
-          aria-controls={open ? "basic-menu" : undefined}
+          aria-controls={open ? 'basic-menu' : undefined}
           aria-haspopup="true"
-          disabled={nameOfValue === "City" && inputs && !inputs.country}
-          aria-expanded={open ? "true" : undefined}
+          disabled={nameOfValue === 'City' && inputs && !inputs.country}
+          aria-expanded={open ? 'true' : undefined}
           onClick={handleClick}
         >
           {customValue && !nameOfValue ? customValue : (value as ReactNode)}
@@ -176,8 +183,8 @@ export const DropDownMenu: FC<Props> = ({
             xmlns="http://www.w3.org/2000/svg"
             width="11"
             style={{
-              transform: `rotateX(${open ? "180deg" : "0deg"})`,
-              transition: "transform 0.3s ease",
+              transform: `rotateX(${open ? '180deg' : '0deg'})`,
+              transition: 'transform 0.3s ease',
             }}
             height="7"
             viewBox="0 0 9 5"
@@ -194,10 +201,10 @@ export const DropDownMenu: FC<Props> = ({
           open={open}
           onClose={handleClose}
           MenuListProps={{
-            "aria-labelledby": "basic-button",
+            'aria-labelledby': 'basic-button',
           }}
         >
-          {typeof content[0] !== "string" && setCity
+          {typeof content[0] !== 'string' && setCity
             ? content.map((v, index) => (
                 <MenuItem
                   key={index}
@@ -206,14 +213,14 @@ export const DropDownMenu: FC<Props> = ({
                     if (isCountryObject(v)) {
                       setValue(v.country);
                       setCity(v.country);
-                      handleUpdateLocalStorage("country", v.country);
+                      handleUpdateLocalStorage('country', v.country);
                       if (setInputs) {
                         setInputs({ ...inputs, country: v.country });
                       }
                     }
                   }}
                 >
-                  {isCountryObject(v) ? v.country : ""}
+                  {isCountryObject(v) ? v.country : ''}
                 </MenuItem>
               ))
             : content.map((v, index) => (
@@ -221,7 +228,7 @@ export const DropDownMenu: FC<Props> = ({
                   key={index}
                   onClick={() => {
                     handleMenuItemClick(v as string);
-                    handleUpdateLocalStorage("city", v as string);
+                    handleUpdateLocalStorage('city', v as string);
                     if (setInputs) {
                       setInputs({ ...inputs, city: v as string });
                     }

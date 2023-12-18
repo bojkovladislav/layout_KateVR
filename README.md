@@ -1,10 +1,24 @@
-# layout_KateVR
+# KateVR
 
-List of the technologies:
+## Overview
 
-1. React
-2. React Context
-3. React Router
-4. Lodash
-5. Material UI
-6. SCSS
+A React-based e-commerce layout site dedicated to selling KateVR products. Explore the latest in virtual reality technology for an immersive experience.
+
+## Technologies
+
+Major technologies and libraries:
+
+- React
+- React Context
+- React Router
+- Lodash
+- Scss
+- Framer motion
+- i18n (for now, only home page is translated to Ukrainian)
+- Material UI
+- Axios
+
+## Deployment
+
+Link to design: [DESIGN](https://www.figma.com/file/Blpg4iapsI7fRqJeSp6DvK/KatVR-_FE-students?type=design&node-id=1-370&mode=design)
+Hosted on GitHub: [DEMO LINK](https://bojkovladislav.github.io/layout_KateVR)

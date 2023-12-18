@@ -3,7 +3,9 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { ThemeProvider, createTheme } from "@mui/material";
+import i18n from "i18next";
 import { SimpleObject } from "../../Types/SimpleObject";
+import { useSearchParams } from "react-router-dom";
 
 interface CountryObject {
   country: string;
@@ -12,13 +14,14 @@ interface CountryObject {
 interface Props {
   width: string;
   content: string[] | Array<{ [key: string]: string | string[] }>;
-  customValue?: number;
-  setCustomValue?: (value: number) => void;
+  customValue?: number | string;
+  setCustomValue?: (value: number | string) => void;
   setCity?: (currentCountry: string) => void;
   setInputs?: (inputs: SimpleObject) => void;
   nameOfValue?: string;
   inputs?: SimpleObject;
   withoutBackground?: boolean;
+  changeLanguage?: boolean;
 }
 
 export const DropDownMenu: FC<Props> = ({
@@ -31,6 +34,7 @@ export const DropDownMenu: FC<Props> = ({
   nameOfValue,
   inputs,
   withoutBackground,
+  changeLanguage,
 }) => {
   const inputsFromStorage = localStorage.getItem("place-order");
 
@@ -38,6 +42,7 @@ export const DropDownMenu: FC<Props> = ({
   const [value, setValue] = useState<string>(
     (typeof content[0] === "string" && content[0]) || "-"
   );
+  const searchParams = useSearchParams();
   const open = Boolean(anchorEl);
 
   useEffect(() => {
@@ -69,8 +74,17 @@ export const DropDownMenu: FC<Props> = ({
   const handleMenuItemClick = (value: string) => {
     handleClose();
 
+    if (changeLanguage) {
+      i18n.changeLanguage(value.toLowerCase());
+      searchParams[1](`language=${i18n.language}`);
+    }
+
     if (setCustomValue && customValue) {
-      setCustomValue(+value);
+      if (typeof customValue === "string") {
+        setCustomValue(value);
+      } else {
+        setCustomValue(+value);
+      }
     } else {
       setValue(value);
     }

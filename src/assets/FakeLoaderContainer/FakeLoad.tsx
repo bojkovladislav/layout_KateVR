@@ -6,10 +6,16 @@ import classNames from "classnames";
 interface Props {
   children: ReactNode;
   delay?: number;
-  centerLoader?: boolean;
+  centerByY?: boolean;
+  centerByX?: boolean;
 }
 
-export const FakeLoad: FC<Props> = ({ children, delay, centerLoader }) => {
+export const FakeLoad: FC<Props> = ({
+  children,
+  delay,
+  centerByY,
+  centerByX,
+}) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const fakeFetch = () => {
@@ -36,7 +42,8 @@ export const FakeLoad: FC<Props> = ({ children, delay, centerLoader }) => {
       className={classNames(
         "fakeLoad",
         { fakeLoad__loading: isLoading },
-        { fakeLoad__center: centerLoader }
+        { fakeLoad__center: centerByY },
+        { "fakeLoad__center--ByX": centerByX }
       )}
     >
       {isLoading ? (

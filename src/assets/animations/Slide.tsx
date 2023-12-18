@@ -25,12 +25,17 @@ const SlideByY: FC<SlideByYProps> = ({ children, direction, delay }) => {
   return (
     <motion.div
       initial={{
-        y: `${direction === SlideDirection.TOP ? "-1000px" : "1000px"}`,
-        position: "absolute",
+        y: `${direction === SlideDirection.TOP ? "-50px" : "50px"}`,
+        // position: "absolute",
         opacity: 0,
       }}
       animate={{ y: 0, position: "initial", opacity: 1 }}
-      transition={{ duration: 0.7, delay }}
+      transition={{
+        duration: 0.7,
+        delay,
+        type: "keyframes",
+        ease: ["anticipate"],
+      }}
     >
       {children}
     </motion.div>
@@ -58,7 +63,13 @@ export const Slide: FC<Props> = ({ children, direction, delay, onScroll }) => {
       direction === SlideDirection.TOP ? (
         <>
           {onScroll ? (
-            <motion.div transition={{ duration: 0.5, delay }} initial="hidden">
+            <motion.div
+              transition={{
+                duration: 0.5,
+                delay,
+              }}
+              initial="hidden"
+            >
               {children}
             </motion.div>
           ) : (

@@ -2,11 +2,21 @@
   &__form {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 50px;
+
+    &--onPc {
+      gap: 90px;
+    }
   }
 
   &__inputs-container {
     display: flex;
     gap: 60px;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
   }
 }

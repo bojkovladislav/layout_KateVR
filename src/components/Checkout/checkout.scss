@@ -4,6 +4,11 @@
 .checkout {
   background: $primary-background;
 
+  &--onPc {
+    padding: 65px 110px;
+    height: 100vh;
+  }
+
   &__header {
     display: flex;
     justify-content: space-between;
@@ -21,6 +26,37 @@
     flex-direction: column;
     gap: 30px;
     margin: 20px 20px 0 20px;
+    height: 81vh;
+
+    &--onPc {
+      margin: 90px 0 0;
+      flex-direction: row;
+      height: 100%;
+      gap: 100px;
+      align-items: end;
+      min-height: 500px;
+
+      &-center {
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+
+  &__tabs-container {
+    display: flex;
+    align-items: center;
+  }
+
+  &__device {
+    height: 250px;
+    max-width: 700px;
+  }
+
+  &__device-presentation-container {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
   }
 
   &__wrapper {
@@ -46,6 +82,16 @@
 
     &--first {
       min-width: 80px;
+
+      &--onPc {
+        min-width: 100px;
+      }
+    }
+
+    &--onPc {
+      font-size: 36px;
+      font-style: normal;
+      font-weight: 500;
     }
   }
 }

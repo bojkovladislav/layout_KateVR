@@ -1,15 +1,19 @@
 import { FC } from "react";
 import { NavLink } from "react-router-dom";
+import cn from "classnames";
 import "./navigation.scss";
 
 interface Props {
   navLinks: string[];
+  onPc?: boolean;
 }
 
-export const Navigation: FC<Props> = ({ navLinks }) => {
+export const Navigation: FC<Props> = ({ navLinks, onPc }) => {
   return (
     <nav className="navigation">
-      <ul className="navigation__list">
+      <ul
+        className={cn("navigation__list", { "navigation__list--onPc": onPc })}
+      >
         {navLinks.map((navLink) => (
           <NavLink
             to={`/#${navLink.toLowerCase()}`}

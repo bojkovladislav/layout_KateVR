@@ -8,6 +8,12 @@
   padding: 50px 20px;
   gap: 15px;
 
+  &--onPc {
+    padding: 50px 110px;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
   &__info-container {
     display: flex;
     justify-content: space-between;

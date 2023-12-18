@@ -2,6 +2,7 @@ import { FC, useRef, useState } from "react";
 import Button from "@mui/material/Button";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 import { Appearance } from "../../assets/animations/Appearance";
 import { Modal } from "../../assets/Modal";
 import { Slide } from "../../assets/animations/Slide";
@@ -15,8 +16,6 @@ import "./homePage.scss";
 import { FAQ } from "../../components/FAQ";
 import { Help } from "../../components/Help";
 
-const utils = ["FAQ", "Help"];
-
 export const HomePage: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFaqOpened, setIsFaqOpened] = useState(false);
@@ -24,9 +23,12 @@ export const HomePage: FC = () => {
   const ref = useRef(null);
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
+  const { t } = useTranslation();
 
   const handleModalOpen = () => setIsModalOpen(true);
   const handleModalClose = () => setIsModalOpen(false);
+
+  const utils = ["FAQ", t("Help")];
 
   return (
     <div
@@ -55,16 +57,14 @@ export const HomePage: FC = () => {
               "homePage__title-container--onPc": isLargeScreen,
             })}
           >
-            <div>
-              <TypingAnimation
-                desiredText="THE NEW START OF"
-                delay={100}
-                initialDelay={0}
-                className={
-                  isLargeScreen ? "homePage__title--onPc" : "homePage__title"
-                }
-              />
-            </div>
+            <TypingAnimation
+              desiredText={t("THE NEW START OF")}
+              delay={100}
+              initialDelay={0}
+              className={
+                isLargeScreen ? "homePage__title--onPc" : "homePage__title"
+              }
+            />
             <div>
               <TypingAnimation
                 desiredText="VR LOCOMOTION"
@@ -84,8 +84,7 @@ export const HomePage: FC = () => {
                 "homePage__description--onPc": isLargeScreen,
               })}
             >
-              Discover the most comprehensive VR Locomotion system, and unlock
-              infinite motion in any games on any platforms!
+              {t("HOMEPAGE-DESCRIPTION")}
             </p>
           </Appearance>
           <div
@@ -173,7 +172,7 @@ export const HomePage: FC = () => {
           </ul>
 
           <div className="homePage__more-container">
-            <span>More</span>
+            <span>{t("More")}</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="9"
@@ -202,6 +201,7 @@ export const HomePage: FC = () => {
       >
         <FAQ />
       </Modal>
+
       <Modal
         isModalOpen={isHelpOpened}
         handleModalClose={() => setIsHelpOpened(false)}

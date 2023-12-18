@@ -1,4 +1,8 @@
 .social-medias {
   display: flex;
   justify-content: space-between;
+
+  &--onPc {
+    gap: 20px;
+  }
 }

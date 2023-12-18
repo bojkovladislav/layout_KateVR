@@ -5,13 +5,52 @@
   background: $primary-background;
   padding: 50px 20px;
 
+  &--onPc {
+    padding: 50px 120px;
+  }
+
   &__title {
     @extend %headline2-mobile;
+
+    &--onPc {
+      font-size: 36px;
+      font-style: normal;
+    }
 
     &--blue {
       color: $primary-button;
       font-weight: 400;
     }
+  }
+
+  &__top-container {
+    &--onPc {
+      display: flex;
+      justify-content: end;
+      gap: 110px;
+    }
+  }
+
+  &__top-inner-container {
+    &--onPc {
+      display: flex;
+      gap: 30px;
+      flex-direction: column;
+    }
+  }
+
+  &__bottom-container {
+    &--onPc {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &__currentSlide {
+    @extend %text-medium;
+    color: $primary-button;
+    position: absolute;
+    left: -50px;
   }
 
   &__pre-title {
@@ -24,15 +63,42 @@
     @extend %text-regular;
     color: $text-color;
     margin-bottom: 15px;
+
+    &--onPc {
+      width: 332px;
+
+      &-bottom {
+        width: 430px;
+      }
+    }
   }
 
   &__carousel {
     margin: 20px 0 40px;
 
+    &--onPc {
+      width: 630px;
+      position: relative;
+    }
+
     &-image {
       height: 190px;
-      width: 280px;
+      width: 380px;
+
+      &--onPc {
+        height: 320px;
+        cursor: grab;
+
+        &:active {
+          cursor: grabbing;
+        }
+      }
     }
+  }
+
+  &__rotated-titles {
+    display: flex;
+    gap: 50px;
   }
 
   &__play-button {

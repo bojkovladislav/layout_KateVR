@@ -1,4 +1,7 @@
 import { FC, useState, useEffect } from "react";
+import cn from "classnames";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 import "./pay.scss";
 import { CardNumber } from "../../../assets/CardNumber";
 import { SimpleObject } from "../../../Types/SimpleObject";
@@ -17,10 +20,9 @@ const expirationDatePattern = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/;
 
 interface Props {
   setPaySubmitted: (paySubmitted: boolean) => void;
-  previousTab: string;
 }
 
-export const Pay: FC<Props> = ({ setPaySubmitted, previousTab }) => {
+export const Pay: FC<Props> = ({ setPaySubmitted }) => {
   const [cardInfo, setCardInfo] = useState<SimpleObject>({
     cardNumber: "",
     cardHolderName: "",
@@ -34,6 +36,9 @@ export const Pay: FC<Props> = ({ setPaySubmitted, previousTab }) => {
     expirationDate: "",
     cvv: "",
   });
+
+  const theme = useTheme();
+  const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
 
   const validateCardInfo = (value: string, name: string) => {
     const currentErrors: SimpleObject = {};
@@ -95,50 +100,58 @@ export const Pay: FC<Props> = ({ setPaySubmitted, previousTab }) => {
 
   function renderForm() {
     return (
-      <form className="pay__form" onSubmit={handleFormSubmit}>
-        <CardNumber
-          cardInfo={cardInfo}
-          setCardInfo={setCardInfo}
-          cardErrors={cardErrors}
-          setCardErrors={setCardErrors}
-        />
-        <ThemeProvider theme={inputTheme}>
-          <div className="pay__input-container">
-            <TextField
-              value={cardInfo.cardHolderName}
-              variant="standard"
-              placeholder="Card Holder Name"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setCardInfo({ ...cardInfo, cardHolderName: e.target.value });
-                setCardErrors({ ...cardErrors, cardHolderName: "" });
-              }}
-              error={!!cardErrors.cardHolderName}
-            />
-            {cardErrors.cardHolderName && (
-              <InputError errorMessage={cardErrors.cardHolderName} />
-            )}
-          </div>
-          <div className="pay__inputs-container">
-            <ExpirationDate
-              cardInfo={cardInfo}
-              setCardInfo={setCardInfo}
-              cardErrors={cardErrors}
-              setCardErrors={setCardErrors}
-            />
-
-            <CVV
-              cardInfo={cardInfo}
-              setCardInfo={setCardInfo}
-              cardErrors={cardErrors}
-              setCardErrors={setCardErrors}
-            />
-          </div>
-        </ThemeProvider>
+      <form
+        className={cn("pay__form", { "pay__form--onPc": isLargeScreen })}
+        onSubmit={handleFormSubmit}
+      >
+        <div className="pay__wrapper">
+          <CardNumber
+            cardInfo={cardInfo}
+            setCardInfo={setCardInfo}
+            cardErrors={cardErrors}
+            setCardErrors={setCardErrors}
+          />
+          <ThemeProvider theme={inputTheme}>
+            <div className="pay__input-container">
+              <TextField
+                value={cardInfo.cardHolderName}
+                variant="standard"
+                placeholder="Card Holder Name"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setCardInfo({ ...cardInfo, cardHolderName: e.target.value });
+                  setCardErrors({ ...cardErrors, cardHolderName: "" });
+                }}
+                error={!!cardErrors.cardHolderName}
+              />
+              {cardErrors.cardHolderName && (
+                <InputError errorMessage={cardErrors.cardHolderName} />
+              )}
+            </div>
+            <div className="pay__inputs-container">
+              <ExpirationDate
+                cardInfo={cardInfo}
+                setCardInfo={setCardInfo}
+                cardErrors={cardErrors}
+                setCardErrors={setCardErrors}
+              />
+              <CVV
+                cardInfo={cardInfo}
+                setCardInfo={setCardInfo}
+                cardErrors={cardErrors}
+                setCardErrors={setCardErrors}
+              />
+            </div>
+          </ThemeProvider>
+        </div>
 
         <Button
           type="submit"
           variant="contained"
-          sx={{ background: "#05c2df", width: "100%" }}
+          sx={{
+            background: "#05c2df",
+            width: isLargeScreen ? "200px" : "100%",
+            height: isLargeScreen ? "50px" : "",
+          }}
         >
           Purchase
         </Button>
@@ -160,19 +173,11 @@ export const Pay: FC<Props> = ({ setPaySubmitted, previousTab }) => {
     }
   }, [cardInfo]);
 
-  const payStorage = localStorage.getItem("pay");
-
   return (
-    <div className="pay">
-      {payStorage &&
-      Object.values(JSON.parse(payStorage)).some(
-        (value) => typeof value === "string" && value.length
-      ) &&
-      previousTab === "Place order" ? (
-        <FakeLoad delay={500}>{renderForm()}</FakeLoad>
-      ) : (
-        renderForm()
-      )}
+    <div className={cn("pay", { "pay--onPc": isLargeScreen })}>
+      <FakeLoad delay={500} centerByY centerByX={isLargeScreen}>
+        {renderForm()}
+      </FakeLoad>
     </div>
   );
 };

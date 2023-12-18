@@ -5,6 +5,18 @@
   padding: 50px 20px;
   background-color: $black-background;
 
+  &--onPc {
+    display: flex;
+    justify-content: space-between;
+    padding: 100px 110px;
+  }
+
+  &-right-container {
+    &--onPc {
+      width: 50%;
+    }
+  }
+
   &__title-wrapper {
     display: flex;
     gap: 5px;
@@ -19,6 +31,11 @@
 
   &__title {
     @extend %headline2-mobile;
+
+    &--onPc {
+      font-size: 36px;
+      font-style: normal;
+    }
 
     &--blue {
       font-weight: 400;
@@ -35,5 +52,12 @@
     color: $text-color;
     margin-top: 15px;
     text-align: center;
+
+    &--onPc {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      margin-bottom: 76px;
+    }
   }
 }

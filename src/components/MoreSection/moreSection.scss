@@ -1,12 +1,28 @@
 @import "/src/base/variables.scss";
-@import "/src/partials/placeholders.scss";
+@import "../../partials/placeholders.scss";
 
 .moreSection {
   background-color: $black-background;
   padding: 50px 20px;
 
+  &--onPc {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 50px 120px;
+    align-items: center;
+    justify-content: center;
+    min-height: 622px;
+  }
+
   &__title {
     @extend %headline2-mobile;
+
+    &--onPc {
+      font-size: 36px;
+      font-style: normal;
+      font-weight: 900;
+    }
 
     &--blue {
       color: $primary-button;
@@ -17,18 +33,32 @@
   &__title-wrapper {
     display: flex;
     gap: 5px;
+
+    &--onPc {
+      margin-bottom: 16px;
+    }
   }
 
   &__second-title {
     @extend %text-medium;
     color: $primary-button;
     margin-bottom: 30px;
+
+    &--onPc {
+      margin-bottom: 80px;
+    }
   }
 
   &__benefits {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 21px;
+
+    &--onPc {
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-between;
+    }
   }
 
   &__benefit {
@@ -36,13 +66,31 @@
     flex-direction: column;
     gap: 11px;
 
+    &--onPc {
+      max-width: 250px;
+      justify-content: center;
+      align-items: center;
+    }
+
     &-name {
       @extend %headline3;
+
+      &--onPc {
+        font-size: 18px;
+      }
     }
 
     &-description {
       @extend %text-regular;
       color: $text-color;
+
+      &--onPc {
+        text-align: center;
+      }
     }
+  }
+
+  &__icon {
+    margin-bottom: 19px;
   }
 }

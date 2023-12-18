@@ -2,11 +2,6 @@
 @import "../../../partials/placeholders.scss";
 
 .complete {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 70vh;
-
   &__container {
     display: flex;
     flex-direction: column;
@@ -16,11 +11,28 @@
   &__title-wrapper {
     display: flex;
     gap: 5px;
+    flex-direction: column;
+
+    &--onPc {
+      flex-direction: row;
+    }
+  }
+
+  &__inner-title-wrapper {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
   }
 
   &__title {
     @extend %headline1-mobile;
     text-transform: uppercase;
+
+    &--onPc {
+      font-size: 46px;
+      font-style: normal;
+    }
 
     &--blue {
       font-weight: 400;
@@ -31,5 +43,9 @@
   &__paragraph {
     margin: 16px 0 30px;
     text-align: center;
+
+    &--onPc {
+      font-size: 18px;
+    }
   }
 }

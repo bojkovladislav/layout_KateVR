@@ -8,9 +8,15 @@
   gap: 30px;
   background-color: $black-background;
 
+  &--onPc {
+    padding: 50px 112px;
+    min-height: 680px;
+  }
+
   &__container {
     position: relative;
     align-self: center;
+    margin: auto 0;
   }
 
   &__modal {
@@ -20,10 +26,21 @@
   &__title-wrapper {
     display: flex;
     gap: 5px;
+
+    &--onPc {
+      align-self: flex-end;
+      margin-right: 73px;
+    }
   }
 
   &__title {
     @extend %headline2-mobile;
+
+    &--onPc {
+      font-size: 36px;
+      font-style: normal;
+      font-weight: 900;
+    }
 
     &--blue {
       color: $primary-button;
@@ -37,16 +54,83 @@
     &--1 {
       top: -20px;
       left: 43px;
+
+      &--onPc {
+        left: -360px;
+        top: -58px;
+      }
     }
 
     &--2 {
       top: 70px;
       left: 125px;
+
+      &--onPc {
+        left: -290px;
+        top: 170px;
+      }
     }
 
     &--3 {
       bottom: 0;
       left: -30px;
+
+      &--onPc {
+        left: 370px;
+        bottom: 150px;
+      }
+    }
+  }
+
+  &__description-container {
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+  }
+
+  &__description-title {
+    @extend %headline-3;
+    font-size: 18px;
+  }
+
+  &__description-paragraph {
+    @extend %text-regular;
+    color: $text-color;
+    line-height: 150%;
+    width: 250px;
+  }
+
+  &__product {
+    width: 200px;
+    height: 200px;
+
+    &--onPc {
+      width: 300px;
+      height: 300px;
+    }
+  }
+
+  &__stroke {
+    position: absolute;
+
+    &--inner {
+      top: 45px;
+      left: -15px;
+    }
+
+    &--bottom-left {
+      top: 70px;
+      left: -145px;
+    }
+
+    &--top {
+      top: -50px;
+      left: -255px;
+    }
+
+    &--right {
+      top: -50px;
+      left: 165px;
     }
   }
 }

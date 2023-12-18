@@ -22,7 +22,25 @@ export const QA: FC<Props> = ({ question, answer, date }) => {
         className={cn("qa", { "qa--gap": isQuestionClicked })}
         onClick={handleClick}
       >
-        <h3 className="qa__question">{question}</h3>
+        <div className="qa__container">
+          <h3 className="qa__question">{question}</h3>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="11"
+            style={{
+              transform: `rotateX(${isQuestionClicked ? "180deg" : "0deg"})`,
+              transition: "transform 0.3s ease",
+            }}
+            height="7"
+            viewBox="0 0 9 5"
+            fill="none"
+          >
+            <path
+              d="M4.5 5L0.602885 0.5L8.39711 0.500001L4.5 5Z"
+              fill="#05C2DF"
+            />
+          </svg>
+        </div>
         <motion.div animate={{ height }}>
           {isQuestionClicked && (
             <div className="qa__wrapper" ref={ref}>

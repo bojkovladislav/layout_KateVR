@@ -29,6 +29,11 @@
     color: $text-color;
   }
 
+  &__container {
+    display: flex;
+    justify-content: space-between;
+  }
+
   &__date {
     @extend %text-small;
     color: #545454;

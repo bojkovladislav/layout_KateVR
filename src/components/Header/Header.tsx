@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import Button from "@mui/material/Button";
@@ -7,9 +7,13 @@ import { Logo } from "../../assets/Logo";
 import { SizeOfIcon } from "../../Enums/SizeOfIcon";
 import { Appearance } from "../../assets/animations/Appearance";
 import "./header.scss";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import cn from "classnames";
 import { DropDownMenu } from "../../assets/DropDownMenu";
+import { SlideDirection } from "../../Enums/SlideDirection";
+import { Slide } from "../../assets/animations/Slide";
+import { countDelay } from "../../helpers/countDelay";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   setIsMenuOpened: (value: boolean) => void;
@@ -18,9 +22,19 @@ interface Props {
 const headerList = ["About", "Tech", "Benefits", "Contact"];
 
 export const Header: FC<Props> = ({ setIsMenuOpened }) => {
-  const handleOpenMenu = () => setIsMenuOpened(true);
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
+  const handleOpenMenu = () => setIsMenuOpened(true);
+  const { t } = useTranslation();
+  const [searchParams] = useSearchParams();
+  const [language, setLanguage] = useState<number | string>("");
+
+  useEffect(() => {
+    const initialLanguage = searchParams.get("language");
+    const firstChar = initialLanguage?.charAt(0).toLocaleUpperCase();
+
+    if (initialLanguage) setLanguage(firstChar + initialLanguage.slice(1));
+  }, []);
 
   return (
     <div className={cn("header", { "header--onPc": isLargeScreen })}>
@@ -30,45 +44,60 @@ export const Header: FC<Props> = ({ setIsMenuOpened }) => {
         </Appearance>
 
         {isLargeScreen && (
-          <DropDownMenu content={["En", "Ua"]} width="60px" withoutBackground />
+          <DropDownMenu
+            content={["En", "Ua"]}
+            width="60px"
+            withoutBackground
+            changeLanguage
+            customValue={language}
+            setCustomValue={setLanguage}
+          />
         )}
       </div>
 
       {isLargeScreen ? (
         <div className="header__navigation">
           <ul className="header__list">
-            {headerList.map((item) => (
-              <li key={item}>
-                <Link
-                  to={`/#${item.toLowerCase()}`}
-                  className="header__nav-item"
-                >
-                  {item}
-                </Link>
-              </li>
+            {headerList.map((item, i) => (
+              <Slide
+                key={item}
+                direction={SlideDirection.TOP}
+                delay={countDelay(i, 0.2)}
+              >
+                <li>
+                  <Link
+                    to={`/#${item.toLowerCase()}`}
+                    className="header__nav-item"
+                  >
+                    {t(item)}
+                  </Link>
+                </li>
+              </Slide>
             ))}
           </ul>
 
-          <Button
-            variant="contained"
-            sx={{
-              background: "#05c2df",
-              width: "200px",
-              padding: 0,
-            }}
-          >
-            <Link
-              to="/checkout"
-              style={{
-                width: "100%",
-                height: "100%",
-                display: "inline-block",
-                padding: "5px",
+          <Appearance delay={1.5}>
+            <Button
+              variant="contained"
+              sx={{
+                background: "#05c2df",
+                width: "200px",
+                padding: 0,
               }}
             >
-              Buy now
-            </Link>
-          </Button>
+              <Link
+                to="/checkout"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "inline-block",
+                  padding: "5px",
+                }}
+              >
+                {t("BUY")}
+              </Link>
+            </Button>
+          </Appearance>
         </div>
       ) : (
         <button aria-label="burger-menu" onClick={handleOpenMenu}>

@@ -1,6 +1,9 @@
 import { FC, useState, useEffect } from "react";
 import { Form } from "../../../assets/Form";
 import axios from "axios";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
+import cn from "classnames";
 import "./placeOrder.scss";
 import { FakeLoad } from "../../../assets/FakeLoaderContainer";
 
@@ -22,13 +25,16 @@ export type DropDownMenu = {
 
 interface Props {
   setPlaceOrderSubmitted: (placeOrderSubmitted: boolean) => void;
+  setValue: (value: number) => void;
 }
 
-export const PlaceOrder: FC<Props> = ({ setPlaceOrderSubmitted }) => {
+export const PlaceOrder: FC<Props> = ({ setPlaceOrderSubmitted, setValue }) => {
   const [dropDownMenus, setDropDownMenus] = useState<DropDownMenu>({
     Country: [],
     City: [],
   });
+  const theme = useTheme();
+  const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
 
   const setCity = (currentCountry: string) => {
     const country = dropDownMenus.Country.find(
@@ -67,17 +73,25 @@ export const PlaceOrder: FC<Props> = ({ setPlaceOrderSubmitted }) => {
         setCity={dropDownMenus ? setCity : undefined}
         saveDataInStorage
         setPlaceOrderSubmitted={setPlaceOrderSubmitted}
+        wrap={isLargeScreen}
+        setValue={setValue}
       />
     );
   }
 
   return (
-    <div className="placeOrder">
+    <div className={cn("placeOrder", { "placeOrder--onPc": isLargeScreen })}>
       {placeOrderStorage &&
       Object.values(JSON.parse(placeOrderStorage)).some(
         (value) => typeof value === "string" && value.length
       ) ? (
-        <FakeLoad delay={500}>{renderForm()}</FakeLoad>
+        <FakeLoad
+          delay={500}
+          centerByY={isLargeScreen}
+          centerByX={isLargeScreen}
+        >
+          {renderForm()}
+        </FakeLoad>
       ) : (
         renderForm()
       )}

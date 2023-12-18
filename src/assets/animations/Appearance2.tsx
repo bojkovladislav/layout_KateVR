@@ -7,6 +7,7 @@ interface Props {
   onScroll?: boolean;
   initial?: unknown;
   controls?: unknown;
+  once?: boolean;
 }
 
 export const Appearance2: FC<Props> = ({
@@ -15,6 +16,7 @@ export const Appearance2: FC<Props> = ({
   onScroll,
   initial,
   controls,
+  once,
 }) => {
   return (
     <>
@@ -23,6 +25,7 @@ export const Appearance2: FC<Props> = ({
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay }}
+          viewport={{ once }}
         >
           {children}
         </motion.div>
@@ -31,6 +34,7 @@ export const Appearance2: FC<Props> = ({
           initial={initial ? initial : { opacity: 0, y: 20 }}
           animate={controls ? controls : { opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay }}
+          viewport={{ once }}
         >
           {children}
         </motion.div>

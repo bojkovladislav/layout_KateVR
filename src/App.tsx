@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
-import { Wrapper } from "./components/Wrapper";
+import i18n from "i18next";
+import { Route, Routes, useLocation, useSearchParams } from "react-router-dom";
+import { Parallax, ParallaxProvider } from "react-scroll-parallax";
 import { BurgerMenuSlider } from "./components/BurgerMenuSlider";
 import { HomePage } from "./pages/HomePage";
 import "./base/App.scss";
@@ -10,10 +11,14 @@ import { TechSpecsSection } from "./components/TechSpecsSection";
 import { WhyUs } from "./components/WhyUsSection";
 import { GetInTouch } from "./components/GetInTouch";
 import { Checkout } from "./components/Checkout";
+import { Wrapper } from "./components/Wrapper";
 
 function App() {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
   const location = useLocation();
+  const [searchParams] = useSearchParams();
+
+  // const [expand, setExpand] = useState(false);
 
   useEffect(() => {
     if (isMenuOpened) {
@@ -24,7 +29,7 @@ function App() {
   }, [isMenuOpened]);
 
   useEffect(() => {
-    if (location.hash === "") {
+    if (!location.hash.length) {
       window.scrollTo(0, 0);
     } else {
       setTimeout(() => {
@@ -36,8 +41,16 @@ function App() {
     }
   }, [location]);
 
+  useEffect(() => {
+    const languageParam = searchParams.get("language");
+
+    if (languageParam) {
+      i18n.changeLanguage(languageParam);
+    }
+  }, []);
+
   return (
-    <>
+    <ParallaxProvider>
       <BurgerMenuSlider
         isMenuOpened={isMenuOpened}
         setIsMenuOpened={setIsMenuOpened}
@@ -46,21 +59,32 @@ function App() {
         <Route
           path="/"
           element={
-            <>
-              <Wrapper setIsMenuOpened={setIsMenuOpened}>
+            <Wrapper setIsMenuOpened={setIsMenuOpened}>
+              <Parallax speed={2}>
                 <HomePage />
+              </Parallax>
+              <Parallax
+              // translateY={[0, -100]}
+              // speed={10}
+              // onProgressChange={() => setExpand(true)}
+              // onExit={() => setExpand(false)}
+              // easing="easeInOutQuad"
+              // easing={[0.46, 0.03, 0.52, 0.96]}
+              >
                 <MoreSection />
+              </Parallax>
+              <Parallax>
                 <AboutSection />
-                <TechSpecsSection />
-                <WhyUs />
-                <GetInTouch />
-              </Wrapper>
-            </>
+              </Parallax>
+              <TechSpecsSection />
+              <WhyUs />
+              <GetInTouch />
+            </Wrapper>
           }
         />
         <Route path="/checkout" element={<Checkout />} />
       </Routes>
-    </>
+    </ParallaxProvider>
   );
 }
 

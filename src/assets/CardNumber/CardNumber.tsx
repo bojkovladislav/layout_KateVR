@@ -1,4 +1,7 @@
 import { FC, useState, useEffect, useRef } from "react";
+import cn from "classnames";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 import "./cardNumber.scss";
 import { TextField, ThemeProvider } from "@mui/material";
 import { SimpleObject } from "../../Types/SimpleObject";
@@ -23,6 +26,8 @@ export const CardNumber: FC<Props> = ({
   cardErrors,
   setCardErrors,
 }) => {
+  const theme = useTheme();
+  const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
   const storage = localStorage.getItem("pay");
 
   const [inputs, setInputs] = useState<Inputs>(
@@ -81,7 +86,11 @@ export const CardNumber: FC<Props> = ({
   return (
     <div className="cardNumber">
       <InputWrapper label="Card Number" highlighted>
-        <div className="cardNumber__container">
+        <div
+          className={cn("cardNumber__container", {
+            "cardNumber__container--onPc": isLargeScreen,
+          })}
+        >
           <div className="cardNumber__input-wrapper">
             {Object.keys(inputs).map((key) => (
               <ThemeProvider theme={themeForCardInput} key={key}>

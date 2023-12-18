@@ -1,6 +1,10 @@
 .fakeLoad {
   &__center {
     min-height: 500px;
+
+    &--ByX {
+      min-width: 500px;
+    }
   }
 
   &__loading {

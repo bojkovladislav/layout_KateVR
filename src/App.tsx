@@ -56,35 +56,30 @@ function App() {
         isMenuOpened={isMenuOpened}
         setIsMenuOpened={setIsMenuOpened}
       />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Wrapper setIsMenuOpened={setIsMenuOpened}>
-              <Parallax speed={2}>
-                <HomePage />
-              </Parallax>
-              <Parallax
-              // translateY={[0, -100]}
-              // speed={10}
-              // onProgressChange={() => setExpand(true)}
-              // onExit={() => setExpand(false)}
-              // easing="easeInOutQuad"
-              // easing={[0.46, 0.03, 0.52, 0.96]}
-              >
-                <MoreSection />
-              </Parallax>
-              <Parallax>
-                <AboutSection />
-              </Parallax>
-              <TechSpecsSection />
-              <WhyUs />
-              <GetInTouch />
-            </Wrapper>
-          }
-        />
-        <Route path="/checkout" element={<Checkout />} />
-      </Routes>
+      <main className="main">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Wrapper setIsMenuOpened={setIsMenuOpened}>
+                <Parallax speed={2}>
+                  <HomePage />
+                </Parallax>
+                <Parallax>
+                  <MoreSection />
+                </Parallax>
+                <Parallax>
+                  <AboutSection />
+                </Parallax>
+                <TechSpecsSection />
+                <WhyUs />
+                <GetInTouch />
+              </Wrapper>
+            }
+          />
+          <Route path="/checkout" element={<Checkout />} />
+        </Routes>
+      </main>
     </ParallaxProvider>
   );
 }

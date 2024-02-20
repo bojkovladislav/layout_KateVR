@@ -1,22 +1,22 @@
-import { FC, useState, useEffect } from "react";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
-import CloseIcon from "@mui/icons-material/Close";
-import { ThemeProvider, createTheme } from "@mui/material";
-import { Link } from "react-router-dom";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
-import cn from "classnames";
-import { SizeOfIcon } from "../../Enums/SizeOfIcon";
-import { Logo } from "../../assets/Logo";
-import { DropDownMenu } from "../../assets/DropDownMenu";
-import "./checkout.scss";
-import { PlaceOrder } from "./PlaceOrder";
-import { Pay } from "./Pay";
-import { Complete } from "./Complete/Complete";
-import { Counting } from "../../assets/animations/Counting";
-import { FakeLoad } from "../../assets/FakeLoaderContainer";
+import { FC, useState, useEffect } from 'react';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import CloseIcon from '@mui/icons-material/Close';
+import { ThemeProvider, createTheme } from '@mui/material';
+import { Link } from 'react-router-dom';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+import cn from 'classnames';
+import { SizeOfIcon } from '../../Enums/SizeOfIcon';
+import { Logo } from '../../assets/Logo';
+import { DropDownMenu } from '../../assets/DropDownMenu';
+import './checkout.scss';
+import { PlaceOrder } from './PlaceOrder';
+import { Pay } from './Pay';
+import { Complete } from './Complete/Complete';
+import { Counting } from '../../assets/animations/Counting';
+import { FakeLoad } from '../../assets/FakeLoaderContainer';
 
 function a11yProps(index: number) {
   return {
@@ -28,7 +28,7 @@ export const Checkout: FC = () => {
   const [value, setValue] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const themeForResizing = useTheme();
-  const isLargeScreen = useMediaQuery(themeForResizing.breakpoints.up("lg"));
+  const isLargeScreen = useMediaQuery(themeForResizing.breakpoints.up('lg'));
   const [price, setPrice] = useState(quantity * 1200);
   const [placeOrderSubmitted, setPlaceOrderSubmitted] = useState(false);
   const [paySubmitted, setPaySubmitted] = useState(false);
@@ -37,20 +37,16 @@ export const Checkout: FC = () => {
     setPrice(quantity * 1200);
   }, [quantity]);
 
-  useEffect(() => {
-    console.log("The component has been mounted");
-  }, []);
-
   const theme = createTheme({
     components: {
       MuiTabs: {
         styleOverrides: {
           flexContainer: {
-            justifyContent: isLargeScreen ? "space-evenly" : "space-between",
+            justifyContent: isLargeScreen ? 'space-evenly' : 'space-between',
           },
           indicator: {
-            "&.MuiTabs-indicator": {
-              backgroundColor: "#05c2df",
+            '&.MuiTabs-indicator': {
+              backgroundColor: '#05c2df',
             },
           },
         },
@@ -58,14 +54,14 @@ export const Checkout: FC = () => {
       MuiTab: {
         styleOverrides: {
           root: {
-            "&.Mui-selected": {
-              color: "#05c2df",
+            '&.Mui-selected': {
+              color: '#05c2df',
             },
-            "&.Mui-disabled": {
-              color: "#545454",
+            '&.Mui-disabled': {
+              color: '#545454',
             },
-            color: "white",
-            textTransform: "none",
+            color: 'white',
+            textTransform: 'none',
           },
         },
       },
@@ -78,8 +74,8 @@ export const Checkout: FC = () => {
   };
 
   const handleClearLocalStorage = () => {
-    localStorage.removeItem("pay");
-    localStorage.removeItem("place-order");
+    localStorage.removeItem('pay');
+    localStorage.removeItem('place-order');
   };
 
   useEffect(() => {
@@ -94,20 +90,20 @@ export const Checkout: FC = () => {
   }, [placeOrderSubmitted, paySubmitted]);
 
   return (
-    <div className={cn("checkout", { "checkout--onPc": isLargeScreen })}>
+    <div className={cn('checkout', { 'checkout--onPc': isLargeScreen })}>
       {!isLargeScreen && (
         <div className="checkout__header">
           <div onClick={handleClearLocalStorage}>
             <Logo size={SizeOfIcon.MEDIUM} />
           </div>
-          <Link to={"/"} onClick={handleClearLocalStorage}>
-            <CloseIcon style={{ color: "#fff" }} />
+          <Link to={'/'} onClick={handleClearLocalStorage}>
+            <CloseIcon style={{ color: '#fff' }} />
           </Link>
         </div>
       )}
 
       <FakeLoad delay={500} centerByX={isLargeScreen} centerByY>
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ width: '100%' }}>
           <div className="checkout__tabs-container">
             {isLargeScreen && (
               <div onClick={handleClearLocalStorage}>
@@ -117,7 +113,7 @@ export const Checkout: FC = () => {
 
             <Box
               sx={{
-                borderBottom: !isLargeScreen ? "1px solid #2F2F2F" : null,
+                borderBottom: !isLargeScreen ? '1px solid #2F2F2F' : null,
                 flex: 1,
               }}
             >
@@ -125,7 +121,7 @@ export const Checkout: FC = () => {
                 <Tabs
                   value={value}
                   onChange={handleChange}
-                  variant={!isLargeScreen ? "fullWidth" : "standard"}
+                  variant={!isLargeScreen ? 'fullWidth' : 'standard'}
                 >
                   <Tab
                     label="Place order"
@@ -138,7 +134,7 @@ export const Checkout: FC = () => {
                     disabled={!placeOrderSubmitted}
                   />
                   <Tab
-                    label={!isLargeScreen ? "Complete" : "Order complete"}
+                    label={!isLargeScreen ? 'Complete' : 'Order complete'}
                     {...a11yProps(2)}
                     disabled={!paySubmitted}
                   />
@@ -147,15 +143,15 @@ export const Checkout: FC = () => {
             </Box>
           </div>
           <div
-            className={cn("checkout__container", {
-              "checkout__container--onPc": isLargeScreen,
-              "checkout__container--onPc-center": value === 2,
+            className={cn('checkout__container', {
+              'checkout__container--onPc': isLargeScreen,
+              'checkout__container--onPc-center': value === 2,
             })}
           >
             {value !== 2 && (
               <div
-                className={cn("checkout__device-presentation-container", {
-                  "checkout__device-presentation-container--onPc":
+                className={cn('checkout__device-presentation-container', {
+                  'checkout__device-presentation-container--onPc':
                     isLargeScreen,
                 })}
               >
@@ -170,8 +166,8 @@ export const Checkout: FC = () => {
                   <div className="checkout__wrapper--inner">
                     <p className="checkout__text">Quantity</p>
                     <DropDownMenu
-                      width={"90px"}
-                      content={["1", "2", "3", "4", "5"]}
+                      width={'90px'}
+                      content={['1', '2', '3', '4', '5']}
                       customValue={quantity}
                       setCustomValue={setQuantity}
                     />
@@ -185,16 +181,16 @@ export const Checkout: FC = () => {
                           initialValue={price}
                           duration={0.5}
                           className={cn(
-                            "checkout__value",
-                            "checkout__value--first",
-                            { "checkout__value--first--onPc": isLargeScreen },
-                            { "checkout__value--onPc": isLargeScreen }
+                            'checkout__value',
+                            'checkout__value--first',
+                            { 'checkout__value--first--onPc': isLargeScreen },
+                            { 'checkout__value--onPc': isLargeScreen }
                           )}
                         />
                       }
                       <h2
-                        className={cn("checkout__value", {
-                          "checkout__value--onPc": isLargeScreen,
+                        className={cn('checkout__value', {
+                          'checkout__value--onPc': isLargeScreen,
                         })}
                       >
                         $
